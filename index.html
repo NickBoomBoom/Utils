@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试</title>
+    <script crossorigin="anonymous" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
+      src="//lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <button id='countDown'>
+      倒计时
+    </button>
+    <script src="./dist/web/index.js"></script>
+    <script>
+
+      $('#countDown').click(() => {
+        setInterval(() => {
+          console.log(Utils.feature.countDown(Date.now()))
+        }, 1000);
+      })
+    </script>
+  </body>
+
+</html>
