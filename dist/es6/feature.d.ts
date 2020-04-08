@@ -22,11 +22,15 @@ declare function deepClone(p: any, c: any): any;
  */
 declare function sliceArrary(arr: any[], limit: number): any[];
 /**
- * 倒计时
+ *  返回 年 月 日 周 时 分 秒 毫秒
  *
  * @static
  * @param {any} time 时间戳  毫秒级
  * @returns {年,月,日,周几,时,分,秒,毫秒}
  */
-declare function countDown(time: number): any;
-export { copy, deepClone, sliceArrary, countDown };
+declare function timeObject(time: number): Object;
+declare function isIOS(): boolean;
+declare function isIOSX(): boolean;
+declare function isAndroid(): boolean;
+declare function isWX(): boolean;
+export { copy, deepClone, sliceArrary, timeObject, isWX, isIOS, isIOSX, isAndroid };

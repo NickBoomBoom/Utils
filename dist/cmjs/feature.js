@@ -52,13 +52,13 @@ function sliceArrary(arr, limit) {
 }
 exports.sliceArrary = sliceArrary;
 /**
- * 倒计时
+ *  返回 年 月 日 周 时 分 秒 毫秒
  *
  * @static
  * @param {any} time 时间戳  毫秒级
  * @returns {年,月,日,周几,时,分,秒,毫秒}
  */
-function countDown(time) {
+function timeObject(time) {
     var t = new Date(time);
     return {
         year: t.getFullYear(),
@@ -71,5 +71,29 @@ function countDown(time) {
         millisecond: t.getMilliseconds()
     };
 }
-exports.countDown = countDown;
+exports.timeObject = timeObject;
+function isIOS() {
+    var u = navigator.userAgent;
+    var bol = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+    return bol;
+}
+exports.isIOS = isIOS;
+function isIOSX() {
+    var u = navigator.userAgent;
+    var bol = /iphone/gi.test(u) && (screen.height === 812 && screen.width === 375); // IOSX 终端
+    return bol;
+}
+exports.isIOSX = isIOSX;
+function isAndroid() {
+    var u = navigator.userAgent;
+    var bol = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+    return bol;
+}
+exports.isAndroid = isAndroid;
+function isWX() {
+    var u = navigator.userAgent;
+    var bol = !!u.match(/MicroMessenger\/([\d.]+)/);
+    return bol;
+}
+exports.isWX = isWX;
 //# sourceMappingURL=feature.js.map

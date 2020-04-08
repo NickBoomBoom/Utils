@@ -53,14 +53,14 @@ function sliceArrary(arr: any[], limit: number): any[] {
 
 
 /**
- * 倒计时
+ *  返回 年 月 日 周 时 分 秒 毫秒
  *
  * @static
  * @param {any} time 时间戳  毫秒级
  * @returns {年,月,日,周几,时,分,秒,毫秒}
  */
-function countDown(time: number): any {
-  const t:any = new Date(time)
+function timeObject(time: number): Object {
+  const t: any = new Date(time)
   return {
     year: t.getFullYear(),
     month: t.getMonth() + 1,
@@ -69,13 +69,44 @@ function countDown(time: number): any {
     hour: t.getHours(),
     minute: t.getMinutes(),
     second: t.getSeconds(),
-    millisecond:t.getMilliseconds()
+    millisecond: t.getMilliseconds()
   }
+}
+
+function isIOS(): boolean {
+  const u: string = navigator.userAgent;
+  const bol: boolean = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+  return bol;
+}
+
+function isIOSX(): boolean {
+  const u: string = navigator.userAgent;
+  const bol: boolean = /iphone/gi.test(u) && (screen.height === 812 && screen.width === 375); // IOSX 终端
+
+  return bol;
+
+}
+
+function isAndroid(): boolean {
+  const u: string = navigator.userAgent;
+  const bol: boolean = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+  return bol;
+}
+
+function isWX():boolean {
+  const u:string = navigator.userAgent;
+  const bol:boolean = !!u.match(/MicroMessenger\/([\d.]+)/);
+  return bol;
 }
 
 export {
   copy,
   deepClone,
   sliceArrary,
-  countDown
+  timeObject,
+
+  isWX,
+  isIOS,
+  isIOSX,
+  isAndroid
 }

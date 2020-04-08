@@ -15,10 +15,28 @@
     </button>
     <script src="./dist/web/index.js"></script>
     <script>
+      console.log(Utils.wx)
+      const p = () => new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve({
+            id: 11
+          })
+        }, 1000);
+      })
+
+      const config = {
+        title: '知我心理测评',
+        desc: 'KnowYourself团队研发，专业、有趣、直击人生的心理测试都在这里。了解自己，做自己。',
+        link: window.location.href,
+        imgUrl:
+          'https://cdn-public.knowyourself.cc/2018/07/02/12/01/18/ptRXyeLSkS.png'
+      }
+
+      Utils.wx._setConfig(config)._setShare(p)
 
       $('#countDown').click(() => {
         setInterval(() => {
-          console.log(Utils.feature.countDown(Date.now()))
+          console.log(Utils.feature.timeObject(Date.now()))
         }, 1000);
       })
     </script>

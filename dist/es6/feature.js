@@ -47,13 +47,13 @@ function sliceArrary(arr, limit) {
     return res;
 }
 /**
- * 倒计时
+ *  返回 年 月 日 周 时 分 秒 毫秒
  *
  * @static
  * @param {any} time 时间戳  毫秒级
  * @returns {年,月,日,周几,时,分,秒,毫秒}
  */
-function countDown(time) {
+function timeObject(time) {
     var t = new Date(time);
     return {
         year: t.getFullYear(),
@@ -66,5 +66,25 @@ function countDown(time) {
         millisecond: t.getMilliseconds()
     };
 }
-export { copy, deepClone, sliceArrary, countDown };
+function isIOS() {
+    var u = navigator.userAgent;
+    var bol = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
+    return bol;
+}
+function isIOSX() {
+    var u = navigator.userAgent;
+    var bol = /iphone/gi.test(u) && (screen.height === 812 && screen.width === 375); // IOSX 终端
+    return bol;
+}
+function isAndroid() {
+    var u = navigator.userAgent;
+    var bol = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
+    return bol;
+}
+function isWX() {
+    var u = navigator.userAgent;
+    var bol = !!u.match(/MicroMessenger\/([\d.]+)/);
+    return bol;
+}
+export { copy, deepClone, sliceArrary, timeObject, isWX, isIOS, isIOSX, isAndroid };
 //# sourceMappingURL=feature.js.map
