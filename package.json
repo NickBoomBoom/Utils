@@ -17,5 +17,10 @@
   },
   "dependencies": {
     "weixin-js-sdk": "^1.4.0-test"
-  }
+  },
+  "keywords": [
+    "typescript",
+    "utils",
+    "es6"
+  ]
 }
