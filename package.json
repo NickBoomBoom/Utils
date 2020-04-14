@@ -3,7 +3,10 @@
   "version": "0.0.2",
   "description": "日常开发使用工具库",
   "main": "dist/web/index.js",
-  "repository": "git@github.com:Nick-QI/Utils.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://git@github.com:Nick-QI/Utils.git"
+  },
   "author": "q.chen <q7but@qq.com>",
   "license": "MIT",
   "scripts": {
@@ -18,6 +21,7 @@
   "dependencies": {
     "weixin-js-sdk": "^1.4.0-test"
   },
+  "email": "q7but@qq.com",
   "keywords": [
     "typescript",
     "utils",
