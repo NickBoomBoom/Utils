@@ -190,6 +190,7 @@ var wx = __assign(__assign({}, weixin), { iosSdkStatus: false, shareConfig: {}, 
                             momentConfig = config[1] || config[0];
                         }
                         currentUrl = window.location.href;
+                        // 过滤部分携带参数
                         chatConfig.link = filterUrlSearch(chatConfig.link || currentUrl, filter);
                         momentConfig.link = filterUrlSearch(momentConfig.link || currentUrl, filter);
                         weixin.updateAppMessageShareData(chatConfig); // 分享给朋友 qq

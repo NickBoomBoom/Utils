@@ -246,26 +246,23 @@ exports.wx = wx;
 },{"./compute":1,"./dom":2,"./feature":3,"./platform":5,"./weixin":6}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var u = navigator.userAgent;
 function isIOS() {
-    var u = navigator.userAgent;
     var bol = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
     return bol;
 }
 exports.isIOS = isIOS;
 function isIOSX() {
-    var u = navigator.userAgent;
     var bol = /iphone/gi.test(u) && (screen.height === 812 && screen.width === 375); // IOSX 终端
     return bol;
 }
 exports.isIOSX = isIOSX;
 function isAndroid() {
-    var u = navigator.userAgent;
     var bol = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
     return bol;
 }
 exports.isAndroid = isAndroid;
 function isWX() {
-    var u = navigator.userAgent;
     var bol = !!u.match(/MicroMessenger\/([\d.]+)/);
     return bol;
 }
@@ -466,6 +463,7 @@ var wx = __assign(__assign({}, weixin), { iosSdkStatus: false, shareConfig: {}, 
                             momentConfig = config[1] || config[0];
                         }
                         currentUrl = window.location.href;
+                        // 过滤部分携带参数
                         chatConfig.link = feature_1.filterUrlSearch(chatConfig.link || currentUrl, filter);
                         momentConfig.link = feature_1.filterUrlSearch(momentConfig.link || currentUrl, filter);
                         weixin.updateAppMessageShareData(chatConfig); // 分享给朋友 qq

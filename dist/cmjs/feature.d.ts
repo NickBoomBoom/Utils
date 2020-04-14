@@ -28,7 +28,7 @@ declare function sliceArrary(arr: any[], limit: number): any[];
  * @param {any} time 时间戳  毫秒级
  * @returns {年,月,日,周几,时,分,秒,毫秒}
  */
-declare function timeObject(time: number): Object;
+declare function timeObject(time: number): any;
 /**
  * 过滤url search 中的字符串
  * @param url
