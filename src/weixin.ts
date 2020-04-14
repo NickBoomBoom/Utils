@@ -14,7 +14,7 @@ interface ShareConfig {
   imgUrl: string
 }
 
-const JS_API_LIST = [
+const JS_API_LIST: string[] = [
   "updateAppMessageShareData",
   "updateTimelineShareData",
   "onMenuShareWeibo",
@@ -119,7 +119,7 @@ const wx = {
    * @ios 在ios中,初始配置一次之后即可通用使用
    * @android 在安卓中,需要在每次路由变化时重新配置
    */
-  pre: () => {
+  pre: (): Promise<any> => {
     if (!isWX()) {
       console.warn('非微信环境,无需配置微信sdk')
       return

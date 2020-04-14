@@ -55,7 +55,7 @@ function sliceArrary(arr: any[], limit: number): any[] {
  * @param {any} time 时间戳  毫秒级
  * @returns {年,月,日,周几,时,分,秒,毫秒}
  */
-function timeObject(time: number): Object {
+function timeObject(time: number): any {
   const t: any = new Date(time)
   return {
     year: t.getFullYear(),
