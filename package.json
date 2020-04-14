@@ -1,6 +1,6 @@
 {
   "name": "utils94",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "日常开发使用工具库",
   "main": "dist/web/index.js",
   "repository": "git@github.com:Nick-QI/Utils.git",
