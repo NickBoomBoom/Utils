@@ -13,7 +13,6 @@ function copy(dom: any): boolean {
   return bol;
 }
 
-
 /**
  * 深拷贝
  * @param {*} p  原始对象
@@ -33,7 +32,6 @@ function deepClone(p: any, c: any): any {
   return c;
 }
 
-
 /**
  *  等分切割数组
  *
@@ -49,8 +47,6 @@ function sliceArrary(arr: any[], limit: number): any[] {
   }
   return res;
 }
-
-
 
 /**
  *  返回 年 月 日 周 时 分 秒 毫秒
@@ -73,40 +69,22 @@ function timeObject(time: number): Object {
   }
 }
 
-function isIOS(): boolean {
-  const u: string = navigator.userAgent;
-  const bol: boolean = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-  return bol;
+/**
+ * 过滤url search 中的字符串
+ * @param url 
+ * @param keys 
+ */
+function filterUrlSearch(url: string, keys: string[] = []): string {
+  keys.forEach(key => {
+    const reg = new RegExp(`${key}=([^&]*)(&|$)`, 'gi')
+    url = url.replace(reg, '')
+  })
+  return url
 }
-
-function isIOSX(): boolean {
-  const u: string = navigator.userAgent;
-  const bol: boolean = /iphone/gi.test(u) && (screen.height === 812 && screen.width === 375); // IOSX 终端
-
-  return bol;
-
-}
-
-function isAndroid(): boolean {
-  const u: string = navigator.userAgent;
-  const bol: boolean = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-  return bol;
-}
-
-function isWX():boolean {
-  const u:string = navigator.userAgent;
-  const bol:boolean = !!u.match(/MicroMessenger\/([\d.]+)/);
-  return bol;
-}
-
 export {
   copy,
   deepClone,
   sliceArrary,
   timeObject,
-
-  isWX,
-  isIOS,
-  isIOSX,
-  isAndroid
+  filterUrlSearch
 }

@@ -66,25 +66,18 @@ function timeObject(time) {
         millisecond: t.getMilliseconds()
     };
 }
-function isIOS() {
-    var u = navigator.userAgent;
-    var bol = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-    return bol;
+/**
+ * 过滤url search 中的字符串
+ * @param url
+ * @param keys
+ */
+function filterUrlSearch(url, keys) {
+    if (keys === void 0) { keys = []; }
+    keys.forEach(function (key) {
+        var reg = new RegExp(key + "=([^&]*)(&|$)", 'gi');
+        url = url.replace(reg, '');
+    });
+    return url;
 }
-function isIOSX() {
-    var u = navigator.userAgent;
-    var bol = /iphone/gi.test(u) && (screen.height === 812 && screen.width === 375); // IOSX 终端
-    return bol;
-}
-function isAndroid() {
-    var u = navigator.userAgent;
-    var bol = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; // android终端
-    return bol;
-}
-function isWX() {
-    var u = navigator.userAgent;
-    var bol = !!u.match(/MicroMessenger\/([\d.]+)/);
-    return bol;
-}
-export { copy, deepClone, sliceArrary, timeObject, isWX, isIOS, isIOSX, isAndroid };
+export { copy, deepClone, sliceArrary, timeObject, filterUrlSearch };
 //# sourceMappingURL=feature.js.map

@@ -1,82 +1,180 @@
 import * as weixin from 'weixin-js-sdk'
-import { isIOS, isWX, isAndroid } from './feature'
+import { isIOS, isWX, isAndroid } from './platform'
+import { filterUrlSearch } from './feature'
+
+interface SignatureBody {
+  url: string,
+  jsApiList: string[]
+}
+
+interface ShareConfig {
+  title: string,
+  desc: string,
+  link?: string,
+  imgUrl: string
+}
+
+const JS_API_LIST = [
+  "updateAppMessageShareData",
+  "updateTimelineShareData",
+  "onMenuShareWeibo",
+  "onMenuShareQZone",
+  "startRecord",
+  "stopRecord",
+  "onVoiceRecordEnd",
+  "playVoice",
+  "pauseVoice",
+  "stopVoice",
+  "onVoicePlayEnd",
+  "uploadVoice",
+  "downloadVoice",
+  "chooseImage",
+  "previewImage",
+  "uploadImage",
+  "downloadImage",
+  "translateVoice",
+  "getNetworkType",
+  "openLocation",
+  "getLocation",
+  "hideOptionMenu",
+  "showOptionMenu",
+  "hideMenuItems",
+  "showMenuItems",
+  "hideAllNonBaseMenuItem",
+  "showAllNonBaseMenuItem",
+  "closeWindow",
+  "scanQRCode",
+  "chooseWXPay",
+  "openProductSpecificView",
+  "addCard",
+  "chooseCard",
+  "openCard"
+]
 
 /**
- * *前置:  IOS的配置一次就行，android的话就要每跳到一个新页面（也就是通过History.pushState()改变了当前地址栏URL）就重新生成签名并进行配置
- *
- * @param ajax Promise 请求微信jsconfig,
- * 返回微信config配置参数
- * {
- *    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
- *    appId: '', // 必填，公众号的唯一标识
- *    timestamp: , // 必填，生成签名的时间戳
- *    nonceStr: '', // 必填，生成签名的随机串
- *    signature: '',// 必填，签名
- *    jsApiList: [] // 必填，需要使用的JS接口列表}
- * }
- * @param _config Object || Arrary
- * 当为对象时.朋友圈,qq空间,qq,微信 分享内容统一;
- * 当为数组时,config[0] qq,朋友内容, config[1] qq空间,朋友圈内容
- * {
- *    title:"",
- *    desc:"",
- *    link: "",
- *    imgUrl:""
- * }
+ * 获取当前页面URL（去除hash）
+ * @returns {string} 页面URL
  */
+function getCurrentURL(): string {
+  return location.href.split('#')[0]
+}
 
-const _isIOS = isIOS()
-const _isAndroid = isAndroid()
-let success = false
+/**
+ * 初始化SDK需要的参数,
+ * @returns url:string 当前url 已过滤hash模式下的参数
+ * @returns jsApiList:string[] 需要获取的 微信api 列表, 截止今日,写了所有的权限,省的麻烦
+ */
+function signatureBody(): SignatureBody {
+  const res: SignatureBody = {
+    url: getCurrentURL(),
+    jsApiList: JS_API_LIST,
+  }
+  return res
+}
+
 const wx = {
   ...weixin,
 
-  _config: {},
+  iosSdkStatus: false, // ios 配置状态
+  shareConfig: {},
+  getJsConfig: (body: SignatureBody) => { }, // 默认接受组件传递过去的url和api参数
 
-  _init: (ajax) => {
+  /** 
+   * 初始化项目和数据
+   * @params  shareConfig: 分享配置
+   * @params  getJsConfig: 获取签名信息promise
+   * @returns wx
+   */
+  initConfig: (shareConfig: ShareConfig, getJsConfig: Promise<any>): any => {
+    wx.shareConfig = shareConfig
+    wx.getJsConfig = getJsConfig
+    return wx
+  },
+
+  /**
+   * 初始化SDK
+   */
+  initSDK: (): Promise<any> => {
     return new Promise((resolve, reject) => {
-      ajax()
+      const body = signatureBody()
+      wx.getJsConfig(body)
         .then(res => {
           weixin.config(res) // 配置sdk
           weixin.ready(() => {
-            success = true
+            wx.iosSdkStatus = true
             resolve()
           })
         })
-        .catch((err) => {
-          success = false
+        .catch(err => {
+          console.error(err)
+          wx.iosSdkStatus = false
           reject(err)
         })
     })
   },
+  /**
+   * 使用微信jsapi的前置条件
+   * 所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用
+   * 同一个url仅需调用一次，对于变化url的SPA的web app可在每次url变化时进行调用,目前Android微信客户端不支持pushState的H5新特性，所以使用pushState来实现web app的页面会导致签名失败，此问题会在Android6.2中修复
+   * @ios 在ios中,初始配置一次之后即可通用使用
+   * @android 在安卓中,需要在每次路由变化时重新配置
+   */
+  pre: () => {
+    if (!isWX()) {
+      console.warn('非微信环境,无需配置微信sdk')
+      return
+    }
+    return new Promise((reslove, reject) => {
+      let isInitSDK: boolean = false
+      if (isIOS()) {
+        isInitSDK = wx.iosSdkStatus
+      }
 
-  _setConfig: config => {
-    wx._config = config
-    return wx
+      if (isAndroid()) {
+        isInitSDK = false
+      }
+
+      if (!isInitSDK) {
+        wx.initSDK()
+          .then(() => reslove())
+          .catch(err => reject(err))
+      }
+      reslove()
+    })
   },
 
-  _setShare:async (ajax) => {
-    if (!success) {
-      await wx._init(ajax)
+  /**
+   * config中,若link 并不存在,即自动将当前url 贴上去
+   * @params config 
+   *          object 朋友圈和朋友分享内容相同
+   *          array[0]: 朋友分享内容
+   *          array[1]: 朋友圈分享内容
+   * @params filter string[] url上可过滤的字段
+   */
+  share: async (config: ShareConfig = wx.shareConfig, filter: string[]) => {
+    await wx.pre()
+    let chatConfig: ShareConfig
+    let momentConfig: ShareConfig
+
+    if (config instanceof Object) {
+      chatConfig = config
+      momentConfig = config
     }
 
-    if (_isAndroid) {
-      await wx._init(ajax)
-    }
-    let chatConfig
-    let momentConfig
-    if (wx._config instanceof Object) {
-      chatConfig = wx._config
-      momentConfig = wx._config
+    if (config instanceof Array) {
+      chatConfig = config[0]
+      momentConfig = config[1] || config[0]
     }
 
-    if (wx._config instanceof Array) {
-      chatConfig = wx._config[0]
-      momentConfig = wx._config[1]
-    }
+    const currentUrl = window.location.href
+    // 过滤部分携带参数
+    chatConfig.link = filterUrlSearch(chatConfig.link || currentUrl, filter)
+    momentConfig.link = filterUrlSearch(momentConfig.link || currentUrl, filter)
 
     weixin.updateAppMessageShareData(chatConfig) // 分享给朋友 qq
     weixin.updateTimelineShareData(momentConfig) // 分享到朋友圈 qq空间
   }
 }
-export default wx
+export {
+  wx
+}

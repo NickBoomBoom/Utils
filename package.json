@@ -7,7 +7,7 @@
   "author": "q.chen <q7but@qq.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -r dist && npm run build:cmjs; npm run build:es6; npm run build:web",
+    "build": "rm -r dist && npm run build:cmjs && npm run build:web; npm run build:es6",
     "build:cmjs": "tsc -P tsconfig.json",
     "build:es6": "tsc -P tsconfig.json --module ES6 --outDir dist/es6",
     "build:web": "browserify dist/cmjs/index.js --standalone Utils -o dist/web/index.js"

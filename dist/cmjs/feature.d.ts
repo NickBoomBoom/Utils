@@ -29,8 +29,10 @@ declare function sliceArrary(arr: any[], limit: number): any[];
  * @returns {年,月,日,周几,时,分,秒,毫秒}
  */
 declare function timeObject(time: number): Object;
-declare function isIOS(): boolean;
-declare function isIOSX(): boolean;
-declare function isAndroid(): boolean;
-declare function isWX(): boolean;
-export { copy, deepClone, sliceArrary, timeObject, isWX, isIOS, isIOSX, isAndroid };
+/**
+ * 过滤url search 中的字符串
+ * @param url
+ * @param keys
+ */
+declare function filterUrlSearch(url: string, keys?: string[]): string;
+export { copy, deepClone, sliceArrary, timeObject, filterUrlSearch };
