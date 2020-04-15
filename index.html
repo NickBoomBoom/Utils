@@ -54,9 +54,10 @@
           })
         })
       })
-      // 初始化sdk
-      // Utils.wx.initSDK()
-      // Utils.wx.share()
+      Utils.wx.pre().then(() => {
+        Utils.wx.share()
+        Utils.wx.hideAllNonBaseMenuItem()
+      })
     </script>
   </body>
 

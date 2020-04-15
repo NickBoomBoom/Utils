@@ -172,7 +172,6 @@ const wx = {
    * @params filter string[] url上可过滤的字段
    */
   share: async (config: ShareConfig = wx.shareConfig, filter: string[]) => {
-    await wx.pre()
     let chatConfig: ShareConfig
     let momentConfig: ShareConfig
 

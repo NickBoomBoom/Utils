@@ -37,11 +37,15 @@ import * as Utils from 'utils94'
       // 初始化配置(必须)
       Utils.wx.initConfig(config,request)
 
-      //1. 直接调用分享设置,会有预检查,是否配置成功
-      Utils.wx.share()
-
-      //2. 其他函数调用暂未封装 若要使用.
-      Utils.wx.pre().hideAllNonBaseMenuItem()
+      // 非微信sdk 函数均没有自检是否配置成功;
+      // 若要使用,可在页面mounted 后使用,即: 
+      // pre 是自检函数,自动配置,返回Promise
+      mounted() {
+        Utils.wx.pre().then(()=>{
+          Utils.wx.share()
+          Utils.wx.hideAllNonBaseMenuItem()
+        })
+      }
   ```
 
   ## 2.compute
