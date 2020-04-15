@@ -105,18 +105,16 @@ function signatureBody() {
     };
     return res;
 }
-console.log(111, weixin);
 // 将微信jssdk 处理成链式调用
 var fnNames = Object.keys(weixin);
 var newWeixin = __assign({}, weixin);
 fnNames.forEach(function (item) {
     newWeixin[item] = function () {
-        console.error(arguments);
+        console.log('传递参数 ===> ', arguments);
         weixin[item](arguments);
         return wx;
     };
 });
-console.log(222, newWeixin);
 var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: {}, getJsConfig: function (body) { }, 
     /**
      * 初始化项目和数据
@@ -197,26 +195,21 @@ var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: {
         return __awaiter(void 0, void 0, void 0, function () {
             var chatConfig, momentConfig, currentUrl;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, wx.pre()];
-                    case 1:
-                        _a.sent();
-                        if (config instanceof Object) {
-                            chatConfig = config;
-                            momentConfig = config;
-                        }
-                        if (config instanceof Array) {
-                            chatConfig = config[0];
-                            momentConfig = config[1] || config[0];
-                        }
-                        currentUrl = window.location.href;
-                        // 过滤部分携带参数
-                        chatConfig.link = feature_1.filterUrlSearch(chatConfig.link || currentUrl, filter);
-                        momentConfig.link = feature_1.filterUrlSearch(momentConfig.link || currentUrl, filter);
-                        newWeixin.updateAppMessageShareData(chatConfig); // 分享给朋友 qq
-                        newWeixin.updateTimelineShareData(momentConfig); // 分享到朋友圈 qq空间
-                        return [2 /*return*/, wx];
+                if (config instanceof Object) {
+                    chatConfig = config;
+                    momentConfig = config;
                 }
+                if (config instanceof Array) {
+                    chatConfig = config[0];
+                    momentConfig = config[1] || config[0];
+                }
+                currentUrl = window.location.href;
+                // 过滤部分携带参数
+                chatConfig.link = feature_1.filterUrlSearch(chatConfig.link || currentUrl, filter);
+                momentConfig.link = feature_1.filterUrlSearch(momentConfig.link || currentUrl, filter);
+                newWeixin.updateAppMessageShareData(chatConfig); // 分享给朋友 qq
+                newWeixin.updateTimelineShareData(momentConfig); // 分享到朋友圈 qq空间
+                return [2 /*return*/, wx];
             });
         });
     } });
