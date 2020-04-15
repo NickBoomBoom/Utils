@@ -72,8 +72,23 @@ function signatureBody(): SignatureBody {
   return res
 }
 
+// 将微信jssdk 处理成链式调用
+const fnNames = Object.keys(weixin)
+
+let newWeixin = {
+  ...weixin
+}
+
+fnNames.forEach(item => {
+  newWeixin[item] = function () {
+    console.log('传递参数 ===> ', arguments)
+    weixin[item](arguments)
+    return wx
+  }
+})
+
 const wx = {
-  ...weixin,
+  ...newWeixin,
 
   iosSdkStatus: false, // ios 配置状态
   shareConfig: {},
@@ -99,8 +114,8 @@ const wx = {
       const body = signatureBody()
       wx.getJsConfig(body)
         .then(res => {
-          weixin.config(res) // 配置sdk
-          weixin.ready(() => {
+          newWeixin.config(res) // 配置sdk
+          newWeixin.ready(() => {
             wx.iosSdkStatus = true
             resolve()
           })
@@ -120,26 +135,31 @@ const wx = {
    * @android 在安卓中,需要在每次路由变化时重新配置
    */
   pre: (): Promise<any> => {
-    if (!isWX()) {
-      console.warn('非微信环境,无需配置微信sdk')
-      return
-    }
     return new Promise((reslove, reject) => {
-      let isInitSDK: boolean = false
-      if (isIOS()) {
-        isInitSDK = wx.iosSdkStatus
+      if (!isWX()) {
+        console.warn('非微信环境,无需配置微信sdk')
+        reslove(wx)
+        return
       }
 
-      if (isAndroid()) {
+      let isInitSDK: boolean = false
+
+      if (isIOS()) {
+        isInitSDK = wx.iosSdkStatus
+      } else if (isAndroid()) {
         isInitSDK = false
       }
 
       if (!isInitSDK) {
         wx.initSDK()
-          .then(() => reslove())
-          .catch(err => reject(err))
+          .then(() => reslove(wx))
+          .catch(err => {
+            console.error(err)
+            reslove(wx)
+          })
+      } else {
+        reslove(wx)
       }
-      reslove()
     })
   },
 
@@ -171,8 +191,10 @@ const wx = {
     chatConfig.link = filterUrlSearch(chatConfig.link || currentUrl, filter)
     momentConfig.link = filterUrlSearch(momentConfig.link || currentUrl, filter)
 
-    weixin.updateAppMessageShareData(chatConfig) // 分享给朋友 qq
-    weixin.updateTimelineShareData(momentConfig) // 分享到朋友圈 qq空间
+    newWeixin.updateAppMessageShareData(chatConfig) // 分享给朋友 qq
+    newWeixin.updateTimelineShareData(momentConfig) // 分享到朋友圈 qq空间
+
+    return wx
   }
 }
 export {

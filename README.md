@@ -18,6 +18,7 @@ import * as Utils from 'utils94'
 ## 1.wx
 
   微信端js配置使用方法(可通过Utils.wx[FunctionName] 来调用 微信SDK 中的方法)
+  可链式调用
 
   ```javascript
       const config = {
@@ -40,9 +41,7 @@ import * as Utils from 'utils94'
       Utils.wx.share()
 
       //2. 其他函数调用暂未封装 若要使用.
-      Utils.wx.pre().then(()=> {
-        Utils.wx.hideAllNonBaseMenuItem()
-      })
+      Utils.wx.pre().hideAllNonBaseMenuItem()
   ```
 
   ## 2.compute

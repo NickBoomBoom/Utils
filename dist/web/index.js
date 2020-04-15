@@ -376,7 +376,19 @@ function signatureBody() {
     };
     return res;
 }
-var wx = __assign(__assign({}, weixin), { iosSdkStatus: false, shareConfig: {}, getJsConfig: function (body) { }, 
+console.log(111, weixin);
+// 将微信jssdk 处理成链式调用
+var fnNames = Object.keys(weixin);
+var newWeixin = __assign({}, weixin);
+fnNames.forEach(function (item) {
+    newWeixin[item] = function () {
+        console.error(arguments);
+        weixin[item](arguments);
+        return wx;
+    };
+});
+console.log(222, newWeixin);
+var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: {}, getJsConfig: function (body) { }, 
     /**
      * 初始化项目和数据
      * @params  shareConfig: 分享配置
@@ -396,8 +408,8 @@ var wx = __assign(__assign({}, weixin), { iosSdkStatus: false, shareConfig: {}, 
             var body = signatureBody();
             wx.getJsConfig(body)
                 .then(function (res) {
-                weixin.config(res); // 配置sdk
-                weixin.ready(function () {
+                newWeixin.config(res); // 配置sdk
+                newWeixin.ready(function () {
                     wx.iosSdkStatus = true;
                     resolve();
                 });
@@ -417,24 +429,30 @@ var wx = __assign(__assign({}, weixin), { iosSdkStatus: false, shareConfig: {}, 
      * @android 在安卓中,需要在每次路由变化时重新配置
      */
     pre: function () {
-        if (!platform_1.isWX()) {
-            console.warn('非微信环境,无需配置微信sdk');
-            return;
-        }
         return new Promise(function (reslove, reject) {
+            if (!platform_1.isWX()) {
+                console.warn('非微信环境,无需配置微信sdk');
+                reslove(wx);
+                return;
+            }
             var isInitSDK = false;
             if (platform_1.isIOS()) {
                 isInitSDK = wx.iosSdkStatus;
             }
-            if (platform_1.isAndroid()) {
+            else if (platform_1.isAndroid()) {
                 isInitSDK = false;
             }
             if (!isInitSDK) {
                 wx.initSDK()
-                    .then(function () { return reslove(); })
-                    .catch(function (err) { return reject(err); });
+                    .then(function () { return reslove(wx); })
+                    .catch(function (err) {
+                    console.error(err);
+                    reslove(wx);
+                });
             }
-            reslove();
+            else {
+                reslove(wx);
+            }
         });
     }, 
     /**
@@ -466,9 +484,9 @@ var wx = __assign(__assign({}, weixin), { iosSdkStatus: false, shareConfig: {}, 
                         // 过滤部分携带参数
                         chatConfig.link = feature_1.filterUrlSearch(chatConfig.link || currentUrl, filter);
                         momentConfig.link = feature_1.filterUrlSearch(momentConfig.link || currentUrl, filter);
-                        weixin.updateAppMessageShareData(chatConfig); // 分享给朋友 qq
-                        weixin.updateTimelineShareData(momentConfig); // 分享到朋友圈 qq空间
-                        return [2 /*return*/];
+                        newWeixin.updateAppMessageShareData(chatConfig); // 分享给朋友 qq
+                        newWeixin.updateTimelineShareData(momentConfig); // 分享到朋友圈 qq空间
+                        return [2 /*return*/, wx];
                 }
             });
         });

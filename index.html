@@ -16,6 +16,8 @@
     <script src="./dist/web/index.js"></script>
     <script>
 
+
+
       const p = () => new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve({
@@ -37,20 +39,24 @@
       Utils.wx.initConfig(config, body => {
         console.log(body)
         return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve({
-              appId: '', // 必填，公众号的唯一标识
-              timestamp: '', // 必填，生成签名的时间戳
-              nonceStr: '', // 必填，生成签名的随机串
-              signature: '',// 必填，签名
-              jsApiList: [] // 必填，需要使用的JS接口列表}
-            })
-          }, 2000);
+          resolve({
+            // appId: '', // 必填，公众号的唯一标识
+            // timestamp: '', // 必填，生成签名的时间戳
+            // nonceStr: '', // 必填，生成签名的随机串
+            // signature: '',// 必填，签名
+            // jsApiList: [] // 必填，需要使用的JS接口列表}
+            appId: "wxec3b8c72f5a16f43",
+            debug: false,
+            jsApiList: ["updateAppMessageShareData", "updateTimelineShareData", "showAllNonBaseMenuItem"],
+            nonceStr: "xvf0qgmlmqm",
+            signature: "47390032ecfcda872848b5d37443ae63dedb8c48",
+            timestamp: "1586920601",
+          })
         })
       })
       // 初始化sdk
       // Utils.wx.initSDK()
-      Utils.wx.share()
+      // Utils.wx.share()
     </script>
   </body>
 
