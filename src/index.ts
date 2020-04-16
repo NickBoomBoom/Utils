@@ -3,12 +3,15 @@ import * as weixin from './weixin'
 import * as dom from './dom'
 import * as feature from './feature'
 import * as platform from './platform'
+import * as session from './session'
 
-const wx =weixin.wx
+const wx = weixin.wx
+
 export {
-  compute,
-  dom,
   wx,
+  dom,
+  compute,
   feature,
-  platform
+  session,
+  platform,
 }

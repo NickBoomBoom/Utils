@@ -77,3 +77,18 @@ import * as Utils from 'utils94'
       isIOSX():boolean
       isAndroid():boolean
   ```
+
+  ## 6.session
+  ```javascript
+    // localStorage 见名知意
+    getLocal(key)
+    setLocal(key,data)
+    removeLocal(key)
+    clearLocal()
+    // sessionStorage 见名知意
+    getSession(key)
+    setSession(key,data)
+    removeSession(key)
+    clearSession()
+
+  ```
