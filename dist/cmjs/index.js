@@ -9,8 +9,17 @@ var feature = require("./feature");
 exports.feature = feature;
 var platform = require("./platform");
 exports.platform = platform;
-var session = require("./session");
-exports.session = session;
+var storage = require("./storage");
+exports.storage = storage;
 var wx = weixin.wx;
 exports.wx = wx;
+var Utils = {
+    wx: wx,
+    dom: dom,
+    compute: compute,
+    feature: feature,
+    storage: storage,
+    platform: platform,
+};
+exports.default = Utils;
 //# sourceMappingURL=index.js.map

@@ -5,13 +5,14 @@
   dom         // dom 相关
   feature     // 功能
   platform    // 平台判断
+  storage     // 数据存储
 ```
 
 ## 快速使用
 ```
 yarn add utils94 
 
-import * as Utils from 'utils94'
+import Utils from 'utils94'
 
 ```
   
@@ -78,7 +79,7 @@ import * as Utils from 'utils94'
       isAndroid():boolean
   ```
 
-  ## 6.session
+  ## 6.storage
   ```javascript
     // localStorage 见名知意
     getLocal(key)

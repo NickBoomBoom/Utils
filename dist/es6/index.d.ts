@@ -2,6 +2,15 @@ import * as compute from './compute';
 import * as dom from './dom';
 import * as feature from './feature';
 import * as platform from './platform';
-import * as session from './session';
+import * as storage from './storage';
 declare const wx: any;
-export { wx, dom, compute, feature, session, platform, };
+declare const Utils: {
+    wx: any;
+    dom: typeof dom;
+    compute: typeof compute;
+    feature: typeof feature;
+    storage: typeof storage;
+    platform: typeof platform;
+};
+export { wx, dom, compute, feature, storage, platform, };
+export default Utils;

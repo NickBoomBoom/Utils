@@ -93,7 +93,7 @@ function clearLocal(): void {
  * @return 格式化后的数据
  */
 function getSession(key: string): any {
-  let result
+  let result 
 
   try {
     let res = s.getItem(key)

@@ -135,4 +135,4 @@ function clearSession() {
     }
 }
 export { getLocal, setLocal, removeLocal, clearLocal, getSession, setSession, removeSession, clearSession };
-//# sourceMappingURL=session.js.map
+//# sourceMappingURL=storage.js.map
