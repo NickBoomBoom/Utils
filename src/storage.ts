@@ -36,7 +36,7 @@ function _json(data: any): string {
  * @return 格式化后的数据
  */
 function getLocal(key: string): any {
-  let result
+  let result: any = ''
 
   try {
     let res = l.getItem(key)
@@ -60,7 +60,6 @@ function setLocal(key: string, data: any): void {
   } catch (err) {
     console.error('set localStorage error ===>', err)
   }
-
 }
 
 /**
@@ -93,7 +92,7 @@ function clearLocal(): void {
  * @return 格式化后的数据
  */
 function getSession(key: string): any {
-  let result 
+  let result: any = ''
 
   try {
     let res = s.getItem(key)
@@ -126,7 +125,7 @@ function setSession(key: string, data: any): void {
  */
 function removeSession(key: string): void {
   try {
-    l.removeItem(key)
+    s.removeItem(key)
   } catch (err) {
     console.error('remove sessionStorage error ===>', err)
   }
