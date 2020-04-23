@@ -280,16 +280,11 @@ function createMonth(date, weekStart) {
             }
         }
     }
-    // 转二维周排列数组
+    // 转二维排列数组
     res = feature_1.sliceArrary(res, 7);
-    console.log(res);
-    console.log(res.forEach(function (t) { return console.log(t.length); }));
     return res;
 }
 exports.createMonth = createMonth;
-function init() {
-}
-exports.init = init;
 
 },{"./feature":4}],3:[function(require,module,exports){
 "use strict";

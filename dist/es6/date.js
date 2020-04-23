@@ -151,13 +151,9 @@ function createMonth(date, weekStart) {
             }
         }
     }
-    // 转二维周排列数组
+    // 转二维排列数组
     res = sliceArrary(res, 7);
-    console.log(res);
-    console.log(res.forEach(function (t) { return console.log(t.length); }));
     return res;
 }
-function init() {
-}
-export { init, createMonth };
+export { createMonth };
 //# sourceMappingURL=date.js.map

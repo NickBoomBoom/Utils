@@ -13,5 +13,4 @@ interface Day {
  * @return Day[]
  */
 declare function createMonth(date: Date | number | string, weekStart?: number): Day[];
-declare function init(): void;
-export { init, createMonth };
+export { createMonth };
