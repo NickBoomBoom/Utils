@@ -1,6 +1,6 @@
 {
   "name": "utils94",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "日常开发使用工具库",
   "main": "dist/web/index.js",
   "repository": {
