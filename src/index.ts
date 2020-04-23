@@ -10,6 +10,7 @@ const wx = weixin.wx
 const Utils = {
   wx,
   dom,
+  date,
   compute,
   feature,
   storage,
