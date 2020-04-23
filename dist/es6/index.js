@@ -9,6 +9,7 @@ var wx = weixin.wx;
 var Utils = {
     wx: wx,
     dom: dom,
+    date: date,
     compute: compute,
     feature: feature,
     storage: storage,

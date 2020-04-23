@@ -245,7 +245,7 @@ function createMonth(date, weekStart) {
                     res.push({
                         date: prevDate,
                         data: {
-                            day: dateInfo.year + "/" + dateInfo.month + "/" + dateInfo.day,
+                            day: dateInfo.year + "/" + _fill(dateInfo.month) + "/" + _fill(dateInfo.day),
                             week: dateInfo.week,
                             current: false,
                         }
@@ -256,7 +256,7 @@ function createMonth(date, weekStart) {
         res.push({
             date: new Date(year, month, day),
             data: {
-                day: year + "/" + currentMonth + "/" + day,
+                day: year + "/" + _fill(currentMonth) + "/" + _fill(day),
                 week: week,
                 current: true,
             }
@@ -271,7 +271,7 @@ function createMonth(date, weekStart) {
                     res.push({
                         date: nextDate,
                         data: {
-                            day: dateInfo.year + "/" + dateInfo.month + "/" + dateInfo.day,
+                            day: dateInfo.year + "/" + _fill(dateInfo.month) + "/" + _fill(dateInfo.day),
                             week: dateInfo.week,
                             current: false,
                         }
@@ -411,6 +411,7 @@ exports.wx = wx;
 var Utils = {
     wx: wx,
     dom: dom,
+    date: date,
     compute: compute,
     feature: feature,
     storage: storage,

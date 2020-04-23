@@ -8,6 +8,7 @@ declare const wx: any;
 declare const Utils: {
     wx: any;
     dom: typeof dom;
+    date: typeof date;
     compute: typeof compute;
     feature: typeof feature;
     storage: typeof storage;
