@@ -1,6 +1,6 @@
 {
   "name": "utils94",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "日常开发使用工具库",
   "main": "dist/web/index.js",
   "repository": {
@@ -16,7 +16,8 @@
     "build:web": "browserify dist/cmjs/index.js --standalone Utils -o dist/web/index.js"
   },
   "devDependencies": {
-    "browserify": "^16.5.1"
+    "browserify": "^16.5.1",
+    "ts-node": "^8.9.0"
   },
   "dependencies": {
     "weixin-js-sdk": "^1.4.0-test"

@@ -34,7 +34,7 @@ function _json(data) {
  * @return 格式化后的数据
  */
 function getLocal(key) {
-    var result;
+    var result = '';
     try {
         var res = l.getItem(key);
         result = _parse(res);
@@ -87,7 +87,7 @@ function clearLocal() {
  * @return 格式化后的数据
  */
 function getSession(key) {
-    var result;
+    var result = '';
     try {
         var res = s.getItem(key);
         result = _parse(res);
@@ -117,7 +117,7 @@ function setSession(key, data) {
  */
 function removeSession(key) {
     try {
-        l.removeItem(key);
+        s.removeItem(key);
     }
     catch (err) {
         console.error('remove sessionStorage error ===>', err);

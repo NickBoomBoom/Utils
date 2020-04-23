@@ -6,6 +6,7 @@
   feature     // 功能
   platform    // 平台判断
   storage     // 数据存储
+  date        // 时间相关(日历生成)
 ```
 
 ## 快速使用
@@ -91,5 +92,11 @@ import Utils from 'utils94'
     setSession(key,data)
     removeSession(key)
     clearSession()
+
+  ```
+
+  ## 7.date
+  ```javascript
+    createMonth(Date | string | number)  // 创建当前月份信息
 
   ```
