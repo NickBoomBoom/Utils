@@ -1,6 +1,6 @@
 {
   "name": "utils94",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "日常开发使用工具库",
   "main": "dist/web/index.js",
   "repository": {
@@ -13,7 +13,8 @@
     "build": "rm -r dist && npm run build:cmjs && npm run build:web; npm run build:es6",
     "build:cmjs": "tsc -P tsconfig.json",
     "build:es6": "tsc -P tsconfig.json --module ES6 --outDir dist/es6",
-    "build:web": "browserify dist/cmjs/index.js --standalone Utils -o dist/web/index.js"
+    "build:web": "browserify dist/cmjs/index.js --standalone Utils -o dist/web/index.js",
+    "push": "yarn run build && yarn publish"
   },
   "devDependencies": {
     "browserify": "^16.5.1",
