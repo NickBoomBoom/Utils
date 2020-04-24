@@ -85,8 +85,8 @@ function checkOverlap(arr: numStartEnd[]): boolean {
     endArr.push(t.e)
   })
 
-  startArr = startArr.sort()
-  endArr = endArr.sort()
+  startArr = startArr.sort((a,b) => a - b)
+  endArr = endArr.sort((a, b) => a - b)
 
   for (let i = 1; i < startArr.length; i++) {
 
