@@ -1,11 +1,4 @@
 /**
- *  复制文字
- *  TODO:可能有兼容问题,目前在 PC端发现,待真实环境测试
- * @param {*} dom 需要复制的文字 dom
- * @returns  Boolean 值, true 则为复制成功, false 失败
- */
-declare function copy(dom: any): boolean;
-/**
  * 深拷贝
  * @param {*} p  原始对象
  * @param {*} c  新对象 可选
@@ -35,4 +28,14 @@ declare function timeObject(time: number): any;
  * @param keys
  */
 declare function filterUrlSearch(url: string, keys?: string[]): string;
-export { copy, deepClone, sliceArrary, timeObject, filterUrlSearch };
+/**
+ * 检测时间是否重叠
+ * 基本的思路，日期也可以当成字符串进行比较，把开始日期，结束日期分别存进两个数组，并用sort排序，循环遍历数组，从开始时间的第二个元素去比较结束时间的第一个元素，如果小于，就代表时间段有交叉，直接跳出，不然就继续遍历，遍历结束，说明时间没有重复，可以提交。
+ * @param arr numStartEnd[] 数组对象,ex: [{s:1,e:2}]
+ */
+interface numStartEnd {
+    s: number;
+    e: number;
+}
+declare function checkOverlap(arr: numStartEnd[]): boolean;
+export { deepClone, sliceArrary, timeObject, checkOverlap, filterUrlSearch };

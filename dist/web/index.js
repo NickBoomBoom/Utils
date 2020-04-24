@@ -289,35 +289,10 @@ exports.createMonth = createMonth;
 },{"./feature":4}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- *
- * @returns 返回视窗高度, 兼容所有浏览器
- */
-function viewPortHeight() {
-    return (window.innerHeight ||
-        document.documentElement.clientHeight ||
-        document.body.clientHeight);
-}
-exports.viewPortHeight = viewPortHeight;
 
 },{}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- *  复制文字
- *  TODO:可能有兼容问题,目前在 PC端发现,待真实环境测试
- * @param {*} dom 需要复制的文字 dom
- * @returns  Boolean 值, true 则为复制成功, false 失败
- */
-function copy(dom) {
-    window.getSelection().removeAllRanges();
-    var range = document.createRange();
-    range.selectNode(dom);
-    window.getSelection().addRange(range);
-    var bol = document.execCommand("copy");
-    return bol;
-}
-exports.copy = copy;
 /**
  * 深拷贝
  * @param {*} p  原始对象
@@ -389,6 +364,41 @@ function filterUrlSearch(url, keys) {
     return url;
 }
 exports.filterUrlSearch = filterUrlSearch;
+function checkOverlap(arr) {
+    var startArr = [];
+    var endArr = [];
+    var bol = false;
+    arr.forEach(function (t) {
+        startArr.push(t.s);
+        endArr.push(t.e);
+    });
+    startArr = startArr.sort();
+    endArr = endArr.sort();
+    for (var i = 1; i < startArr.length; i++) {
+        if (startArr[i] < endArr[i - 1]) {
+            bol = true;
+            break;
+        }
+    }
+    return bol;
+}
+exports.checkOverlap = checkOverlap;
+checkOverlap([
+    {
+        s: 2,
+        e: 4
+    },
+    {
+        s: 1,
+        e: 3
+    }
+]);
+checkOverlap([
+    {
+        s: 1,
+        e: 2
+    }
+]);
 
 },{}],5:[function(require,module,exports){
 "use strict";

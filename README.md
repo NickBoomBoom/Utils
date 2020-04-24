@@ -1,12 +1,13 @@
 # utils94(工具类函数集结)
 ```
   wx          // 微信端jssdk处理
-  compute     // 计算方法(解决js计算精度bug)
   dom         // dom 相关
-  feature     // 功能
-  platform    // 平台判断
-  storage     // 数据存储
+  bom         // bom 相关
   date        // 时间相关(日历生成)
+  compute     // 计算方法(解决js计算精度bug)
+  feature     // 功能
+  storage     // 数据存储
+  platform    // 平台判断
 ```
 
 ## 快速使用
@@ -14,6 +15,8 @@
 yarn add utils94 
 
 import Utils from 'utils94'
+
+import { wx, dom, bom... } from 'utils94'
 
 ```
   
@@ -50,7 +53,24 @@ import Utils from 'utils94'
       }
   ```
 
-  ## 2.compute
+   ## 2.dom
+  ```javascript
+      // 暂无
+  ```
+
+  ## 3.bom
+  ```javascript
+    copy(dom)                  // 复制文字 
+    viewPortHeight()   // 返回视窗高度
+  ```
+
+  ## 4.date
+  ```javascript
+    createMonth(Date | string | number)  // 创建当前月份信息
+
+  ```
+
+  ## 5.compute
   ```javascript
     divide(number1, number2)   // 除 法
     multiply(number1, number2) // 乘 法
@@ -58,29 +78,16 @@ import Utils from 'utils94'
     minus(number1, number2)    // 减 法
   ```
 
-  ## 3.dom
+  ## 6.feature
   ```javascript
-    viewPortHeight()   // 返回视窗高度
-  ```
-
-  ## 4.feature
-  ```javascript
-      copy(dom)                  // 复制文字 
       deepClone(oldObj, newOld)  // 深拷贝
       sliceArrary(array, limit)  // 等分切割
       timeObject(time)           // 返回 年 月 日 周 时 分 秒 毫秒
       filterUrlSearch(url, filter)// 过滤关键字
+      checkOverlap([{s:1, e:2}, {s:2,e:4}]) // 检测重叠
   ```
 
-  ## 5.platform
-  ```javascript
-      isWX():boolean
-      isIOS():boolean
-      isIOSX():boolean
-      isAndroid():boolean
-  ```
-
-  ## 6.storage
+  ## 7.storage
   ```javascript
     // localStorage 见名知意
     getLocal(key)
@@ -95,8 +102,11 @@ import Utils from 'utils94'
 
   ```
 
-  ## 7.date
+  ## 8.platform
   ```javascript
-    createMonth(Date | string | number)  // 创建当前月份信息
-
+      isWX():boolean
+      isIOS():boolean
+      isIOSX():boolean
+      isAndroid():boolean
   ```
+ 
