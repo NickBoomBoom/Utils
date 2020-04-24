@@ -372,8 +372,8 @@ function checkOverlap(arr) {
         startArr.push(t.s);
         endArr.push(t.e);
     });
-    startArr = startArr.sort();
-    endArr = endArr.sort();
+    startArr = startArr.sort(function (a, b) { return a - b; });
+    endArr = endArr.sort(function (a, b) { return a - b; });
     for (var i = 1; i < startArr.length; i++) {
         if (startArr[i] < endArr[i - 1]) {
             bol = true;
@@ -383,22 +383,6 @@ function checkOverlap(arr) {
     return bol;
 }
 exports.checkOverlap = checkOverlap;
-checkOverlap([
-    {
-        s: 2,
-        e: 4
-    },
-    {
-        s: 1,
-        e: 3
-    }
-]);
-checkOverlap([
-    {
-        s: 1,
-        e: 2
-    }
-]);
 
 },{}],5:[function(require,module,exports){
 "use strict";
