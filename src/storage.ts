@@ -116,7 +116,6 @@ function setSession(key: string, data: any): void {
   } catch (err) {
     console.error('set sessionStorage error ===>', err)
   }
-
 }
 
 /**
