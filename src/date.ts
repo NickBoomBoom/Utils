@@ -6,13 +6,6 @@ interface Day {
     week: number, // 0-6
     current: boolean // 是否当前月
   }
-
-}
-
-interface Calenda {
-  year: number,
-  month: number,
-  days: Day[]
 }
 
 /**
