@@ -12,7 +12,7 @@ function _parse(data: any): any {
   try {
     res = JSON.parse(data)
   } catch (err) {
-    console.log(err)
+    // console.log(err)
   }
   return res
 }
