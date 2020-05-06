@@ -2,6 +2,35 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
+ *  复制文字
+ *  TODO:可能有兼容问题,目前在 PC端未发现,待真实环境测试
+ * @param {*} dom 需要复制的文字 dom
+ * @return  Boolean 值, true 则为复制成功, false 失败
+ */
+function copy(dom) {
+    window.getSelection().removeAllRanges();
+    var range = document.createRange();
+    range.selectNode(dom);
+    window.getSelection().addRange(range);
+    var bol = document.execCommand("copy");
+    return bol;
+}
+exports.copy = copy;
+/**
+ * 返回视窗高度, 兼容所有浏览器
+ * @return number
+ */
+function viewPortHeight() {
+    return (window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight);
+}
+exports.viewPortHeight = viewPortHeight;
+
+},{}],2:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
  *严格模式下,除法的处理
  *
  * @param {number} num1
@@ -124,7 +153,7 @@ function minus(arg1, arg2) {
 }
 exports.minus = minus;
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 "use strict";
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
@@ -286,11 +315,11 @@ function createMonth(date, weekStart) {
 }
 exports.createMonth = createMonth;
 
-},{"./feature":4}],3:[function(require,module,exports){
+},{"./feature":5}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
@@ -384,7 +413,7 @@ function checkOverlap(arr) {
 }
 exports.checkOverlap = checkOverlap;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var compute = require("./compute");
@@ -400,10 +429,13 @@ var storage = require("./storage");
 exports.storage = storage;
 var date = require("./date");
 exports.date = date;
+var bom = require("./bom");
+exports.bom = bom;
 var wx = weixin.wx;
 exports.wx = wx;
 var Utils = {
     wx: wx,
+    bom: bom,
     dom: dom,
     date: date,
     compute: compute,
@@ -413,7 +445,7 @@ var Utils = {
 };
 exports.default = Utils;
 
-},{"./compute":1,"./date":2,"./dom":3,"./feature":4,"./platform":6,"./storage":7,"./weixin":8}],6:[function(require,module,exports){
+},{"./bom":1,"./compute":2,"./date":3,"./dom":4,"./feature":5,"./platform":7,"./storage":8,"./weixin":9}],7:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var u = navigator.userAgent;
@@ -438,7 +470,7 @@ function isWX() {
 }
 exports.isWX = isWX;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var l = window.localStorage; // 本地存储
@@ -454,7 +486,7 @@ function _parse(data) {
         res = JSON.parse(data);
     }
     catch (err) {
-        console.log(err);
+        // console.log(err)
     }
     return res;
 }
@@ -586,7 +618,7 @@ function clearSession() {
 }
 exports.clearSession = clearSession;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -804,7 +836,7 @@ var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: {
     } });
 exports.wx = wx;
 
-},{"./feature":4,"./platform":6,"weixin-js-sdk":9}],9:[function(require,module,exports){
+},{"./feature":5,"./platform":7,"weixin-js-sdk":10}],10:[function(require,module,exports){
 ! function (e, n) {
   module.exports = n(e)
 }(window, function (e, n) {
@@ -1624,5 +1656,5 @@ exports.wx = wx;
     N
   }
 });
-},{}]},{},[5])(5)
+},{}]},{},[6])(6)
 });

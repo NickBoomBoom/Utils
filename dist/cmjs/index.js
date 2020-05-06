@@ -13,10 +13,13 @@ var storage = require("./storage");
 exports.storage = storage;
 var date = require("./date");
 exports.date = date;
+var bom = require("./bom");
+exports.bom = bom;
 var wx = weixin.wx;
 exports.wx = wx;
 var Utils = {
     wx: wx,
+    bom: bom,
     dom: dom,
     date: date,
     compute: compute,
