@@ -81,7 +81,6 @@ let newWeixin = {
 
 fnNames.forEach(item => {
   newWeixin[item] = function () {
-    console.log('传递参数 ===> ', arguments)
     weixin[item](arguments)
     return wx
   }
@@ -91,7 +90,7 @@ const wx = {
   ...newWeixin,
 
   iosSdkStatus: false, // ios 配置状态
-  shareConfig: {},
+  shareConfig: [],
   getJsConfig: (body: SignatureBody) => { }, // 默认接受组件传递过去的url和api参数
 
   /** 
@@ -100,7 +99,7 @@ const wx = {
    * @params  getJsConfig: 获取签名信息promise
    * @returns wx
    */
-  initConfig: (shareConfig: ShareConfig, getJsConfig: Promise<any>): any => {
+  initConfig: (shareConfig: ShareConfig[], getJsConfig: Promise<any>): any => {
     wx.shareConfig = shareConfig
     wx.getJsConfig = getJsConfig
     return wx
@@ -171,19 +170,9 @@ const wx = {
    *          array[1]: 朋友圈分享内容
    * @params filter string[] url上可过滤的字段
    */
-  share: async (config: ShareConfig = wx.shareConfig, filter: string[]) => {
-    let chatConfig: ShareConfig
-    let momentConfig: ShareConfig
-
-    if (config instanceof Object) {
-      chatConfig = config
-      momentConfig = config
-    }
-
-    if (config instanceof Array) {
-      chatConfig = config[0]
-      momentConfig = config[1] || config[0]
-    }
+  share: async (config: ShareConfig[] = wx.shareConfig, filter: string[]) => {
+    const chatConfig: ShareConfig = config[0]
+    const momentConfig: ShareConfig = config[1] || config[0]
 
     const currentUrl = window.location.href
     // 过滤部分携带参数

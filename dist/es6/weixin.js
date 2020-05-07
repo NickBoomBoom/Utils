@@ -108,12 +108,11 @@ var fnNames = Object.keys(weixin);
 var newWeixin = __assign({}, weixin);
 fnNames.forEach(function (item) {
     newWeixin[item] = function () {
-        console.log('传递参数 ===> ', arguments);
         weixin[item](arguments);
         return wx;
     };
 });
-var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: {}, getJsConfig: function (body) { }, 
+var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: [], getJsConfig: function (body) { }, 
     /**
      * 初始化项目和数据
      * @params  shareConfig: 分享配置
@@ -193,14 +192,8 @@ var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: {
         return __awaiter(void 0, void 0, void 0, function () {
             var chatConfig, momentConfig, currentUrl;
             return __generator(this, function (_a) {
-                if (config instanceof Object) {
-                    chatConfig = config;
-                    momentConfig = config;
-                }
-                if (config instanceof Array) {
-                    chatConfig = config[0];
-                    momentConfig = config[1] || config[0];
-                }
+                chatConfig = config[0];
+                momentConfig = config[1] || config[0];
                 currentUrl = window.location.href;
                 // 过滤部分携带参数
                 chatConfig.link = filterUrlSearch(chatConfig.link || currentUrl, filter);
