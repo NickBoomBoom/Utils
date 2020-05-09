@@ -13,7 +13,6 @@ export default class WX {
   ) {
     this.shareConfig = shareConfig;
     this.getJsSdk = getJsSdk;
-    console.log('constructor', this.shareConfig)
   }
 
   /**
