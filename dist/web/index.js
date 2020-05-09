@@ -644,7 +644,6 @@ var WX = /** @class */ (function () {
         this.iosSdkStatus = false; // ios 配置状态
         this.shareConfig = shareConfig;
         this.getJsSdk = getJsSdk;
-        console.log('constructor', this.shareConfig);
     }
     /**
      * 调用微信sdk函数
