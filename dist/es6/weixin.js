@@ -116,10 +116,11 @@ var WX = /** @class */ (function () {
     WX.prototype.share = function (config, filter) {
         if (config === void 0) { config = this.shareConfig; }
         return __awaiter(this, void 0, void 0, function () {
-            var chatConfig, momentConfig, currentUrl;
+            var newConfig, chatConfig, momentConfig, currentUrl;
             return __generator(this, function (_a) {
-                chatConfig = config[0];
-                momentConfig = config[1] || config[0];
+                newConfig = config.slice();
+                chatConfig = newConfig[0];
+                momentConfig = newConfig[1] || newConfig[0];
                 currentUrl = window.location.href;
                 // 过滤部分携带参数
                 chatConfig.link = filterUrlSearch(chatConfig.link || currentUrl, filter);
