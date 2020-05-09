@@ -22,8 +22,7 @@ import { wx, dom, bom... } from 'utils94'
   
 ## 1.wx
 
-  微信端js配置使用方法(可通过Utils.wx[FunctionName] 来调用 微信SDK 中的方法)
-  可链式调用
+  微信端js配置使用方法
 
   ```javascript
       const config = {
@@ -40,15 +39,20 @@ import { wx, dom, bom... } from 'utils94'
       }
 
       // 初始化配置(必须)
-      Utils.wx.initConfig(config,request)
+      const wx = new Utils.WX(
+        [
+          config
+        ],
+        request
+      )
 
       // 非微信sdk 函数均没有自检是否配置成功;
       // 若要使用,可在页面mounted 后使用,即: 
       // pre 是自检函数,自动配置,返回Promise
       mounted() {
-        Utils.wx.pre().then(()=>{
-          Utils.wx.share()
-          Utils.wx.hideAllNonBaseMenuItem()
+        wx.pre().then(()=>{
+          wx.share()
+          wx.handler('hideAllNonBaseMenuItem')
         })
       }
   ```
