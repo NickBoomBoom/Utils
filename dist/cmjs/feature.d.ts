@@ -1,11 +1,4 @@
 /**
- * 深拷贝
- * @param {*} p  原始对象
- * @param {*} c  新对象 可选
- * @returns  object
- */
-declare function deepClone(p: any, c: any): any;
-/**
  *  等分切割数组
  *
  * @static
@@ -38,4 +31,4 @@ interface numStartEnd {
     e: number;
 }
 declare function checkOverlap(arr: numStartEnd[]): boolean;
-export { deepClone, sliceArrary, timeObject, checkOverlap, filterUrlSearch };
+export { sliceArrary, timeObject, checkOverlap, filterUrlSearch };

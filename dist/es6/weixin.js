@@ -42,6 +42,7 @@ var WX = /** @class */ (function () {
         this.iosSdkStatus = false; // ios 配置状态
         this.shareConfig = shareConfig;
         this.getJsSdk = getJsSdk;
+        console.log('constructor', this.shareConfig);
     }
     /**
      * 调用微信sdk函数
@@ -116,11 +117,10 @@ var WX = /** @class */ (function () {
     WX.prototype.share = function (config, filter) {
         if (config === void 0) { config = this.shareConfig; }
         return __awaiter(this, void 0, void 0, function () {
-            var newConfig, chatConfig, momentConfig, currentUrl;
+            var chatConfig, momentConfig, currentUrl;
             return __generator(this, function (_a) {
-                newConfig = config.slice();
-                chatConfig = newConfig[0];
-                momentConfig = newConfig[1] || newConfig[0];
+                chatConfig = Object.assign({}, config[0]);
+                momentConfig = Object.assign({}, config[1] || config[0]);
                 currentUrl = window.location.href;
                 // 过滤部分携带参数
                 chatConfig.link = filterUrlSearch(chatConfig.link || currentUrl, filter);

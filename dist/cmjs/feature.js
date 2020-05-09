@@ -1,26 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * 深拷贝
- * @param {*} p  原始对象
- * @param {*} c  新对象 可选
- * @returns  object
- */
-function deepClone(p, c) {
-    c = c || {};
-    for (var i in p) {
-        if (typeof p[i] === "object") {
-            c[i] = p[i].constructor === Array ? [] : {};
-            deepClone(p[i], c[i]);
-        }
-        else {
-            c[i] = p[i];
-        }
-    }
-    return c;
-}
-exports.deepClone = deepClone;
-/**
  *  等分切割数组
  *
  * @static

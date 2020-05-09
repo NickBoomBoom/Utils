@@ -323,26 +323,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * 深拷贝
- * @param {*} p  原始对象
- * @param {*} c  新对象 可选
- * @returns  object
- */
-function deepClone(p, c) {
-    c = c || {};
-    for (var i in p) {
-        if (typeof p[i] === "object") {
-            c[i] = p[i].constructor === Array ? [] : {};
-            deepClone(p[i], c[i]);
-        }
-        else {
-            c[i] = p[i];
-        }
-    }
-    return c;
-}
-exports.deepClone = deepClone;
-/**
  *  等分切割数组
  *
  * @static
@@ -664,6 +644,7 @@ var WX = /** @class */ (function () {
         this.iosSdkStatus = false; // ios 配置状态
         this.shareConfig = shareConfig;
         this.getJsSdk = getJsSdk;
+        console.log('constructor', this.shareConfig);
     }
     /**
      * 调用微信sdk函数
@@ -738,11 +719,10 @@ var WX = /** @class */ (function () {
     WX.prototype.share = function (config, filter) {
         if (config === void 0) { config = this.shareConfig; }
         return __awaiter(this, void 0, void 0, function () {
-            var newConfig, chatConfig, momentConfig, currentUrl;
+            var chatConfig, momentConfig, currentUrl;
             return __generator(this, function (_a) {
-                newConfig = config.slice();
-                chatConfig = newConfig[0];
-                momentConfig = newConfig[1] || newConfig[0];
+                chatConfig = Object.assign({}, config[0]);
+                momentConfig = Object.assign({}, config[1] || config[0]);
                 currentUrl = window.location.href;
                 // 过滤部分携带参数
                 chatConfig.link = feature_1.filterUrlSearch(chatConfig.link || currentUrl, filter);

@@ -1,23 +1,4 @@
 /**
- * 深拷贝
- * @param {*} p  原始对象
- * @param {*} c  新对象 可选
- * @returns  object
- */
-function deepClone(p, c) {
-    c = c || {};
-    for (var i in p) {
-        if (typeof p[i] === "object") {
-            c[i] = p[i].constructor === Array ? [] : {};
-            deepClone(p[i], c[i]);
-        }
-        else {
-            c[i] = p[i];
-        }
-    }
-    return c;
-}
-/**
  *  等分切割数组
  *
  * @static
@@ -83,5 +64,5 @@ function checkOverlap(arr) {
     }
     return bol;
 }
-export { deepClone, sliceArrary, timeObject, checkOverlap, filterUrlSearch };
+export { sliceArrary, timeObject, checkOverlap, filterUrlSearch };
 //# sourceMappingURL=feature.js.map

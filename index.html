@@ -153,7 +153,6 @@
         const config = {
           title: '微信title',
           desc: '微信desc',
-          link: window.location.href,
           imgUrl: 'http://m.imeitou.com/uploads/allimg/190201/3-1Z201103R5.jpg'
         }
         const getJsSdk = () => {
@@ -168,14 +167,16 @@
             })
           })
         }
+        console.log(1111, config.link)
         const wx = new Utils.WX([config], getJsSdk)
         console.warn('new WX', wx)
-        wx.pre().then(res => {
-          console.log(res)
-          wx.share()
-        }).catch(err => {
-          console.error(err)
-        })
+        wx.share()
+
+        // wx.pre().then(res => {
+        //   console.log(res)
+        // }).catch(err => {
+        //   console.error(err)
+        // })
       })
 
 
