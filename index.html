@@ -4,47 +4,204 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测试</title>
-    <script crossorigin="anonymous" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
-      src="//lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
-  </head>
-
-  <body>
-    <button id='countDown'>
-      倒计时
-    </button>
+    <title>Utils94 Test</title>
+    <script crossorigin="anonymous" integrity="sha384-qu2J8HSjv8EaYlbzBdbVeJncuCmfBqnZ4h3UIBZ9WTZ/5Wrqt0/9hofL0046NCkc"
+      src="//lib.baomitu.com/zepto/1.2.0/zepto.min.js"></script>
     <script src="./dist/web/index.js"></script>
     <script>
+      (function (designWidth, maxWidth) {
+        var doc = document,
+          win = window,
+          docEl = doc.documentElement,
+          remStyle = document.createElement("style"),
+          tid;
+
+        function refreshRem() {
+          var width = docEl.getBoundingClientRect().width;
+          maxWidth = maxWidth || 540;
+          width > maxWidth && (width = maxWidth);
+          var rem = (width * 100) / designWidth;
+          remStyle.innerHTML = "html{font-size:" + rem + "px;}";
+        }
+
+        if (docEl.firstElementChild) {
+          docEl.firstElementChild.appendChild(remStyle);
+        } else {
+          var wrap = doc.createElement("div");
+          wrap.appendChild(remStyle);
+          doc.write(wrap.innerHTML);
+          wrap = null;
+        }
+        //要等 wiewport 设置好后才能执行 refreshRem，不然 refreshRem 会执行2次；
+        refreshRem();
+
+        win.addEventListener(
+          "resize",
+          function () {
+            clearTimeout(tid); //防止执行两次
+            tid = setTimeout(refreshRem, 300);
+          },
+          false
+        );
+
+        win.addEventListener(
+          "pageshow",
+          function (e) {
+            if (e.persisted) {
+              // 浏览器后退的时候重新计算
+              clearTimeout(tid);
+              tid = setTimeout(refreshRem, 300);
+            }
+          },
+          false
+        );
+
+        if (doc.readyState === "complete") {
+          doc.body.style.fontSize = "16px";
+        } else {
+          doc.addEventListener(
+            "DOMContentLoaded",
+            function (e) {
+              doc.body.style.fontSize = "16px";
+            },
+            false
+          );
+        }
+      })(375, 750);
+    </script>
+    <style>
+      html,
+      body {
+        width: 100%;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      button {
+        font-size: .2rem;
+        display: block;
+        margin: .1rem auto;
+        border: 1px solid gray;
+        border-radius: 10px;
+        background-color: white;
+        padding: 4px;
+      }
+
+      .date-data {
+        display: none;
+      }
+
+      pre {
+        outline: 1px solid #ccc;
+        padding: 5px;
+        margin: 5px;
+      }
+
+      pre>.string {
+        color: green;
+      }
+
+      pre>.number {
+        color: darkorange;
+      }
+
+      pre>.boolean {
+        color: blue;
+      }
+
+      pre>.null {
+        color: magenta;
+      }
+
+      pre>.key {
+        color: red;
+      }
+
+    </style>
+  </head>
+
+
+  <body>
+    <button id='date'>
+      生成当前月时间
+    </button>
+
+    <pre class="date-data"></pre>
+
+    <button id='wx'>
+      测试微信jssdk
+    </button>
+
+
+    <script>
       console.log(Utils)
-      console.log(Utils.date.createMonth(new Date()))
 
-      const config = {
-        title: '知我心理测评',
-        desc: 'KnowYourself团队研发，专业、有趣、直击人生的心理测试都在这里。了解自己，做自己。',
-        link: window.location.href,
-        imgUrl:
-          'https://cdn-public.knowyourself.cc/2018/07/02/12/01/18/ptRXyeLSkS.png'
-      }
+      const { date, WX } = Utils
 
-      const getJsSdk = () => {
-        return new Promise((resolve, reject) => {
-          resolve({
-            appId: "wxec3b8c72f5a16f43",
-            debug: false,
-            jsApiList: ["updateAppMessageShareData", "updateTimelineShareData", "showAllNonBaseMenuItem"],
-            nonceStr: "xvf0qgmlmqm",
-            signature: "47390032ecfcda872848b5d37443ae63dedb8c48",
-            timestamp: "1586920601",
+      /* date test */
+      $('#date').on('click', () => {
+        const res = date.createMonth(new Date())
+        $('.date-data').html(syntaxHighlight(res)).show()
+      })
+
+      /* wx test */
+      $('#wx').on('click', () => {
+        const config = {
+          title: '微信title',
+          desc: '微信desc',
+          link: window.location.href,
+          imgUrl: 'http://m.imeitou.com/uploads/allimg/190201/3-1Z201103R5.jpg'
+        }
+        const getJsSdk = () => {
+          return new Promise((resolve, reject) => {
+            resolve({
+              appId: "wxec3b8c72f5a16f43",
+              debug: false,
+              jsApiList: ["updateAppMessageShareData", "updateTimelineShareData", "showAllNonBaseMenuItem"],
+              nonceStr: "xvf0qgmlmqm",
+              signature: "47390032ecfcda872848b5d37443ae63dedb8c48",
+              timestamp: "1586920601",
+            })
           })
+        }
+        const wx = new Utils.WX([config], getJsSdk)
+        console.warn('new WX', wx)
+        wx.pre().then(res => {
+          console.log(res)
+          wx.share()
+        }).catch(err => {
+          console.error(err)
         })
-      }
-      const wx = new Utils.WX([config], getJsSdk)
-      wx.pre().then(res=> {
-        console.log(res)
-        wx.share()
       })
 
 
+
+
+      function syntaxHighlight(json) {
+        if (typeof json != 'string') {
+          json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+          var cls = 'number';
+          if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+              cls = 'key';
+            } else {
+              cls = 'string';
+            }
+          } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+          } else if (/null/.test(match)) {
+            cls = 'null';
+          }
+          return '<span class="' + cls + '">' + match + '</span>';
+        });
+      }
     </script>
   </body>
 
