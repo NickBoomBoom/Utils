@@ -1,6 +1,6 @@
 import * as weixin from 'weixin-js-sdk'
-import { isIOS, isWX, isAndroid } from './platform'
-import { filterUrlSearch } from './feature'
+import { isIOS, isWX } from './platform'
+import { filterUrlSearch} from './feature'
 import { ShareConfig, JsConfig } from './models/weixin.model';
 
 export default class WX {
@@ -75,10 +75,11 @@ export default class WX {
    * @params filter string[] url上可过滤的字段
    */
   async share(config: ShareConfig[] = this.shareConfig, filter?: string[]) {
-    const chatConfig: ShareConfig = config[0]
-    const momentConfig: ShareConfig = config[1] || config[0]
-
+    const newConfig = config.slice()
+    const chatConfig: ShareConfig = newConfig[0]
+    const momentConfig: ShareConfig = newConfig[1] || newConfig[0]
     const currentUrl = window.location.href
+
     // 过滤部分携带参数
     chatConfig.link = filterUrlSearch(chatConfig.link || currentUrl, filter)
     momentConfig.link = filterUrlSearch(momentConfig.link || currentUrl, filter)
