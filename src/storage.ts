@@ -42,7 +42,7 @@ function getLocal(key: string): any {
     let res = l.getItem(key)
     result = _parse(res)
   } catch (err) {
-    console.error('get localStorage error ===>', err)
+    throw new Error(err)
   }
 
   return result
@@ -58,7 +58,7 @@ function setLocal(key: string, data: any): void {
     const newData = _json(data)
     l.setItem(key, newData)
   } catch (err) {
-    console.error('set localStorage error ===>', err)
+    throw new Error(err)
   }
 }
 
@@ -70,7 +70,7 @@ function removeLocal(key: string): void {
   try {
     l.removeItem(key)
   } catch (err) {
-    console.error('remove localStorage error ===>', err)
+    throw new Error(err)
   }
 }
 
@@ -81,7 +81,7 @@ function clearLocal(): void {
   try {
     l.clear()
   } catch (err) {
-    console.error('clear localStorage error ===>', err)
+    throw new Error(err)
   }
 }
 
@@ -98,7 +98,7 @@ function getSession(key: string): any {
     let res = s.getItem(key)
     result = _parse(res)
   } catch (err) {
-    console.error('get sessionStorage error ===>', err)
+    throw new Error(err)
   }
 
   return result
@@ -114,7 +114,7 @@ function setSession(key: string, data: any): void {
     const newData = _json(data)
     s.setItem(key, newData)
   } catch (err) {
-    console.error('set sessionStorage error ===>', err)
+    throw new Error(err)
   }
 }
 
@@ -126,7 +126,8 @@ function removeSession(key: string): void {
   try {
     s.removeItem(key)
   } catch (err) {
-    console.error('remove sessionStorage error ===>', err)
+    throw new Error(err)
+
   }
 }
 
@@ -137,7 +138,7 @@ function clearSession(): void {
   try {
     s.clear()
   } catch (err) {
-    console.error('clear sessionStorage error ===>', err)
+    throw new Error(err)
   }
 }
 
