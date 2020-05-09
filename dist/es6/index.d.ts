@@ -1,13 +1,13 @@
 import * as compute from './compute';
+import WX from './weixin';
 import * as dom from './dom';
 import * as feature from './feature';
 import * as platform from './platform';
 import * as storage from './storage';
 import * as date from './date';
 import * as bom from './bom';
-declare const wx: any;
 declare const Utils: {
-    wx: any;
+    WX: typeof WX;
     bom: typeof bom;
     dom: typeof dom;
     date: typeof date;
@@ -16,5 +16,5 @@ declare const Utils: {
     storage: typeof storage;
     platform: typeof platform;
 };
-export { wx, bom, dom, date, compute, feature, storage, platform, };
+export { WX, bom, dom, date, compute, feature, storage, platform, };
 export default Utils;

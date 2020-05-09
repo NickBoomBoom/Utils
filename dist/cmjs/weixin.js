@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -50,103 +39,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var weixin = require("weixin-js-sdk");
 var platform_1 = require("./platform");
 var feature_1 = require("./feature");
-var JS_API_LIST = [
-    "updateAppMessageShareData",
-    "updateTimelineShareData",
-    "onMenuShareWeibo",
-    "onMenuShareQZone",
-    "startRecord",
-    "stopRecord",
-    "onVoiceRecordEnd",
-    "playVoice",
-    "pauseVoice",
-    "stopVoice",
-    "onVoicePlayEnd",
-    "uploadVoice",
-    "downloadVoice",
-    "chooseImage",
-    "previewImage",
-    "uploadImage",
-    "downloadImage",
-    "translateVoice",
-    "getNetworkType",
-    "openLocation",
-    "getLocation",
-    "hideOptionMenu",
-    "showOptionMenu",
-    "hideMenuItems",
-    "showMenuItems",
-    "hideAllNonBaseMenuItem",
-    "showAllNonBaseMenuItem",
-    "closeWindow",
-    "scanQRCode",
-    "chooseWXPay",
-    "openProductSpecificView",
-    "addCard",
-    "chooseCard",
-    "openCard"
-];
-/**
- * 获取当前页面URL（去除hash）
- * @returns {string} 页面URL
- */
-function getCurrentURL() {
-    return location.href.split('#')[0];
-}
-/**
- * 初始化SDK需要的参数,
- * @returns url:string 当前url 已过滤hash模式下的参数
- * @returns jsApiList:string[] 需要获取的 微信api 列表, 截止今日,写了所有的权限,省的麻烦
- */
-function signatureBody() {
-    var res = {
-        url: getCurrentURL(),
-        jsApiList: JS_API_LIST,
-    };
-    return res;
-}
-// 将微信jssdk 处理成链式调用
-var fnNames = Object.keys(weixin);
-var newWeixin = __assign({}, weixin);
-fnNames.forEach(function (item) {
-    newWeixin[item] = function () {
-        weixin[item](arguments);
-        return wx;
-    };
-});
-var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: [], getJsConfig: function (body) { }, 
+var WX = /** @class */ (function () {
+    function WX(shareConfig, getJsSdk) {
+        this.iosSdkStatus = false; // ios 配置状态
+        this.shareConfig = shareConfig;
+        this.getJsSdk = getJsSdk;
+    }
     /**
-     * 初始化项目和数据
-     * @params  shareConfig: 分享配置
-     * @params  getJsConfig: 获取签名信息promise
-     * @returns wx
+     * 调用微信sdk函数
+     * @param fnKey 微信sdk 内部函数调用 函数名
+     * @param handler 传递给微信函数的参数,详情见 https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
      */
-    initConfig: function (shareConfig, getJsConfig) {
-        wx.shareConfig = shareConfig;
-        wx.getJsConfig = getJsConfig;
-        return wx;
-    }, 
-    /**
-     * 初始化SDK
-     */
-    initSDK: function () {
-        return new Promise(function (resolve, reject) {
-            var body = signatureBody();
-            wx.getJsConfig(body)
-                .then(function (res) {
-                newWeixin.config(res); // 配置sdk
-                newWeixin.ready(function () {
-                    wx.iosSdkStatus = true;
-                    resolve();
-                });
-            })
-                .catch(function (err) {
-                console.error(err);
-                wx.iosSdkStatus = false;
-                reject(err);
-            });
-        });
-    }, 
+    WX.prototype.handler = function (fnKey, handler) {
+        return weixin[fnKey](handler);
+    };
     /**
      * 使用微信jsapi的前置条件
      * 所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用
@@ -154,44 +60,64 @@ var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: [
      * @ios 在ios中,初始配置一次之后即可通用使用
      * @android 在安卓中,需要在每次路由变化时重新配置
      */
-    pre: function () {
-        return new Promise(function (reslove, reject) {
-            if (!platform_1.isWX()) {
-                console.warn('非微信环境,无需配置微信sdk');
-                reslove(wx);
-                return;
-            }
-            var isInitSDK = false;
-            if (platform_1.isIOS()) {
-                isInitSDK = wx.iosSdkStatus;
-            }
-            else if (platform_1.isAndroid()) {
-                isInitSDK = false;
-            }
-            if (!isInitSDK) {
-                wx.initSDK()
-                    .then(function () { return reslove(wx); })
-                    .catch(function (err) {
-                    console.error(err);
-                    reslove(wx);
-                });
-            }
-            else {
-                reslove(wx);
-            }
-        });
-    }, 
+    WX.prototype.pre = function () {
+        var _this = this;
+        return new Promise(function (reslove, reject) { return __awaiter(_this, void 0, void 0, function () {
+            var isInitSDK, res, err_1;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!platform_1.isWX()) {
+                            reject('非微信环境,无需配置微信sdk');
+                            return [2 /*return*/];
+                        }
+                        isInitSDK = platform_1.isIOS() ? this.iosSdkStatus : false;
+                        if (!!isInitSDK) return [3 /*break*/, 5];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.getJsSdk()
+                            // 配置微信 sdk
+                        ];
+                    case 2:
+                        res = _a.sent();
+                        // 配置微信 sdk
+                        this.handler('config', res);
+                        this.handler('ready', function () {
+                            _this.iosSdkStatus = true;
+                            reslove();
+                        });
+                        this.handler('error', function (err) {
+                            _this.iosSdkStatus = false;
+                            reject(err);
+                        });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_1 = _a.sent();
+                        this.iosSdkStatus = false;
+                        reject(err_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        reslove();
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
+                }
+            });
+        }); });
+    };
     /**
+     * 微信sdk 分享配置(聊天 朋友圈 qq qq空间)
      * config中,若link 并不存在,即自动将当前url 贴上去
-     * @params config
-     *          object 朋友圈和朋友分享内容相同
+     * @params config: ShareConfig[]
      *          array[0]: 朋友分享内容
      *          array[1]: 朋友圈分享内容
      * @params filter string[] url上可过滤的字段
      */
-    share: function (config, filter) {
-        if (config === void 0) { config = wx.shareConfig; }
-        return __awaiter(void 0, void 0, void 0, function () {
+    WX.prototype.share = function (config, filter) {
+        if (config === void 0) { config = this.shareConfig; }
+        return __awaiter(this, void 0, void 0, function () {
             var chatConfig, momentConfig, currentUrl;
             return __generator(this, function (_a) {
                 chatConfig = config[0];
@@ -200,11 +126,13 @@ var wx = __assign(__assign({}, newWeixin), { iosSdkStatus: false, shareConfig: [
                 // 过滤部分携带参数
                 chatConfig.link = feature_1.filterUrlSearch(chatConfig.link || currentUrl, filter);
                 momentConfig.link = feature_1.filterUrlSearch(momentConfig.link || currentUrl, filter);
-                newWeixin.updateAppMessageShareData(chatConfig); // 分享给朋友 qq
-                newWeixin.updateTimelineShareData(momentConfig); // 分享到朋友圈 qq空间
-                return [2 /*return*/, wx];
+                this.handler('updateAppMessageShareData', chatConfig); // 分享给朋友 qq
+                this.handler('updateTimelineShareData', chatConfig); // 分享到朋友圈 qq空间
+                return [2 /*return*/];
             });
         });
-    } });
-exports.wx = wx;
+    };
+    return WX;
+}());
+exports.default = WX;
 //# sourceMappingURL=weixin.js.map

@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var compute = require("./compute");
 exports.compute = compute;
-var weixin = require("./weixin");
+var weixin_1 = require("./weixin");
+exports.WX = weixin_1.default;
 var dom = require("./dom");
 exports.dom = dom;
 var feature = require("./feature");
@@ -15,10 +16,8 @@ var date = require("./date");
 exports.date = date;
 var bom = require("./bom");
 exports.bom = bom;
-var wx = weixin.wx;
-exports.wx = wx;
 var Utils = {
-    wx: wx,
+    WX: weixin_1.default,
     bom: bom,
     dom: dom,
     date: date,
