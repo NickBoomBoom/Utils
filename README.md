@@ -1,6 +1,6 @@
 # utils94(工具类函数集结)
 ```
-  wx          // 微信端jssdk处理
+  WX          // 微信端jssdk处理
   dom         // dom 相关
   bom         // bom 相关
   date        // 时间相关(日历生成)
@@ -16,11 +16,11 @@ yarn add utils94
 
 import Utils from 'utils94'
 
-import { wx, dom, bom... } from 'utils94'
+import { WX, dom, bom... } from 'utils94'
 
 ```
   
-## 1.wx
+## 1.WX
 
   微信端js配置使用方法
 
