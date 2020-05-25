@@ -9,7 +9,7 @@ export default class WX {
   private iosSdkStatus: boolean = false // ios 配置状态
   constructor(
     shareConfig: ShareConfig[],
-    getJsSdk
+    getJsSdk:Promise<JsConfig>
   ) {
     this.shareConfig = shareConfig;
     this.getJsSdk = getJsSdk;

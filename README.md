@@ -34,7 +34,7 @@ import { WX, dom, bom... } from 'utils94'
 
       const request =async (body) => {
         /** 
-         * 划重点!!!!
+         * !划重点!!!!
          * ios中,url 必须是初次进入的url. 且ios 仅需配置一次即可.
          * android中, 需要每次进入新的页面都需要配置一次. 每次配置
          * url 需要过滤 #及之后的参数
