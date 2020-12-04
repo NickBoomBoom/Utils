@@ -42,7 +42,7 @@ function getLocal(key) {
         result = _parse(res);
     }
     catch (err) {
-        console.error('get localStorage error ===>', err);
+        throw new Error(err);
     }
     return result;
 }
@@ -58,7 +58,7 @@ function setLocal(key, data) {
         l.setItem(key, newData);
     }
     catch (err) {
-        console.error('set localStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.setLocal = setLocal;
@@ -71,7 +71,7 @@ function removeLocal(key) {
         l.removeItem(key);
     }
     catch (err) {
-        console.error('remove localStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.removeLocal = removeLocal;
@@ -83,7 +83,7 @@ function clearLocal() {
         l.clear();
     }
     catch (err) {
-        console.error('clear localStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.clearLocal = clearLocal;
@@ -99,7 +99,7 @@ function getSession(key) {
         result = _parse(res);
     }
     catch (err) {
-        console.error('get sessionStorage error ===>', err);
+        throw new Error(err);
     }
     return result;
 }
@@ -115,7 +115,7 @@ function setSession(key, data) {
         s.setItem(key, newData);
     }
     catch (err) {
-        console.error('set sessionStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.setSession = setSession;
@@ -128,7 +128,7 @@ function removeSession(key) {
         s.removeItem(key);
     }
     catch (err) {
-        console.error('remove sessionStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.removeSession = removeSession;
@@ -140,7 +140,7 @@ function clearSession() {
         s.clear();
     }
     catch (err) {
-        console.error('clear sessionStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.clearSession = clearSession;

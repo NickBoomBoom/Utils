@@ -10,4 +10,10 @@ declare function copy(dom: HTMLDocument): boolean;
  * @return number
  */
 declare function viewPortHeight(): number;
-export { copy, viewPortHeight };
+/**
+ * location.search 上获取name值
+ * @param name
+ * @return String || null
+ */
+declare function getQueryString(name: any): string;
+export { copy, viewPortHeight, getQueryString };

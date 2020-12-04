@@ -26,6 +26,19 @@ function viewPortHeight() {
         document.body.clientHeight);
 }
 exports.viewPortHeight = viewPortHeight;
+/**
+ * location.search 上获取name值
+ * @param name
+ * @return String || null
+ */
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r !== null)
+        return decodeURIComponent(r[2]);
+    return null;
+}
+exports.getQueryString = getQueryString;
 
 },{}],2:[function(require,module,exports){
 "use strict";
@@ -494,7 +507,7 @@ function getLocal(key) {
         result = _parse(res);
     }
     catch (err) {
-        console.error('get localStorage error ===>', err);
+        throw new Error(err);
     }
     return result;
 }
@@ -510,7 +523,7 @@ function setLocal(key, data) {
         l.setItem(key, newData);
     }
     catch (err) {
-        console.error('set localStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.setLocal = setLocal;
@@ -523,7 +536,7 @@ function removeLocal(key) {
         l.removeItem(key);
     }
     catch (err) {
-        console.error('remove localStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.removeLocal = removeLocal;
@@ -535,7 +548,7 @@ function clearLocal() {
         l.clear();
     }
     catch (err) {
-        console.error('clear localStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.clearLocal = clearLocal;
@@ -551,7 +564,7 @@ function getSession(key) {
         result = _parse(res);
     }
     catch (err) {
-        console.error('get sessionStorage error ===>', err);
+        throw new Error(err);
     }
     return result;
 }
@@ -567,7 +580,7 @@ function setSession(key, data) {
         s.setItem(key, newData);
     }
     catch (err) {
-        console.error('set sessionStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.setSession = setSession;
@@ -580,7 +593,7 @@ function removeSession(key) {
         s.removeItem(key);
     }
     catch (err) {
-        console.error('remove sessionStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.removeSession = removeSession;
@@ -592,7 +605,7 @@ function clearSession() {
         s.clear();
     }
     catch (err) {
-        console.error('clear sessionStorage error ===>', err);
+        throw new Error(err);
     }
 }
 exports.clearSession = clearSession;
@@ -657,7 +670,7 @@ var WX = /** @class */ (function () {
      * 使用微信jsapi的前置条件
      * 所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用
      * 同一个url仅需调用一次，对于变化url的SPA的web app可在每次url变化时进行调用,目前Android微信客户端不支持pushState的H5新特性，所以使用pushState来实现web app的页面会导致签名失败，此问题会在Android6.2中修复
-     * @ios 在ios中,初始配置一次之后即可通用使用
+     * @ios 在ios中,初始配置一次之后即可通用使用(ios 中请求的url需要初次进入的url来获取签名,否则会出错)
      * @android 在安卓中,需要在每次路由变化时重新配置
      */
     WX.prototype.pre = function () {
