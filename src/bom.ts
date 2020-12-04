@@ -24,8 +24,21 @@ function viewPortHeight(): number {
     document.body.clientHeight
   );
 }
+/**
+ * location.search 上获取name值
+ * @param name 
+ * @return String || null
+ */
+function getQueryString(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = window.location.search.substr(1).match(reg);
+  if (r !== null) return decodeURIComponent(r[2]);
+  return null;
+}
+
 
 export {
   copy,
-  viewPortHeight
+  viewPortHeight,
+  getQueryString
 }

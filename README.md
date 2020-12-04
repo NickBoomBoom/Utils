@@ -71,7 +71,8 @@ import { WX, dom, bom... } from 'utils94'
   ## 3.bom
   ```javascript
     copy(dom)                  // 复制文字 
-    viewPortHeight()   // 返回视窗高度
+    viewPortHeight()           // 返回视窗高度
+    getQueryString(String)     // 获取url search 上query数据
   ```
 
   ## 4.date
