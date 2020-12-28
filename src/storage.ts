@@ -1,6 +1,6 @@
 
-const l = window.localStorage  // 本地存储
-const s = window.sessionStorage // 会话存储
+const L = window.localStorage  // 本地存储
+const S = window.sessionStorage // 会话存储
 
 /**
  * 数据格式化
@@ -39,7 +39,7 @@ function getLocal(key: string): any {
   let result: any = ''
 
   try {
-    let res = l.getItem(key)
+    let res = L.getItem(key)
     result = _parse(res)
   } catch (err) {
     throw new Error(err)
@@ -56,7 +56,7 @@ function getLocal(key: string): any {
 function setLocal(key: string, data: any): void {
   try {
     const newData = _json(data)
-    l.setItem(key, newData)
+    L.setItem(key, newData)
   } catch (err) {
     throw new Error(err)
   }
@@ -68,7 +68,7 @@ function setLocal(key: string, data: any): void {
  */
 function removeLocal(key: string): void {
   try {
-    l.removeItem(key)
+    L.removeItem(key)
   } catch (err) {
     throw new Error(err)
   }
@@ -79,7 +79,7 @@ function removeLocal(key: string): void {
  */
 function clearLocal(): void {
   try {
-    l.clear()
+    L.clear()
   } catch (err) {
     throw new Error(err)
   }
@@ -95,7 +95,7 @@ function getSession(key: string): any {
   let result: any = ''
 
   try {
-    let res = s.getItem(key)
+    let res = S.getItem(key)
     result = _parse(res)
   } catch (err) {
     throw new Error(err)
@@ -112,7 +112,7 @@ function getSession(key: string): any {
 function setSession(key: string, data: any): void {
   try {
     const newData = _json(data)
-    s.setItem(key, newData)
+    S.setItem(key, newData)
   } catch (err) {
     throw new Error(err)
   }
@@ -124,7 +124,7 @@ function setSession(key: string, data: any): void {
  */
 function removeSession(key: string): void {
   try {
-    s.removeItem(key)
+    S.removeItem(key)
   } catch (err) {
     throw new Error(err)
 
@@ -136,7 +136,7 @@ function removeSession(key: string): void {
  */
 function clearSession(): void {
   try {
-    s.clear()
+    S.clear()
   } catch (err) {
     throw new Error(err)
   }

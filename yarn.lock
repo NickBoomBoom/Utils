@@ -1055,9 +1055,9 @@ vm-browserify@^1.0.0:
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
 
 weixin-js-sdk@^1.4.0-test:
-  version "1.4.0-test"
-  resolved "https://registry.npm.taobao.org/weixin-js-sdk/download/weixin-js-sdk-1.4.0-test.tgz#612bbafcc97ad84f5afe6dc84701534cc59fc3ca"
-  integrity sha1-YSu6/Ml62E9a/m3IRwFTTMWfw8o=
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/weixin-js-sdk/-/weixin-js-sdk-1.6.0.tgz#ff50484d8118ce1208f11248cf4a1c0831577514"
+  integrity sha512-3IYQH7aalJGFJrwdT3epvTdR1MboMiH7vIZ5BRL2eYOJ12BNah7csoMkmSZzkq1+l92sSq29XdTCVjCJoK2sBQ==
 
 wrappy@1:
   version "1.0.2"
