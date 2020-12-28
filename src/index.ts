@@ -1,5 +1,5 @@
 import * as compute from './compute'
-import WX from './weixin'
+import WeChat from './weChat'
 import * as dom from './dom'
 import * as feature from './feature'
 import * as platform from './platform'
@@ -8,7 +8,7 @@ import * as date from './date'
 import * as bom from './bom'
 
 const Utils = {
-  WX,
+  WeChat,
   bom,
   dom,
   date,
@@ -19,7 +19,7 @@ const Utils = {
 }
 
 export {
-  WX,
+  WeChat,
   bom,
   dom,
   date,

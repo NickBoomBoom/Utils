@@ -6,7 +6,7 @@
  * @param {*} limit 份数
  * @returns
  */
-function sliceArrary(arr: any[], limit: number): any[] {
+function sliceArray(arr: any[], limit: number): any[] {
   let res: any[] = [];
   for (let i = 0; i < arr.length; i += limit) {
     res.push(arr.slice(i, i + limit));
@@ -80,8 +80,22 @@ function checkOverlap(arr: numStartEnd[]): boolean {
   return bol
 }
 
+
+
+/**
+ * 返回对象类型, 首字母大写
+ * @param variable any
+ * @return String  (Object, Boolean, Number, String, Undefined, Null, Array, Function, Symbol)
+ */
+function getVarType(variable: any): string {
+  const type: string = Object.prototype.toString.call(variable)
+  type.match(/\s(\S+)]$/)
+  return RegExp.$1
+}
+
 export {
-  sliceArrary,
+  getVarType,
+  sliceArray,
   timeObject,
   checkOverlap,
   filterUrlSearch

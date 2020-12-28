@@ -29,7 +29,7 @@ function viewPortHeight(): number {
  * @param name 
  * @return String || null
  */
-function getQueryString(name) {
+function getQueryString(name): string | null {
   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
   var r = window.location.search.substr(1).match(reg);
   if (r !== null) return decodeURIComponent(r[2]);

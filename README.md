@@ -1,6 +1,6 @@
 # utils94(工具类函数集结)
 ```
-  WX          // 微信端jssdk处理
+  WeChat      // 微信端jssdk处理
   dom         // dom 相关
   bom         // bom 相关
   date        // 时间相关(日历生成)
@@ -16,11 +16,13 @@ yarn add utils94
 
 import Utils from 'utils94'
 
-import { WX, dom, bom... } from 'utils94'
+import { WeChat, dom, bom... } from 'utils94'
 
 ```
   
-## 1.WX
+## 1.WeChat
+  本包依赖已经引入 "weixin-js-sdk": "^1.4.0-test", 当前版本 1.6
+  无需再次引入wexin-js-sdk
 
   微信端js配置使用方法
 
@@ -45,7 +47,7 @@ import { WX, dom, bom... } from 'utils94'
       }
 
       // 初始化配置(必须)
-      const wx = new Utils.WX(
+      const weChat = new Utils.WeChat(
         [
           config
         ],
@@ -56,9 +58,9 @@ import { WX, dom, bom... } from 'utils94'
       // 若要使用,可在页面mounted 后使用,即: 
       // pre 是自检函数,自动配置,返回Promise
       mounted() {
-        wx.pre().then(()=>{
-          wx.share()
-          wx.handler('hideAllNonBaseMenuItem')
+        weChat.pre().then(()=>{
+          weChat.share()
+          weChat.handler('hideAllNonBaseMenuItem')
         })
       }
   ```
@@ -91,8 +93,9 @@ import { WX, dom, bom... } from 'utils94'
 
   ## 6.feature
   ```javascript
+      getVarType(any)            // 获取变量类型
       deepClone(oldObj, newOld)  // 深拷贝
-      sliceArrary(array, limit)  // 等分切割
+      sliceArray(array, limit)  // 等分切割
       timeObject(time)           // 返回 年 月 日 周 时 分 秒 毫秒
       filterUrlSearch(url, filter)// 过滤关键字
       checkOverlap([{s:1, e:2}, {s:2,e:4}]) // 检测重叠
@@ -110,14 +113,13 @@ import { WX, dom, bom... } from 'utils94'
     setSession(key,data)
     removeSession(key)
     clearSession()
-
   ```
 
   ## 8.platform
   ```javascript
-      isWX():boolean
-      isIOS():boolean
-      isIOSX():boolean
-      isAndroid():boolean
+    isWX():boolean
+    isIOS():boolean
+    isIOSX():boolean
+    isAndroid():boolean
   ```
  
