@@ -1,5 +1,5 @@
-var l = window.localStorage; // 本地存储
-var s = window.sessionStorage; // 会话存储
+var L = window.localStorage; // 本地存储
+var S = window.sessionStorage; // 会话存储
 /**
  * 数据格式化
  * @param data 数据
@@ -36,7 +36,7 @@ function _json(data) {
 function getLocal(key) {
     var result = '';
     try {
-        var res = l.getItem(key);
+        var res = L.getItem(key);
         result = _parse(res);
     }
     catch (err) {
@@ -52,7 +52,7 @@ function getLocal(key) {
 function setLocal(key, data) {
     try {
         var newData = _json(data);
-        l.setItem(key, newData);
+        L.setItem(key, newData);
     }
     catch (err) {
         throw new Error(err);
@@ -64,7 +64,7 @@ function setLocal(key, data) {
  */
 function removeLocal(key) {
     try {
-        l.removeItem(key);
+        L.removeItem(key);
     }
     catch (err) {
         throw new Error(err);
@@ -75,7 +75,7 @@ function removeLocal(key) {
  */
 function clearLocal() {
     try {
-        l.clear();
+        L.clear();
     }
     catch (err) {
         throw new Error(err);
@@ -89,7 +89,7 @@ function clearLocal() {
 function getSession(key) {
     var result = '';
     try {
-        var res = s.getItem(key);
+        var res = S.getItem(key);
         result = _parse(res);
     }
     catch (err) {
@@ -105,7 +105,7 @@ function getSession(key) {
 function setSession(key, data) {
     try {
         var newData = _json(data);
-        s.setItem(key, newData);
+        S.setItem(key, newData);
     }
     catch (err) {
         throw new Error(err);
@@ -117,7 +117,7 @@ function setSession(key, data) {
  */
 function removeSession(key) {
     try {
-        s.removeItem(key);
+        S.removeItem(key);
     }
     catch (err) {
         throw new Error(err);
@@ -128,7 +128,7 @@ function removeSession(key) {
  */
 function clearSession() {
     try {
-        s.clear();
+        S.clear();
     }
     catch (err) {
         throw new Error(err);

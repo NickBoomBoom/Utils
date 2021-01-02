@@ -1,8 +1,8 @@
-import * as WeChat from 'weixin-js-sdk'
+import * as WeChatJsSdk from 'weixin-js-sdk'
 import { isIOS, isWX } from './platform'
 import { filterUrlSearch } from './feature'
 import { ShareConfig, JsConfig } from './models/weChat.model';
-
+import {Fail, Success } from './lib'
 export default class WeChat {
   private shareConfig: ShareConfig[]
   private getJsSdk  // 最后返回 jsConfig 配置信息 
@@ -21,7 +21,7 @@ export default class WeChat {
    * @param handler 传递给微信函数的参数,详情见 https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
    */
   handler(fnKey: string, handler: any) {
-    return WeChat[fnKey](handler)
+    return WeChatJsSdk[fnKey](handler)
   }
 
   /**
@@ -34,7 +34,7 @@ export default class WeChat {
   pre(): Promise<any> {
     return new Promise(async (resolve, reject) => {
       if (!isWX()) {
-        reject('非微信环境,无需配置微信sdk')
+        reject(new Fail('非微信环境,无需配置微信sdk'))
         return
       }
 
@@ -49,19 +49,19 @@ export default class WeChat {
 
           this.handler('ready', () => {
             this.iosSdkStatus = true
-            resolve(null)
+            resolve(new Success())
           })
 
           this.handler('error', err => {
             this.iosSdkStatus = false
-            reject(err)
+            reject(new Fail(err))
           })
         } catch (err) {
           this.iosSdkStatus = false
-          reject(err)
+          reject(new Fail(err))
         }
       } else {
-        resolve(null)
+        resolve(new Success())
       }
     })
   }
@@ -75,8 +75,7 @@ export default class WeChat {
    *          array[1]: 朋友圈分享内容  array[1] 为空则默认array[0]为朋友圈分享内容
    * @params filter string[] url上可过滤的字段
    */
-  async share(config: ShareConfig[] = this.shareConfig, filter?: string[]) {
-
+  share(config: ShareConfig[] = this.shareConfig, filter?: string[]) {
     const chatConfig: ShareConfig = config[0]
     const momentConfig: ShareConfig = config[1] || config[0]
 
@@ -89,4 +88,22 @@ export default class WeChat {
     this.handler('updateTimelineShareData', chatConfig)// 分享到朋友圈 qq空间
   }
 
+  /**
+   * 自动配置分享.预检sdk config后,自动配置分享内容. 
+   * 相当于 this.pre().then(()=> this.share())
+   * @param config 分享配置
+   * @param filter url上过滤字段
+   * @return Promise 返回一个promise 可接续在后面添加其他处理 
+   */
+  async autoShare(config: ShareConfig[] = this.shareConfig, filter?: string[]): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await this.pre()
+        this.share(config, filter)
+        resolve(new Success())
+      } catch (err) {
+        reject(new Fail(err))
+      }
+    })
+  }
 }

@@ -1,5 +1,5 @@
 import * as compute from './compute';
-import WX from './weixin';
+import WeChat from './WeChat';
 import * as dom from './dom';
 import * as feature from './feature';
 import * as platform from './platform';
@@ -7,7 +7,7 @@ import * as storage from './storage';
 import * as date from './date';
 import * as bom from './bom';
 declare const Utils: {
-    WX: typeof WX;
+    WeChat: typeof WeChat;
     bom: typeof bom;
     dom: typeof dom;
     date: typeof date;
@@ -16,5 +16,5 @@ declare const Utils: {
     storage: typeof storage;
     platform: typeof platform;
 };
-export { WX, bom, dom, date, compute, feature, storage, platform, };
+export { WeChat, bom, dom, date, compute, feature, storage, platform, };
 export default Utils;

@@ -13,15 +13,6 @@ function copy(dom) {
     return bol;
 }
 /**
- * 返回视窗高度, 兼容所有浏览器
- * @return number
- */
-function viewPortHeight() {
-    return (window.innerHeight ||
-        document.documentElement.clientHeight ||
-        document.body.clientHeight);
-}
-/**
  * location.search 上获取name值
  * @param name
  * @return String || null
@@ -33,5 +24,5 @@ function getQueryString(name) {
         return decodeURIComponent(r[2]);
     return null;
 }
-export { copy, viewPortHeight, getQueryString };
+export { copy, getQueryString };
 //# sourceMappingURL=bom.js.map

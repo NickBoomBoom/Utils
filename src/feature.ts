@@ -15,27 +15,6 @@ function sliceArray(arr: any[], limit: number): any[] {
 }
 
 /**
- *  返回 年 月 日 周 时 分 秒 毫秒
- *
- * @static
- * @param {any} time 时间戳  毫秒级
- * @returns {年,月,日,周几,时,分,秒,毫秒}
- */
-function timeObject(time: number): any {
-  const t: any = new Date(time)
-  return {
-    year: t.getFullYear(),
-    month: t.getMonth() + 1,
-    day: t.getDate(),
-    week: t.getDay(),
-    hour: t.getHours(),
-    minute: t.getMinutes(),
-    second: t.getSeconds(),
-    millisecond: t.getMilliseconds()
-  }
-}
-
-/**
  * 过滤url search 中的字符串
  * @param url 
  * @param keys 
@@ -96,7 +75,6 @@ function getVarType(variable: any): string {
 export {
   getVarType,
   sliceArray,
-  timeObject,
   checkOverlap,
   filterUrlSearch
 }

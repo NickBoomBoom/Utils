@@ -6,14 +6,9 @@
  */
 declare function copy(dom: HTMLDocument): boolean;
 /**
- * 返回视窗高度, 兼容所有浏览器
- * @return number
- */
-declare function viewPortHeight(): number;
-/**
  * location.search 上获取name值
  * @param name
  * @return String || null
  */
-declare function getQueryString(name: any): string;
-export { copy, viewPortHeight, getQueryString };
+declare function getQueryString(name: any): string | null;
+export { copy, getQueryString };

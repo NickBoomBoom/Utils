@@ -6,32 +6,12 @@
  * @param {*} limit 份数
  * @returns
  */
-function sliceArrary(arr, limit) {
+function sliceArray(arr, limit) {
     var res = [];
     for (var i = 0; i < arr.length; i += limit) {
         res.push(arr.slice(i, i + limit));
     }
     return res;
-}
-/**
- *  返回 年 月 日 周 时 分 秒 毫秒
- *
- * @static
- * @param {any} time 时间戳  毫秒级
- * @returns {年,月,日,周几,时,分,秒,毫秒}
- */
-function timeObject(time) {
-    var t = new Date(time);
-    return {
-        year: t.getFullYear(),
-        month: t.getMonth() + 1,
-        day: t.getDate(),
-        week: t.getDay(),
-        hour: t.getHours(),
-        minute: t.getMinutes(),
-        second: t.getSeconds(),
-        millisecond: t.getMilliseconds()
-    };
 }
 /**
  * 过滤url search 中的字符串
@@ -64,5 +44,15 @@ function checkOverlap(arr) {
     }
     return bol;
 }
-export { sliceArrary, timeObject, checkOverlap, filterUrlSearch };
+/**
+ * 返回对象类型, 首字母大写
+ * @param variable any
+ * @return String  (Object, Boolean, Number, String, Undefined, Null, Array, Function, Symbol)
+ */
+function getVarType(variable) {
+    var type = Object.prototype.toString.call(variable);
+    type.match(/\s(\S+)]$/);
+    return RegExp.$1;
+}
+export { getVarType, sliceArray, checkOverlap, filterUrlSearch };
 //# sourceMappingURL=feature.js.map

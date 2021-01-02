@@ -5,7 +5,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-import { sliceArrary } from './feature';
+import { sliceArray } from './feature';
 /**
  * 补0操作
  * @param num
@@ -89,10 +89,11 @@ function getEndMend(week, weekStart) {
 /**
  * 返回月份数据
  * @param date Date 对象 或 可被new Date对象解析;
- * @param weekStart number 周开始 0 - 6 ,默认0 从周日开始
+ * @param weekStart number 周开始 0 - 6 ,默认1 从周一开始
  * @return Day[]
  */
 function createMonth(date, weekStart) {
+    if (date === void 0) { date = Date.now(); }
     if (weekStart === void 0) { weekStart = 1; }
     var newDate = _date(date);
     var weekEnd = weekStart - 1 < 0 ? 6 : weekStart - 1; // 可以优化
@@ -152,7 +153,7 @@ function createMonth(date, weekStart) {
         }
     }
     // 转二维排列数组
-    res = sliceArrary(res, 7);
+    res = sliceArray(res, 7);
     return res;
 }
 export { createMonth };

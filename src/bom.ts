@@ -13,17 +13,7 @@ function copy(dom: HTMLDocument): boolean {
   return bol;
 }
 
-/**
- * 返回视窗高度, 兼容所有浏览器
- * @return number
- */
-function viewPortHeight(): number {
-  return (
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight
-  );
-}
+
 /**
  * location.search 上获取name值
  * @param name 
@@ -39,6 +29,5 @@ function getQueryString(name): string | null {
 
 export {
   copy,
-  viewPortHeight,
   getQueryString
 }

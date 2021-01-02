@@ -1,14 +1,8 @@
-const u: string = navigator.userAgent;
+const u: string = window.navigator.userAgent;
 
 function isIOS(): boolean {
   const bol: boolean = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
   return bol;
-}
-
-function isIOSX(): boolean {
-  const bol: boolean = /iphone/gi.test(u) && (screen.height === 812 && screen.width === 375); // IOSX 终端
-  return bol;
-
 }
 
 function isAndroid(): boolean {
@@ -24,6 +18,5 @@ function isWX(): boolean {
 export {
   isWX,
   isIOS,
-  isIOSX,
   isAndroid
 }

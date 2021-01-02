@@ -140,11 +140,11 @@
     <script>
       console.log(Utils)
 
-      const { date, WX } = Utils
+      const { date, WeChat, dom } = Utils
 
       /* date test */
       $('#date').on('click', () => {
-        const res = date.createMonth(new Date())
+        const res = date.createMonth()
         $('.date-data').html(syntaxHighlight(res)).show()
       })
 
@@ -153,7 +153,7 @@
         const config = {
           title: '微信title',
           desc: '微信desc',
-          imgUrl: 'http://m.imeitou.com/uploads/allimg/190201/3-1Z201103R5.jpg'
+          imgUrl: 'http://m.imeitou.com/uploads/allimg/190201/3-1Z201103R5.jpg',
         }
         const getJsSdk = () => {
           return new Promise((resolve, reject) => {
@@ -167,16 +167,10 @@
             })
           })
         }
-        console.log(1111, config.link)
-        const wx = new Utils.WX([config], getJsSdk)
-        console.warn('new WX', wx)
-        wx.share()
 
-        // wx.pre().then(res => {
-        //   console.log(res)
-        // }).catch(err => {
-        //   console.error(err)
-        // })
+        const wx = new Utils.WeChat([config], getJsSdk)
+        console.warn('new WeChat', wx)
+        wx.share()
       })
 
 
@@ -203,6 +197,19 @@
           return '<span class="' + cls + '">' + match + '</span>';
         });
       }
+
+
+    </script>
+
+
+    <a href="baidu.com" id='aBtn'>链接测试</a>
+
+    <script>
+      const el = document.querySelector('#aBtn')
+      dom.on(el, 'click', e => {
+        // e.preventDefault()
+        console.log(e.target)
+      })
     </script>
   </body>
 

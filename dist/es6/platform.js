@@ -1,10 +1,6 @@
-var u = navigator.userAgent;
+var u = window.navigator.userAgent;
 function isIOS() {
     var bol = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
-    return bol;
-}
-function isIOSX() {
-    var bol = /iphone/gi.test(u) && (screen.height === 812 && screen.width === 375); // IOSX 终端
     return bol;
 }
 function isAndroid() {
@@ -15,5 +11,5 @@ function isWX() {
     var bol = !!u.match(/MicroMessenger\/([\d.]+)/);
     return bol;
 }
-export { isWX, isIOS, isIOSX, isAndroid };
+export { isWX, isIOS, isAndroid };
 //# sourceMappingURL=platform.js.map

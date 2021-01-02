@@ -6,15 +6,7 @@
  * @param {*} limit 份数
  * @returns
  */
-declare function sliceArrary(arr: any[], limit: number): any[];
-/**
- *  返回 年 月 日 周 时 分 秒 毫秒
- *
- * @static
- * @param {any} time 时间戳  毫秒级
- * @returns {年,月,日,周几,时,分,秒,毫秒}
- */
-declare function timeObject(time: number): any;
+declare function sliceArray(arr: any[], limit: number): any[];
 /**
  * 过滤url search 中的字符串
  * @param url
@@ -31,4 +23,10 @@ interface numStartEnd {
     e: number;
 }
 declare function checkOverlap(arr: numStartEnd[]): boolean;
-export { sliceArrary, timeObject, checkOverlap, filterUrlSearch };
+/**
+ * 返回对象类型, 首字母大写
+ * @param variable any
+ * @return String  (Object, Boolean, Number, String, Undefined, Null, Array, Function, Symbol)
+ */
+declare function getVarType(variable: any): string;
+export { getVarType, sliceArray, checkOverlap, filterUrlSearch };

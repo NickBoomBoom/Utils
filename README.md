@@ -1,16 +1,20 @@
 # utils94(工具类函数集结)
-```
-  WeChat      // 微信端jssdk处理
-  dom         // dom 相关
-  bom         // bom 相关
-  date        // 时间相关(日历生成)
-  compute     // 计算方法(解决js计算精度bug)
-  feature     // 功能
-  storage     // 数据存储
-  platform    // 平台判断
-```
+
+| 工具类   | 功能                        |
+| -------- | --------------------------- |
+| WeChat   | 微信端jssdk处理             |
+| dom      | dom 相关                    |
+| bom      | bom 相关                    |
+| date     | 时间相关(日历生成)          |
+| compute  | 计算方法(解决js计算精度bug) |
+| feature  | 功能                        |
+| storage  | 缓存                        |
+| platform | 平台判断                    |
+
+
 
 ## 快速使用
+
 ```
 yarn add utils94 
 
@@ -19,15 +23,26 @@ import Utils from 'utils94'
 import { WeChat, dom, bom... } from 'utils94'
 
 ```
-  
-## 1.WeChat
+
+
+
+## 1. WeChat
+
   本包依赖已经引入 "weixin-js-sdk": "^1.4.0-test", 当前版本 1.6
   无需再次引入wexin-js-sdk
 
-  微信端js配置使用方法
+| Api       | Feat                        | Params                                                       | Return                              |
+| :-------- | :-------------------------- | :----------------------------------------------------------- | :---------------------------------- |
+| pre       | 自检函数，使用微信sdk前自检 |                                                              | Promise                             |
+| share     | 配置分享内容                | 1.object[] ：对象数组，第一个对象为朋友，qq分享内容，第二个对象为朋友圈，qq空间分享内容。（第二个对象不传则第一个对象默认为第一个对象）分享内容 ：{title, desc, link, imgUrl}<br />2.string[]：过滤分享link上的部分query字段 |                                     |
+| autoShare | 自动配置分享                | 参数同share                                                  | Promise<br />可在配置成功后继续处理 |
+
+  
+
+### 1.1 微信端js配置使用方法
 
   ```javascript
-      const config = {
+      const shareConfig = {
         title: '微信分享title',
         desc: '详细',
         link: window.location.href,
@@ -42,84 +57,110 @@ import { WeChat, dom, bom... } from 'utils94'
          * url 需要过滤 #及之后的参数
         */
         const {url, jsApiList} = body
-        // 可对数据再处理
-        return api.initJsSdk(body)
+        const config = await api.initJsSdk(body)
+        /*  config:{
+              debug?: boolean; // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+              appId: string | number; // 必填，公众号的唯一标识
+              timestamp: number | string ; // 必填，生成签名的时间戳
+              nonceStr: string; // 必填，生成签名的随机串
+              signature: string;// 必填，签名
+              jsApiList: string[] // 必填，需要使用的JS接口列表 
+            }
+        */
+        return config
       }
 
       // 初始化配置(必须)
       const weChat = new Utils.WeChat(
         [
-          config
+          shareConfig
         ],
         request
       )
+      
+      // 日常使用 1 
+   	  weChat.pre().then(()=> {
+				weChat.share([shareConfig,shareConfig], ['token'])
+        // dosomething
+      })
 
-      // 非微信sdk 函数均没有自检是否配置成功;
-      // 若要使用,可在页面mounted 后使用,即: 
-      // pre 是自检函数,自动配置,返回Promise
-      mounted() {
-        weChat.pre().then(()=>{
-          weChat.share()
-          weChat.handler('hideAllNonBaseMenuItem')
-        })
-      }
-  ```
-
-   ## 2.dom
-  ```javascript
-      // 暂无
-  ```
-
-  ## 3.bom
-  ```javascript
-    copy(dom)                  // 复制文字 
-    viewPortHeight()           // 返回视窗高度
-    getQueryString(String)     // 获取url search 上query数据
-  ```
-
-  ## 4.date
-  ```javascript
-    createMonth(Date | string | number)  // 创建当前月份信息
+			// 日常使用 2
+			weChat.autoShare([shareConfig,shareConfig], ['token'])
+				.then(()=>{
+        	// dosomething
+      	})
 
   ```
 
-  ## 5.compute
-  ```javascript
-    divide(number1, number2)   // 除 法
-    multiply(number1, number2) // 乘 法
-    plus(number1, number2)     // 加 法
-    minus(number1, number2)    // 减 法
-  ```
+   ## 2. dom
 
-  ## 6.feature
-  ```javascript
-      getVarType(any)            // 获取变量类型
-      deepClone(oldObj, newOld)  // 深拷贝
-      sliceArray(array, limit)  // 等分切割
-      timeObject(time)           // 返回 年 月 日 周 时 分 秒 毫秒
-      filterUrlSearch(url, filter)// 过滤关键字
-      checkOverlap([{s:1, e:2}, {s:2,e:4}]) // 检测重叠
-  ```
+| Api  | Feat                                                         | Params                                                       | Return |
+| :--- | :----------------------------------------------------------- | :----------------------------------------------------------- | :----- |
+| on   | 添加监听事件（默认开启passive 优化，自动识别执行函数，智能开启） | 1.element: 监听对象<br />2.event：监听事件<br />3.function：执行函数<br />4.object \| boolean：传对象，capture, once, passive; 传boolean，false：冒泡，true：捕获 |        |
+| off  | 移除监听事件                                                 | 同on                                                         |        |
 
-  ## 7.storage
-  ```javascript
-    // localStorage 见名知意
-    getLocal(key)
-    setLocal(key,data)
-    removeLocal(key)
-    clearLocal()
-    // sessionStorage 见名知意
-    getSession(key)
-    setSession(key,data)
-    removeSession(key)
-    clearSession()
-  ```
+  
 
-  ## 8.platform
-  ```javascript
-    isWX():boolean
-    isIOS():boolean
-    isIOSX():boolean
-    isAndroid():boolean
-  ```
+  ## 3. bom
+
+| Api            | Feat                             | Params              | Return         |
+| :------------- | :------------------------------- | :------------------ | :------------- |
+| copy           | 复制文字                         | 1.HTMLDocument：dom | boolean        |
+| getQueryString | 获取当前location.search上的key值 | 1.string：key值     | string \| null |
+
  
+
+  ## 4. date
+
+| Api         | Feat             | Params                                                       | Return                                                       |
+| :---------- | :--------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| createMonth | 创建当前月份信息 | 1.Date \| string \| number：不传默认当前机器时间月份<br />2.number：周开始定义，默认1，周一开始 | 二维对象数组，以周为单位分割。<br />date: Date,<br />data:{<br />day:'2020/12/01'<br />week: 1, <br />current: true // 是否为今天<br />} |
+
+ 
+
+  ## 5. compute
+
+| Api      | Feat | Params                 | Return |
+| :------- | :--- | :--------------------- | :----- |
+| divide   | 除法 | 1.number<br />2.number | number |
+| multiply | 乘法 | 同上                   | number |
+| plus     | 加法 | 同上                   | number |
+| minus    | 减法 | 同上                   | number |
+
+
+
+  ## 6. feature
+
+| Api             | Feat                   | Params                                                       | Return                                                       |
+| :-------------- | :--------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| getVarType      | 获取变量类型           | 1.any                                                        | string<br />Object,String,Number,Null,Undefined,Array,Function,Symbol |
+| sliceArray      | 数组切割               | 1.array<br />2.number 隔多少份切割                           | array                                                        |
+| checkOverlap    | 检测时间是否重叠       | 1.object[]<br />[<br />{<br />s: 2019/12/2,<br />e:2020/2/2<br />}<br />] | Boolean                                                      |
+| filterUrlSearch | 过滤url上query中的字段 | 1. string url<br />2.string[]                                | string 过滤后的url                                           |
+
+
+
+  ## 7. storage
+
+| Api           | Feat             | Params                        | Return              |
+| :------------ | :--------------- | :---------------------------- | :------------------ |
+| getLocal      | 获取本地缓存数据 | 1.string key                  | string \| undefined |
+| setLocal      | 设置本地缓存     | 1.string key<br />2.any value |                     |
+| removeLocal   | 移除本地缓存数据 | 1.string key                  |                     |
+| clearLocal    | 清空本地缓存     |                               |                     |
+| getSession    | 获取浏览器缓存   | 1.string key                  | string \| undefined |
+| setSession    | 设置浏览器缓存   | 1.string key<br />2.any value |                     |
+| removeSession | 移除浏览器缓存   | 1.string key                  |                     |
+| clearSession  | 清空浏览器缓存   |                               |                     |
+
+
+
+  ## 8. platform
+
+
+
+| Api       | Feat           | Params | Return  |
+| :-------- | :------------- | :----- | :------ |
+| isWX      | 是否为微信环境 |        | boolean |
+| isIOS     | 是否为ios      |        | boolean |
+| isAndroid | 是否为安卓     |        | boolean |
