@@ -13,9 +13,9 @@
   },
   "exclude": [
     "node_modules",
-    "./utils.ts"
+    ".vscode"
   ],
   "files": [
-    "./src/index.ts"
+    "src/index.ts"
   ]
 }

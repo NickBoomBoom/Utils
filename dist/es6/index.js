@@ -1,11 +1,11 @@
-import * as compute from './compute';
-import WeChat from './WeChat';
-import * as dom from './dom';
-import * as feature from './feature';
-import * as platform from './platform';
-import * as storage from './storage';
-import * as date from './date';
-import * as bom from './bom';
+import * as compute from './core/compute';
+import WeChat from './core/WeChat';
+import * as dom from './core/dom';
+import * as feature from './core/feature';
+import * as platform from './core/platform';
+import * as storage from './core/storage';
+import * as date from './core/date';
+import * as bom from './core/bom';
 var Utils = {
     WeChat: WeChat,
     bom: bom,
