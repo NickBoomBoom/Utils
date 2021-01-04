@@ -30,13 +30,13 @@ function filterUrlSearch(url: string, keys: string[] = []): string {
 /**
  * 检测时间是否重叠
  * 基本的思路，日期也可以当成字符串进行比较，把开始日期，结束日期分别存进两个数组，并用sort排序，循环遍历数组，从开始时间的第二个元素去比较结束时间的第一个元素，如果小于，就代表时间段有交叉，直接跳出，不然就继续遍历，遍历结束，说明时间没有重复，可以提交。
- * @param arr numStartEnd[] 数组对象,ex: [{s:1,e:2}]
+ * @param arr dateBeginEnd[] 数组对象,ex: [{s:1,e:2}]
  */
-interface numStartEnd {
+interface dateBeginEnd {
   s: number,
   e: number
 }
-function checkOverlap(arr: numStartEnd[]): boolean {
+function checkOverlap(arr: dateBeginEnd[]): boolean {
   let startArr: number[] = []
   let endArr: number[] = []
   let bol: boolean = false
@@ -45,7 +45,7 @@ function checkOverlap(arr: numStartEnd[]): boolean {
     endArr.push(t.e)
   })
 
-  startArr = startArr.sort((a,b) => a - b)
+  startArr = startArr.sort((a, b) => a - b)
   endArr = endArr.sort((a, b) => a - b)
 
   for (let i = 1; i < startArr.length; i++) {
@@ -72,9 +72,45 @@ function getVarType(variable: any): string {
   return RegExp.$1
 }
 
+
+/**
+ * 图片转化base64
+ * @param img 图片dom
+ */
+function imageToBase64(img):string {
+  const canvas = document.createElement('canvas')
+  canvas.width = img.width
+  canvas.height = img.height
+  const ctx = canvas.getContext('2d')
+  ctx.drawImage(img, 0, 0, img.width, img.height)
+  const dataURL = canvas.toDataURL('image/png')
+  return dataURL
+}
+
+/**
+ * 获取图片的base64
+ * @param src 图片地址
+ */
+function getBase64Img(src: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    let result = ''
+    let img = new Image()
+    img.crossOrigin = ''
+    img.src = src
+    img.onload = () => {
+      result = imageToBase64(img)
+      resolve(result)
+    }
+    img.onerror = err => {
+      reject(err)
+    }
+  })
+}
 export {
   getVarType,
   sliceArray,
   checkOverlap,
-  filterUrlSearch
+  filterUrlSearch,
+  getBase64Img,
+  imageToBase64
 }

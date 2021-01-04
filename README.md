@@ -137,6 +137,8 @@ import { WeChat, dom, bom... } from 'utils94'
 | sliceArray      | 数组切割               | 1.array<br />2.number 隔多少份切割                           | array                                                        |
 | checkOverlap    | 检测时间是否重叠       | 1.object[]<br />[<br />{<br />s: 2019/12/2,<br />e:2020/2/2<br />}<br />] | Boolean                                                      |
 | filterUrlSearch | 过滤url上query中的字段 | 1. string url<br />2.string[]                                | string 过滤后的url                                           |
+| getBase64Img    | 获取图片的base64       | 1.string 图片地址                                            | Promise<string> 返回base64                                   |
+| imageToBase64   | imgDom 转化base64      | 1.dom img dom                                                | string base64                                                |
 
 
 

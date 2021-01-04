@@ -15,8 +15,7 @@
     "build:es6": "tsc -P tsconfig.json --module ES6 --outDir dist/es6",
     "build:web": "browserify dist/cmjs/index.js --standalone Utils -o dist/web/index.js",
     "push": "yarn run build && yarn publish",
-    "test": "jest",
-    "test-c": "jest --coverage"
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",
