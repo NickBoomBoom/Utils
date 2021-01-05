@@ -172,7 +172,15 @@ import { WeChat, dom, bom... } from 'utils94'
 
 原生vue-router 上并不提供 页面跳转记录。
 
-通过proxy 添加历史记录
+通过proxy 添加历史记录，在$router上挂载了 _history 字段
+
+_history: {
+
+​	current: number,  // 当前路由下标
+
+​	stack: [], // 历史栈数组
+
+}
 
 ```javascript
 import {VueHistory} from 'utils94'
@@ -180,9 +188,9 @@ import Vue from 'vue'
 import router from 'router'
 Vue.use(Vue, {
   router, // 路由实例
-  onExceed: (obj) => { }, // 前进 超过历史记录
-  onExit: (obj) => { }, 	// 后退 低于历史记录
-  onChange: (obj) => { }, // 堆栈信息变化 
+  onExceed: (obj) => { }, // 前进 超过历史记录 返回历史记录信息 _history
+  onExit: (obj) => { }, 	// 后退 低于历史记录 返回历史记录信息 _history
+  onChange: (obj) => { }, // 堆栈信息变化 返回历史记录信息 _history
 })
 ```
 
