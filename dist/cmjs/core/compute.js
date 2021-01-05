@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.minus = exports.plus = exports.multiply = exports.divide = void 0;
 /**
  *严格模式下,除法的处理
  *

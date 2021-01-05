@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getQueryString = exports.copy = void 0;
 /**
  *  复制文字
  *  TODO:可能有兼容问题,目前在 PC端未发现,待真实环境测试

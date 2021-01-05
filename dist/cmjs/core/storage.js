@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.clearSession = exports.removeSession = exports.setSession = exports.getSession = exports.clearLocal = exports.removeLocal = exports.setLocal = exports.getLocal = void 0;
 var L = window.localStorage; // 本地存储
 var S = window.sessionStorage; // 会话存储
 /**

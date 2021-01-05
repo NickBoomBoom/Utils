@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.off = exports.on = void 0;
 var feature_1 = require("./feature");
 /* ---------------- 监听函数 优化 start---------------- */
 var passiveIfSupported = false;

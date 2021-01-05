@@ -17,16 +17,10 @@ const VueHistory = {
     const that = this
 
     that._history = new Proxy({
-      current: 0, // 当前历史记录下标,可能为负,可能大于stack.length
-      prev: 0, // 上次历史记录下标值,只存正常值
+      current: 0, // 当前历史记录下标
       stack: [], // 历史记录堆栈信息
     }, {
       set(obj, prop, value) {
-        const { current, stack } = obj
-        // prev 只记录正常区间的值
-        if (prop === 'current' && current > 0 && current < stack.length) {
-          obj['prev'] = obj['current']
-        }
         obj[prop] = value
         onChange(obj)
         return true
@@ -40,18 +34,14 @@ const VueHistory = {
     router.onReady(res => {
       that._history.stack = [...that._history.stack, res]
     })
-    
+
     // 使用push的时候压栈
     router.push = new Proxy(router.push, {
       apply(target, obj, args) {
         return Reflect.apply(target, obj, args).then(res => {
-          const { stack, current, prev } = that._history
+          const { stack, current } = that._history
           that._history.stack = [...stack, res].slice()
-          if (current < 0 || current > that._history.stack.length - 1) {
-            that._history.current = prev + 1
-          } else {
-            that._history.current = current + 1
-          }
+          that._history.current = current + 1
         })
       }
     })
@@ -59,13 +49,9 @@ const VueHistory = {
     router.replace = new Proxy(router.replace, {
       apply(target, obj, args) {
         return Reflect.apply(target, obj, args).then(res => {
-          const { stack, prev, current } = that._history
+          const { stack, current } = that._history
           const newStack = stack.slice()
-          if (current < 0 || current > stack.length - 1) {
-            newStack[prev] = res
-          } else {
-            newStack[current] = res
-          }
+          newStack[current] = res
           that._history.stack = newStack
         })
       }
@@ -79,14 +65,14 @@ const VueHistory = {
         const n = args[0]
         const stackLength = that._history.stack.length
         const nextCurrent = that._history.current + n
-        that._history.current = nextCurrent
         if (nextCurrent < 0) { // 后退超过历史记录长度
           onExit(that._history)
           throw new Error(`go(${n}),低于历史记录长度,无法跳转`)
-        } else if (nextCurrent > stackLength) { // 前进超过历史记录长度
+        } else if (nextCurrent >= stackLength) { // 前进超过历史记录长度
           onExceed(that._history)
           throw new Error(`go(${n}),超过历史记录长度,无法跳转`)
         }
+        that._history.current = nextCurrent
         return Reflect.apply(target, obj, args)
       }
     })

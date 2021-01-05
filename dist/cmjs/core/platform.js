@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isAndroid = exports.isIOS = exports.isWX = void 0;
 var u = window.navigator.userAgent;
 function isIOS() {
     var bol = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端

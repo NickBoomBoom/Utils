@@ -7,6 +7,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createMonth = void 0;
 var feature_1 = require("./feature");
 /**
  * 补0操作

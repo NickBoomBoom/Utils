@@ -1,5 +1,93 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Utils = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var VueHistory = {
+    _history: null,
+    install: function (Vue, opt) {
+        if (opt === void 0) { opt = {
+            router: {
+                onReady: null,
+                push: null,
+                go: null,
+                replace: null
+            },
+            onExceed: function (obj) { },
+            onExit: function (obj) { },
+            onChange: function (obj) { },
+        }; }
+        var router = opt.router, onExceed = opt.onExceed, onExit = opt.onExit, onChange = opt.onChange;
+        var that = this;
+        that._history = new Proxy({
+            current: 0,
+            stack: [],
+        }, {
+            set: function (obj, prop, value) {
+                obj[prop] = value;
+                onChange(obj);
+                return true;
+            }
+        });
+        // 挂载到router原型上,_history
+        router.constructor.prototype._history = that._history;
+        // 初始化 将当前栈压入
+        router.onReady(function (res) {
+            that._history.stack = __spreadArrays(that._history.stack, [res]);
+        });
+        // 使用push的时候压栈
+        router.push = new Proxy(router.push, {
+            apply: function (target, obj, args) {
+                return Reflect.apply(target, obj, args).then(function (res) {
+                    var _a = that._history, stack = _a.stack, current = _a.current;
+                    that._history.stack = __spreadArrays(stack, [res]).slice();
+                    that._history.current = current + 1;
+                });
+            }
+        });
+        // replace
+        router.replace = new Proxy(router.replace, {
+            apply: function (target, obj, args) {
+                return Reflect.apply(target, obj, args).then(function (res) {
+                    var _a = that._history, stack = _a.stack, current = _a.current;
+                    var newStack = stack.slice();
+                    newStack[current] = res;
+                    that._history.stack = newStack;
+                });
+            }
+        });
+        /*
+          go函数, 非promise
+          hash和history模式下源码均是  window.history.go(n)
+        */
+        router.go = new Proxy(router.go, {
+            apply: function (target, obj, args) {
+                var n = args[0];
+                var stackLength = that._history.stack.length;
+                var nextCurrent = that._history.current + n;
+                if (nextCurrent < 0) { // 后退超过历史记录长度
+                    onExit(that._history);
+                    throw new Error("go(" + n + "),\u4F4E\u4E8E\u5386\u53F2\u8BB0\u5F55\u957F\u5EA6,\u65E0\u6CD5\u8DF3\u8F6C");
+                }
+                else if (nextCurrent >= stackLength) { // 前进超过历史记录长度
+                    onExceed(that._history);
+                    throw new Error("go(" + n + "),\u8D85\u8FC7\u5386\u53F2\u8BB0\u5F55\u957F\u5EA6,\u65E0\u6CD5\u8DF3\u8F6C");
+                }
+                that._history.current = nextCurrent;
+                return Reflect.apply(target, obj, args);
+            }
+        });
+    },
+};
+exports.default = VueHistory;
+
+},{}],2:[function(require,module,exports){
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -168,9 +256,10 @@ var WeChat = /** @class */ (function () {
 }());
 exports.default = WeChat;
 
-},{"../lib":12,"./feature":6,"./platform":7,"weixin-js-sdk":14}],2:[function(require,module,exports){
+},{"../lib":13,"./feature":7,"./platform":8,"weixin-js-sdk":15}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getQueryString = exports.copy = void 0;
 /**
  *  复制文字
  *  TODO:可能有兼容问题,目前在 PC端未发现,待真实环境测试
@@ -200,9 +289,10 @@ function getQueryString(name) {
 }
 exports.getQueryString = getQueryString;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.minus = exports.plus = exports.multiply = exports.divide = void 0;
 /**
  *严格模式下,除法的处理
  *
@@ -326,7 +416,7 @@ function minus(arg1, arg2) {
 }
 exports.minus = minus;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
@@ -336,6 +426,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createMonth = void 0;
 var feature_1 = require("./feature");
 /**
  * 补0操作
@@ -489,7 +580,7 @@ function createMonth(date, weekStart) {
 }
 exports.createMonth = createMonth;
 
-},{"./feature":6}],5:[function(require,module,exports){
+},{"./feature":7}],6:[function(require,module,exports){
 "use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -503,6 +594,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.off = exports.on = void 0;
 var feature_1 = require("./feature");
 /* ---------------- 监听函数 优化 start---------------- */
 var passiveIfSupported = false;
@@ -577,9 +669,10 @@ function off(element, event, handler, config) {
 }
 exports.off = off;
 
-},{"./feature":6}],6:[function(require,module,exports){
+},{"./feature":7}],7:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.imageToBase64 = exports.getBase64Img = exports.filterUrlSearch = exports.checkOverlap = exports.sliceArray = exports.getVarType = void 0;
 /**
  *  等分切割数组
  *
@@ -640,10 +733,45 @@ function getVarType(variable) {
     return RegExp.$1;
 }
 exports.getVarType = getVarType;
+/**
+ * 图片转化base64
+ * @param img 图片dom
+ */
+function imageToBase64(img) {
+    var canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    var dataURL = canvas.toDataURL('image/png');
+    return dataURL;
+}
+exports.imageToBase64 = imageToBase64;
+/**
+ * 获取图片的base64
+ * @param src 图片地址
+ */
+function getBase64Img(src) {
+    return new Promise(function (resolve, reject) {
+        var result = '';
+        var img = new Image();
+        img.crossOrigin = '';
+        img.src = src;
+        img.onload = function () {
+            result = imageToBase64(img);
+            resolve(result);
+        };
+        img.onerror = function (err) {
+            reject(err);
+        };
+    });
+}
+exports.getBase64Img = getBase64Img;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isAndroid = exports.isIOS = exports.isWX = void 0;
 var u = window.navigator.userAgent;
 function isIOS() {
     var bol = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
@@ -661,9 +789,10 @@ function isWX() {
 }
 exports.isWX = isWX;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.clearSession = exports.removeSession = exports.setSession = exports.getSession = exports.clearLocal = exports.removeLocal = exports.setLocal = exports.getLocal = void 0;
 var L = window.localStorage; // 本地存储
 var S = window.sessionStorage; // 会话存储
 /**
@@ -809,9 +938,10 @@ function clearSession() {
 }
 exports.clearSession = clearSession;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.VueHistory = exports.platform = exports.storage = exports.feature = exports.compute = exports.date = exports.dom = exports.bom = exports.WeChat = void 0;
 var compute = require("./core/compute");
 exports.compute = compute;
 var WeChat_1 = require("./core/WeChat");
@@ -828,6 +958,8 @@ var date = require("./core/date");
 exports.date = date;
 var bom = require("./core/bom");
 exports.bom = bom;
+var VueHistory_1 = require("./core/VueHistory");
+exports.VueHistory = VueHistory_1.default;
 var Utils = {
     WeChat: WeChat_1.default,
     bom: bom,
@@ -837,10 +969,11 @@ var Utils = {
     feature: feature,
     storage: storage,
     platform: platform,
+    VueHistory: VueHistory_1.default
 };
 exports.default = Utils;
 
-},{"./core/WeChat":1,"./core/bom":2,"./core/compute":3,"./core/date":4,"./core/dom":5,"./core/feature":6,"./core/platform":7,"./core/storage":8}],10:[function(require,module,exports){
+},{"./core/VueHistory":1,"./core/WeChat":2,"./core/bom":3,"./core/compute":4,"./core/date":5,"./core/dom":6,"./core/feature":7,"./core/platform":8,"./core/storage":9}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_model_1 = require("../models/lib.model");
@@ -856,7 +989,7 @@ var Fail = /** @class */ (function () {
 }());
 exports.default = Fail;
 
-},{"../models/lib.model":13}],11:[function(require,module,exports){
+},{"../models/lib.model":14}],12:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_model_1 = require("../models/lib.model");
@@ -872,24 +1005,26 @@ var Success = /** @class */ (function () {
 }());
 exports.default = Success;
 
-},{"../models/lib.model":13}],12:[function(require,module,exports){
+},{"../models/lib.model":14}],13:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Success = exports.Fail = void 0;
 var Fail_1 = require("./Fail");
 exports.Fail = Fail_1.default;
 var Success_1 = require("./Success");
 exports.Success = Success_1.default;
 
-},{"./Fail":10,"./Success":11}],13:[function(require,module,exports){
+},{"./Fail":11,"./Success":12}],14:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.State = void 0;
 var State;
 (function (State) {
     State[State["fail"] = 0] = "fail";
     State[State["success"] = 1] = "success";
 })(State = exports.State || (exports.State = {}));
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 !(function(e, n) {
   module.exports = n(e);
 })(window, function(o, e) {
@@ -1789,5 +1924,5 @@ var State;
   }
 });
 
-},{}]},{},[9])(9)
+},{}]},{},[10])(10)
 });

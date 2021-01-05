@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.imageToBase64 = exports.getBase64Img = exports.filterUrlSearch = exports.checkOverlap = exports.sliceArray = exports.getVarType = void 0;
 /**
  *  等分切割数组
  *
@@ -60,4 +61,38 @@ function getVarType(variable) {
     return RegExp.$1;
 }
 exports.getVarType = getVarType;
+/**
+ * 图片转化base64
+ * @param img 图片dom
+ */
+function imageToBase64(img) {
+    var canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    var dataURL = canvas.toDataURL('image/png');
+    return dataURL;
+}
+exports.imageToBase64 = imageToBase64;
+/**
+ * 获取图片的base64
+ * @param src 图片地址
+ */
+function getBase64Img(src) {
+    return new Promise(function (resolve, reject) {
+        var result = '';
+        var img = new Image();
+        img.crossOrigin = '';
+        img.src = src;
+        img.onload = function () {
+            result = imageToBase64(img);
+            resolve(result);
+        };
+        img.onerror = function (err) {
+            reject(err);
+        };
+    });
+}
+exports.getBase64Img = getBase64Img;
 //# sourceMappingURL=feature.js.map

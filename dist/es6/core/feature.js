@@ -54,5 +54,37 @@ function getVarType(variable) {
     type.match(/\s(\S+)]$/);
     return RegExp.$1;
 }
-export { getVarType, sliceArray, checkOverlap, filterUrlSearch };
+/**
+ * 图片转化base64
+ * @param img 图片dom
+ */
+function imageToBase64(img) {
+    var canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    var dataURL = canvas.toDataURL('image/png');
+    return dataURL;
+}
+/**
+ * 获取图片的base64
+ * @param src 图片地址
+ */
+function getBase64Img(src) {
+    return new Promise(function (resolve, reject) {
+        var result = '';
+        var img = new Image();
+        img.crossOrigin = '';
+        img.src = src;
+        img.onload = function () {
+            result = imageToBase64(img);
+            resolve(result);
+        };
+        img.onerror = function (err) {
+            reject(err);
+        };
+    });
+}
+export { getVarType, sliceArray, checkOverlap, filterUrlSearch, getBase64Img, imageToBase64 };
 //# sourceMappingURL=feature.js.map

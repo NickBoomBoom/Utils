@@ -1,15 +1,16 @@
 # utils94(工具类函数集结)
 
-| 工具类   | 功能                        |
-| -------- | --------------------------- |
-| WeChat   | 微信端jssdk处理             |
-| dom      | dom 相关                    |
-| bom      | bom 相关                    |
-| date     | 时间相关(日历生成)          |
-| compute  | 计算方法(解决js计算精度bug) |
-| feature  | 功能                        |
-| storage  | 缓存                        |
-| platform | 平台判断                    |
+| 工具类     | 功能                        |
+| ---------- | --------------------------- |
+| WeChat     | 微信端jssdk处理             |
+| dom        | dom 相关                    |
+| bom        | bom 相关                    |
+| date       | 时间相关(日历生成)          |
+| compute    | 计算方法(解决js计算精度bug) |
+| feature    | 功能                        |
+| storage    | 缓存                        |
+| platform   | 平台判断                    |
+| VueHistory | 记录vue的页面跳转信息       |
 
 
 
@@ -159,10 +160,29 @@ import { WeChat, dom, bom... } from 'utils94'
 
   ## 8. platform
 
-
-
 | Api       | Feat           | Params | Return  |
 | :-------- | :------------- | :----- | :------ |
 | isWX      | 是否为微信环境 |        | boolean |
 | isIOS     | 是否为ios      |        | boolean |
 | isAndroid | 是否为安卓     |        | boolean |
+
+
+
+## 9. VueHistory
+
+原生vue-router 上并不提供 页面跳转记录。
+
+通过proxy 添加历史记录
+
+```javascript
+import {VueHistory} from 'utils94'
+import Vue from 'vue'
+import router from 'router'
+Vue.use(Vue, {
+  router, // 路由实例
+  onExceed: (obj) => { }, // 前进 超过历史记录
+  onExit: (obj) => { }, 	// 后退 低于历史记录
+  onChange: (obj) => { }, // 堆栈信息变化 
+})
+```
+
