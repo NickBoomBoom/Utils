@@ -60,7 +60,6 @@ function checkOverlap(arr: dateBeginEnd[]): boolean {
 }
 
 
-
 /**
  * 返回对象类型, 首字母大写
  * @param variable any

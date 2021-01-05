@@ -6,7 +6,7 @@ import * as platform from './core/platform'
 import * as storage from './core/storage'
 import * as date from './core/date'
 import * as bom from './core/bom'
-
+import VueHistory from './core/VueHistory';
 const Utils = {
   WeChat,
   bom,
@@ -16,6 +16,7 @@ const Utils = {
   feature,
   storage,
   platform,
+  VueHistory
 }
 
 export {
@@ -27,6 +28,7 @@ export {
   feature,
   storage,
   platform,
+  VueHistory
 }
 
 export default Utils
