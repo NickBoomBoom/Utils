@@ -7,6 +7,7 @@ import * as storage from './core/storage';
 import * as date from './core/date';
 import * as bom from './core/bom';
 import VueHistory from './core/VueHistory';
+import * as WeChatJsSDK from 'weixin-js-sdk';
 declare const Utils: {
     WeChat: typeof WeChat;
     bom: typeof bom;
@@ -30,6 +31,7 @@ declare const Utils: {
             onChange: (obj: any) => void;
         }): void;
     };
+    WeChatJsSDK: any;
 };
-export { WeChat, bom, dom, date, compute, feature, storage, platform, VueHistory };
+export { WeChat, bom, dom, date, compute, feature, storage, platform, VueHistory, WeChatJsSDK };
 export default Utils;

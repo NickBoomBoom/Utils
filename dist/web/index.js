@@ -941,7 +941,7 @@ exports.clearSession = clearSession;
 },{}],10:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VueHistory = exports.platform = exports.storage = exports.feature = exports.compute = exports.date = exports.dom = exports.bom = exports.WeChat = void 0;
+exports.WeChatJsSDK = exports.VueHistory = exports.platform = exports.storage = exports.feature = exports.compute = exports.date = exports.dom = exports.bom = exports.WeChat = void 0;
 var compute = require("./core/compute");
 exports.compute = compute;
 var WeChat_1 = require("./core/WeChat");
@@ -960,6 +960,8 @@ var bom = require("./core/bom");
 exports.bom = bom;
 var VueHistory_1 = require("./core/VueHistory");
 exports.VueHistory = VueHistory_1.default;
+var WeChatJsSDK = require("weixin-js-sdk");
+exports.WeChatJsSDK = WeChatJsSDK;
 var Utils = {
     WeChat: WeChat_1.default,
     bom: bom,
@@ -969,11 +971,12 @@ var Utils = {
     feature: feature,
     storage: storage,
     platform: platform,
-    VueHistory: VueHistory_1.default
+    VueHistory: VueHistory_1.default,
+    WeChatJsSDK: WeChatJsSDK
 };
 exports.default = Utils;
 
-},{"./core/VueHistory":1,"./core/WeChat":2,"./core/bom":3,"./core/compute":4,"./core/date":5,"./core/dom":6,"./core/feature":7,"./core/platform":8,"./core/storage":9}],11:[function(require,module,exports){
+},{"./core/VueHistory":1,"./core/WeChat":2,"./core/bom":3,"./core/compute":4,"./core/date":5,"./core/dom":6,"./core/feature":7,"./core/platform":8,"./core/storage":9,"weixin-js-sdk":15}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_model_1 = require("../models/lib.model");
