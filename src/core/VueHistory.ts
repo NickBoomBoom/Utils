@@ -22,7 +22,7 @@ const VueHistory = {
     }, {
       set(obj, prop, value) {
         obj[prop] = value
-        onChange(obj)
+        onChange && onChange(obj)
         return true
       }
     })
@@ -66,10 +66,10 @@ const VueHistory = {
         const stackLength = that._history.stack.length
         const nextCurrent = that._history.current + n
         if (nextCurrent < 0) { // 后退超过历史记录长度
-          onExit(that._history)
+          onExit && onExit(that._history)
           throw new Error(`go(${n}),低于历史记录长度,无法跳转`)
         } else if (nextCurrent >= stackLength) { // 前进超过历史记录长度
-          onExceed(that._history)
+          onExceed && onExceed(that._history)
           throw new Error(`go(${n}),超过历史记录长度,无法跳转`)
         }
         that._history.current = nextCurrent
