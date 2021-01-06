@@ -27,7 +27,7 @@ var VueHistory = {
         }, {
             set: function (obj, prop, value) {
                 obj[prop] = value;
-                onChange(obj);
+                onChange && onChange(obj);
                 return true;
             }
         });
@@ -68,11 +68,11 @@ var VueHistory = {
                 var stackLength = that._history.stack.length;
                 var nextCurrent = that._history.current + n;
                 if (nextCurrent < 0) { // 后退超过历史记录长度
-                    onExit(that._history);
+                    onExit && onExit(that._history);
                     throw new Error("go(" + n + "),\u4F4E\u4E8E\u5386\u53F2\u8BB0\u5F55\u957F\u5EA6,\u65E0\u6CD5\u8DF3\u8F6C");
                 }
                 else if (nextCurrent >= stackLength) { // 前进超过历史记录长度
-                    onExceed(that._history);
+                    onExceed && onExceed(that._history);
                     throw new Error("go(" + n + "),\u8D85\u8FC7\u5386\u53F2\u8BB0\u5F55\u957F\u5EA6,\u65E0\u6CD5\u8DF3\u8F6C");
                 }
                 that._history.current = nextCurrent;
