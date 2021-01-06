@@ -1,16 +1,17 @@
 # utils94(工具类函数集结)
 
-| 工具类     | 功能                        |
-| ---------- | --------------------------- |
-| WeChat     | 微信端jssdk处理             |
-| dom        | dom 相关                    |
-| bom        | bom 相关                    |
-| date       | 时间相关(日历生成)          |
-| compute    | 计算方法(解决js计算精度bug) |
-| feature    | 功能                        |
-| storage    | 缓存                        |
-| platform   | 平台判断                    |
-| VueHistory | 记录vue的页面跳转信息       |
+| 工具类      | 功能                        |
+| ----------- | --------------------------- |
+| WeChat      | 微信端jssdk处理             |
+| dom         | dom 相关                    |
+| bom         | bom 相关                    |
+| date        | 时间相关(日历生成)          |
+| compute     | 计算方法(解决js计算精度bug) |
+| feature     | 功能                        |
+| storage     | 缓存                        |
+| platform    | 平台判断                    |
+| VueHistory  | 记录vue的页面跳转信息       |
+| WeChatJsSDK | weixin-js-sdk 1.6版本       |
 
 
 
@@ -171,6 +172,8 @@ import { WeChat, dom, bom... } from 'utils94'
 ## 9. VueHistory
 
 原生vue-router 上并不提供 页面跳转记录。
+
+**仅支持vue-router 3.1.0 及以上版本**
 
 通过proxy 添加历史记录，在$router上挂载了 _history 字段
 

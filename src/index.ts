@@ -7,6 +7,7 @@ import * as storage from './core/storage'
 import * as date from './core/date'
 import * as bom from './core/bom'
 import VueHistory from './core/VueHistory';
+import * as WeChatJsSDK from 'weixin-js-sdk'
 const Utils = {
   WeChat,
   bom,
@@ -16,7 +17,8 @@ const Utils = {
   feature,
   storage,
   platform,
-  VueHistory
+  VueHistory,
+  WeChatJsSDK
 }
 
 export {
@@ -28,7 +30,8 @@ export {
   feature,
   storage,
   platform,
-  VueHistory
+  VueHistory,
+  WeChatJsSDK
 }
 
 export default Utils
