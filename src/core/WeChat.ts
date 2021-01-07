@@ -2,7 +2,8 @@ import * as WeChatJsSdk from 'weixin-js-sdk'
 import { isIOS, isWX } from './platform'
 import { filterUrlSearch } from './feature'
 import { ShareConfig, JsConfig } from '../models/weChat.model';
-import {Fail, Success } from '../lib'
+
+//  weixin-js-sdk 文档:  https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
 export default class WeChat {
   private shareConfig: ShareConfig[]
   private getJsSdk  // 最后返回 jsConfig 配置信息 
@@ -16,15 +17,6 @@ export default class WeChat {
   }
 
   /**
-   * 调用微信sdk函数
-   * @param fnKey 微信sdk 内部函数调用 函数名
-   * @param handler 传递给微信函数的参数,详情见 https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
-   */
-  handler(fnKey: string, handler: any) {
-    return WeChatJsSdk[fnKey](handler)
-  }
-
-  /**
    * 使用微信js api的前置条件
    * 所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用
    * 同一个url仅需调用一次，对于变化url的SPA的web app可在每次url变化时进行调用,目前Android微信客户端不支持pushState的H5新特性，所以使用pushState来实现web app的页面会导致签名失败，此问题会在Android6.2中修复
@@ -34,8 +26,7 @@ export default class WeChat {
   pre(): Promise<any> {
     return new Promise(async (resolve, reject) => {
       if (!isWX()) {
-        reject(new Fail('非微信环境,无需配置微信sdk'))
-        return
+        return reject('非微信环境,无需配置微信sdk')
       }
 
       // ios 配置一次即可,其余每次必须重新导入
@@ -45,23 +36,23 @@ export default class WeChat {
         try {
           const res: JsConfig = await this.getJsSdk()
           // 配置微信 sdk
-          this.handler('config', res)
-
-          this.handler('ready', () => {
+          WeChatJsSdk.config(res)
+          // 配置成功
+          WeChatJsSdk.ready(() => {
             this.iosSdkStatus = true
-            resolve(new Success())
+            resolve({})
           })
-
-          this.handler('error', err => {
+          // 配置报错
+          WeChatJsSdk.error((err) => {
             this.iosSdkStatus = false
-            reject(new Fail(err))
+            reject(err)
           })
         } catch (err) {
           this.iosSdkStatus = false
-          reject(new Fail(err))
+          reject(err)
         }
       } else {
-        resolve(new Success())
+        resolve({})
       }
     })
   }
@@ -84,8 +75,8 @@ export default class WeChat {
     chatConfig.link = filterUrlSearch(chatConfig.link || currentUrl, filter)
     momentConfig.link = filterUrlSearch(momentConfig.link || currentUrl, filter)
 
-    this.handler('updateAppMessageShareData', chatConfig) // 分享给朋友 qq
-    this.handler('updateTimelineShareData', chatConfig)// 分享到朋友圈 qq空间
+    WeChatJsSdk.updateAppMessageShareData(chatConfig)// 分享给朋友 qq
+    WeChatJsSdk.updateTimelineShareData(momentConfig)// 分享到朋友圈 qq空间
   }
 
   /**
@@ -100,9 +91,9 @@ export default class WeChat {
       try {
         await this.pre()
         this.share(config, filter)
-        resolve(new Success())
+        resolve({})
       } catch (err) {
-        reject(new Fail(err))
+        reject(err)
       }
     })
   }

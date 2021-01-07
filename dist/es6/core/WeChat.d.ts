@@ -5,12 +5,6 @@ export default class WeChat {
     private iosSdkStatus;
     constructor(shareConfig: ShareConfig[], getJsSdk: Promise<JsConfig>);
     /**
-     * 调用微信sdk函数
-     * @param fnKey 微信sdk 内部函数调用 函数名
-     * @param handler 传递给微信函数的参数,详情见 https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
-     */
-    handler(fnKey: string, handler: any): any;
-    /**
      * 使用微信js api的前置条件
      * 所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用
      * 同一个url仅需调用一次，对于变化url的SPA的web app可在每次url变化时进行调用,目前Android微信客户端不支持pushState的H5新特性，所以使用pushState来实现web app的页面会导致签名失败，此问题会在Android6.2中修复

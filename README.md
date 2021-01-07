@@ -33,66 +33,98 @@ import { WeChat, dom, bom... } from 'utils94'
   本包依赖已经引入 "weixin-js-sdk": "^1.4.0-test", 当前版本 1.6
   无需再次引入wexin-js-sdk
 
-| Api       | Feat                        | Params                                                       | Return                              |
-| :-------- | :-------------------------- | :----------------------------------------------------------- | :---------------------------------- |
-| pre       | 自检函数，使用微信sdk前自检 |                                                              | Promise                             |
-| share     | 配置分享内容                | 1.object[] ：对象数组，第一个对象为朋友，qq分享内容，第二个对象为朋友圈，qq空间分享内容。（第二个对象不传则第一个对象默认为第一个对象）分享内容 ：{title, desc, link, imgUrl}<br />2.string[]：过滤分享link上的部分query字段 |                                     |
-| autoShare | 自动配置分享                | 参数同share                                                  | Promise<br />可在配置成功后继续处理 |
+- new WeChat( [{title,desc,link,imgUrl},{title,link,imgUrl}], requset) 初始化
+
+  ```javascript
+  import {WeChat} from 'utils94' 
+  
+  // 朋友，QQ分享内容
+  const friendShareConfig = {
+    title: '微信分享title',
+    desc: '详细',
+    link: window.location.href,
+    imgUrl:''
+  }
+  // 朋友圈，QQ空间分享内容
+  const momentShareConfig = {
+   	title: '', // 分享标题
+    link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+    imgUrl: '', // 分享图标
+  }
+  
+  const request =async (body) => {
+    /** 
+      * !划重点!!!!
+      * ios中,url 必须是初次进入的url. 且ios 仅需配置一次即可.
+      * android中, 需要每次进入新的页面都需要配置一次. 每次配置
+      * url 需要过滤 #及之后的参数
+     **/
+    const {url, jsApiList} = body
+    const config = await api.initJsSdk(body)
+    /**  config:{
+          debug?: boolean; // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: string | number; // 必填，公众号的唯一标识
+          timestamp: number | string ; // 必填，生成签名的时间戳
+          nonceStr: string; // 必填，生成签名的随机串
+          signature: string;// 必填，签名
+          jsApiList: string[] // 必填，需要使用的JS接口列表 
+      	 }
+     **/
+    return config
+  }
+  
+  // 初始化配置(必须)
+  const wx = new WeChat(
+    [
+      friendShareConfig,
+      momentShareConfig
+    ],
+    request
+  )
+  ```
 
   
 
-### 1.1 微信端js配置使用方法
+- pre 前置预检，
+
+- 返回Promise
 
   ```javascript
-      const shareConfig = {
-        title: '微信分享title',
-        desc: '详细',
-        link: window.location.href,
-        imgUrl:''
-      }
-
-      const request =async (body) => {
-        /** 
-         * !划重点!!!!
-         * ios中,url 必须是初次进入的url. 且ios 仅需配置一次即可.
-         * android中, 需要每次进入新的页面都需要配置一次. 每次配置
-         * url 需要过滤 #及之后的参数
-        */
-        const {url, jsApiList} = body
-        const config = await api.initJsSdk(body)
-        /*  config:{
-              debug?: boolean; // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-              appId: string | number; // 必填，公众号的唯一标识
-              timestamp: number | string ; // 必填，生成签名的时间戳
-              nonceStr: string; // 必填，生成签名的随机串
-              signature: string;// 必填，签名
-              jsApiList: string[] // 必填，需要使用的JS接口列表 
-            }
-        */
-        return config
-      }
-
-      // 初始化配置(必须)
-      const weChat = new Utils.WeChat(
-        [
-          shareConfig
-        ],
-        request
-      )
-      
-      // 日常使用 1 
-   	  weChat.pre().then(()=> {
-				weChat.share([shareConfig,shareConfig], ['token'])
-        // dosomething
-      })
-
-			// 日常使用 2
-			weChat.autoShare([shareConfig,shareConfig], ['token'])
-				.then(()=>{
-        	// dosomething
-      	})
-
+  wx.pre().then(res => {
+  	// 配置成功
+    // dosomething
+  }).catch(err=>{
+    // 配置失败
+  })
   ```
+
+  
+
+- share( [{title,desc,link,imgUrl},{title,link,imgUrl}], filter:string[]) 分享设置，filter可过滤掉link上携带的query字段，如‘token’；
+
+- 无返回
+
+  ```javascript
+  wx.pre().then(()=> {
+    // 当momentShareConfig 不传时，默认 friendShareConfig 替代
+    wx.share([friendShareConfig, momentShareConfig], ['token'])
+  })
+  ```
+
+
+
+- autoShare( [{title,desc,link,imgUrl},{title,link,imgUrl}], filter:string[]) 自动分享设置，filter可过滤掉link上携带的query字段，如‘token’；
+
+- 返回Promise
+
+  ```javascript
+  // 当momentShareConfig 不传时，默认 friendShareConfig 替代
+  wx.autoShare([friendShareConfig, momentShareConfig], ['token']).then(()=> {
+    // dosomething
+  })
+  ```
+
+    
 
    ## 2. dom
 

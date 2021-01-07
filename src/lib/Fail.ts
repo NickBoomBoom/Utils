@@ -1,7 +1,7 @@
 import { State, IPromiseResponse } from '../models/lib.model';
 
 class Fail {
-  constructor(err?:any) {
+  constructor(err?: any) {
     const result: IPromiseResponse = {
       state: State.fail,
       err

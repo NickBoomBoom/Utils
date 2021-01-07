@@ -39,21 +39,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var WeChatJsSdk = require("weixin-js-sdk");
 var platform_1 = require("./platform");
 var feature_1 = require("./feature");
-var lib_1 = require("../lib");
+//  weixin-js-sdk 文档:  https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
 var WeChat = /** @class */ (function () {
     function WeChat(shareConfig, getJsSdk) {
         this.iosSdkStatus = false; // ios 配置状态
         this.shareConfig = shareConfig;
         this.getJsSdk = getJsSdk;
     }
-    /**
-     * 调用微信sdk函数
-     * @param fnKey 微信sdk 内部函数调用 函数名
-     * @param handler 传递给微信函数的参数,详情见 https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
-     */
-    WeChat.prototype.handler = function (fnKey, handler) {
-        return WeChatJsSdk[fnKey](handler);
-    };
     /**
      * 使用微信js api的前置条件
      * 所有需要使用JS-SDK的页面必须先注入配置信息，否则将无法调用
@@ -70,8 +62,7 @@ var WeChat = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!platform_1.isWX()) {
-                            reject(new lib_1.Fail('非微信环境,无需配置微信sdk'));
-                            return [2 /*return*/];
+                            return [2 /*return*/, reject('非微信环境,无需配置微信sdk')];
                         }
                         isInitSDK = platform_1.isIOS() ? this.iosSdkStatus : false;
                         if (!!isInitSDK) return [3 /*break*/, 5];
@@ -84,24 +75,26 @@ var WeChat = /** @class */ (function () {
                     case 2:
                         res = _a.sent();
                         // 配置微信 sdk
-                        this.handler('config', res);
-                        this.handler('ready', function () {
+                        WeChatJsSdk.config(res);
+                        // 配置成功
+                        WeChatJsSdk.ready(function () {
                             _this.iosSdkStatus = true;
-                            resolve(new lib_1.Success());
+                            resolve({});
                         });
-                        this.handler('error', function (err) {
+                        // 配置报错
+                        WeChatJsSdk.error(function (err) {
                             _this.iosSdkStatus = false;
-                            reject(new lib_1.Fail(err));
+                            reject(err);
                         });
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
                         this.iosSdkStatus = false;
-                        reject(new lib_1.Fail(err_1));
+                        reject(err_1);
                         return [3 /*break*/, 4];
                     case 4: return [3 /*break*/, 6];
                     case 5:
-                        resolve(new lib_1.Success());
+                        resolve({});
                         _a.label = 6;
                     case 6: return [2 /*return*/];
                 }
@@ -125,8 +118,8 @@ var WeChat = /** @class */ (function () {
         // 过滤部分携带参数
         chatConfig.link = feature_1.filterUrlSearch(chatConfig.link || currentUrl, filter);
         momentConfig.link = feature_1.filterUrlSearch(momentConfig.link || currentUrl, filter);
-        this.handler('updateAppMessageShareData', chatConfig); // 分享给朋友 qq
-        this.handler('updateTimelineShareData', chatConfig); // 分享到朋友圈 qq空间
+        WeChatJsSdk.updateAppMessageShareData(chatConfig); // 分享给朋友 qq
+        WeChatJsSdk.updateTimelineShareData(momentConfig); // 分享到朋友圈 qq空间
     };
     /**
      * 自动配置分享.预检sdk config后,自动配置分享内容.
@@ -150,11 +143,11 @@ var WeChat = /** @class */ (function () {
                                 case 1:
                                     _a.sent();
                                     this.share(config, filter);
-                                    resolve(new lib_1.Success());
+                                    resolve({});
                                     return [3 /*break*/, 3];
                                 case 2:
                                     err_2 = _a.sent();
-                                    reject(new lib_1.Fail(err_2));
+                                    reject(err_2);
                                     return [3 /*break*/, 3];
                                 case 3: return [2 /*return*/];
                             }
