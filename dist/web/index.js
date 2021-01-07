@@ -252,7 +252,7 @@ exports.default = WeChat;
 },{"./feature":7,"./platform":8,"weixin-js-sdk":11}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getQueryString = exports.copy = void 0;
+exports.copy = void 0;
 /**
  *  复制文字
  *  TODO:可能有兼容问题,目前在 PC端未发现,待真实环境测试
@@ -268,19 +268,6 @@ function copy(dom) {
     return bol;
 }
 exports.copy = copy;
-/**
- * location.search 上获取name值
- * @param name
- * @return String || null
- */
-function getQueryString(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
-    if (r !== null)
-        return decodeURIComponent(r[2]);
-    return null;
-}
-exports.getQueryString = getQueryString;
 
 },{}],4:[function(require,module,exports){
 "use strict";

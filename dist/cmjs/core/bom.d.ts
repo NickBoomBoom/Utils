@@ -5,10 +5,4 @@
  * @return  Boolean 值, true 则为复制成功, false 失败
  */
 declare function copy(dom: HTMLDocument): boolean;
-/**
- * location.search 上获取name值
- * @param name
- * @return String || null
- */
-declare function getQueryString(name: any): string | null;
-export { copy, getQueryString };
+export { copy };

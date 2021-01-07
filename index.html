@@ -79,8 +79,7 @@
 
     <script>
       console.log(Utils)
-
-      const { date, WeChat, dom } = Utils
+      const { date, WeChat, dom, bom } = Utils
 
       /* date test */
       $('#date').on('click', () => {
@@ -110,7 +109,7 @@
 
         const wx = new Utils.WeChat([config], getJsSdk)
         console.warn('new WeChat', wx)
-        wx.pre().catch(err=>console.log(err))
+        wx.pre().catch(err => console.log(err))
       })
 
 
