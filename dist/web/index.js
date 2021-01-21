@@ -786,7 +786,6 @@ function _parse(data) {
         res = JSON.parse(data);
     }
     catch (err) {
-        // console.log(err)
     }
     return res;
 }
@@ -810,13 +809,8 @@ function _json(data) {
  */
 function getLocal(key) {
     var result = '';
-    try {
-        var res = L.getItem(key);
-        result = _parse(res);
-    }
-    catch (err) {
-        throw new Error(err);
-    }
+    var res = L.getItem(key);
+    result = _parse(res);
     return result;
 }
 exports.getLocal = getLocal;
@@ -826,13 +820,8 @@ exports.getLocal = getLocal;
  * @param data 初始数据:非string类型数据均要json转化
  */
 function setLocal(key, data) {
-    try {
-        var newData = _json(data);
-        L.setItem(key, newData);
-    }
-    catch (err) {
-        throw new Error(err);
-    }
+    var newData = _json(data);
+    L.setItem(key, newData);
 }
 exports.setLocal = setLocal;
 /**
@@ -840,24 +829,14 @@ exports.setLocal = setLocal;
  * @param key 变量名
  */
 function removeLocal(key) {
-    try {
-        L.removeItem(key);
-    }
-    catch (err) {
-        throw new Error(err);
-    }
+    L.removeItem(key);
 }
 exports.removeLocal = removeLocal;
 /**
  * 清除本地数据
  */
 function clearLocal() {
-    try {
-        L.clear();
-    }
-    catch (err) {
-        throw new Error(err);
-    }
+    L.clear();
 }
 exports.clearLocal = clearLocal;
 /**
@@ -867,13 +846,8 @@ exports.clearLocal = clearLocal;
  */
 function getSession(key) {
     var result = '';
-    try {
-        var res = S.getItem(key);
-        result = _parse(res);
-    }
-    catch (err) {
-        throw new Error(err);
-    }
+    var res = S.getItem(key);
+    result = _parse(res);
     return result;
 }
 exports.getSession = getSession;
@@ -883,13 +857,8 @@ exports.getSession = getSession;
  * @param data 初始数据:非string类型数据均要json转化
  */
 function setSession(key, data) {
-    try {
-        var newData = _json(data);
-        S.setItem(key, newData);
-    }
-    catch (err) {
-        throw new Error(err);
-    }
+    var newData = _json(data);
+    S.setItem(key, newData);
 }
 exports.setSession = setSession;
 /**
@@ -897,24 +866,14 @@ exports.setSession = setSession;
  * @param key 变量名
  */
 function removeSession(key) {
-    try {
-        S.removeItem(key);
-    }
-    catch (err) {
-        throw new Error(err);
-    }
+    S.removeItem(key);
 }
 exports.removeSession = removeSession;
 /**
  * 清空会话缓存
  */
 function clearSession() {
-    try {
-        S.clear();
-    }
-    catch (err) {
-        throw new Error(err);
-    }
+    S.clear();
 }
 exports.clearSession = clearSession;
 
