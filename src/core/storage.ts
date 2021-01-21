@@ -12,7 +12,6 @@ function _parse(data: any): any {
   try {
     res = JSON.parse(data)
   } catch (err) {
-    // console.log(err)
   }
   return res
 }
@@ -37,13 +36,8 @@ function _json(data: any): string {
  */
 function getLocal(key: string): any {
   let result: any = ''
-
-  try {
-    let res = L.getItem(key)
-    result = _parse(res)
-  } catch (err) {
-    throw new Error(err)
-  }
+  let res = L.getItem(key)
+  result = _parse(res)
 
   return result
 }
@@ -54,12 +48,8 @@ function getLocal(key: string): any {
  * @param data 初始数据:非string类型数据均要json转化
  */
 function setLocal(key: string, data: any): void {
-  try {
-    const newData = _json(data)
-    L.setItem(key, newData)
-  } catch (err) {
-    throw new Error(err)
-  }
+  const newData = _json(data)
+  L.setItem(key, newData)
 }
 
 /**
@@ -67,22 +57,14 @@ function setLocal(key: string, data: any): void {
  * @param key 变量名
  */
 function removeLocal(key: string): void {
-  try {
-    L.removeItem(key)
-  } catch (err) {
-    throw new Error(err)
-  }
+  L.removeItem(key)
 }
 
 /**
  * 清除本地数据
  */
 function clearLocal(): void {
-  try {
-    L.clear()
-  } catch (err) {
-    throw new Error(err)
-  }
+  L.clear()
 }
 
 
@@ -94,12 +76,8 @@ function clearLocal(): void {
 function getSession(key: string): any {
   let result: any = ''
 
-  try {
-    let res = S.getItem(key)
-    result = _parse(res)
-  } catch (err) {
-    throw new Error(err)
-  }
+  let res = S.getItem(key)
+  result = _parse(res)
 
   return result
 }
@@ -110,12 +88,8 @@ function getSession(key: string): any {
  * @param data 初始数据:非string类型数据均要json转化
  */
 function setSession(key: string, data: any): void {
-  try {
-    const newData = _json(data)
-    S.setItem(key, newData)
-  } catch (err) {
-    throw new Error(err)
-  }
+  const newData = _json(data)
+  S.setItem(key, newData)
 }
 
 /**
@@ -123,23 +97,14 @@ function setSession(key: string, data: any): void {
  * @param key 变量名
  */
 function removeSession(key: string): void {
-  try {
-    S.removeItem(key)
-  } catch (err) {
-    throw new Error(err)
-
-  }
+  S.removeItem(key)
 }
 
 /**
  * 清空会话缓存
  */
 function clearSession(): void {
-  try {
-    S.clear()
-  } catch (err) {
-    throw new Error(err)
-  }
+  S.clear()
 }
 
 
