@@ -14,7 +14,6 @@ function _parse(data) {
         res = JSON.parse(data);
     }
     catch (err) {
-        throw new Error(err);
     }
     return res;
 }
