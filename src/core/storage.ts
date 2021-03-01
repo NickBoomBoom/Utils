@@ -12,6 +12,7 @@ function _parse(data: any): any {
   try {
     res = JSON.parse(data)
   } catch (err) {
+    throw new Error(err)
   }
   return res
 }
