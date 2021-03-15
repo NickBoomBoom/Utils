@@ -6,7 +6,7 @@ import { ShareConfig, JsConfig } from '../models/weChat.model';
 //  weixin-js-sdk 文档:  https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
 export default class WeChat {
   private shareConfig: ShareConfig[]
-  private getJsSdk  // 最后返回 jsConfig 配置信息 
+  private getJsSdk: any  // 最后返回 jsConfig 配置信息 
   private iosSdkStatus: boolean = false // ios 配置状态
   constructor(
     shareConfig: ShareConfig[],
@@ -43,7 +43,7 @@ export default class WeChat {
             resolve({})
           })
           // 配置报错
-          WeChatJsSdk.error((err) => {
+          WeChatJsSdk.error((err: any) => {
             this.iosSdkStatus = false
             reject(err)
           })

@@ -4,13 +4,14 @@ import { getVarType } from './feature'
 /* ---------------- 监听函数 优化 start---------------- */
 let passiveIfSupported: boolean = false;
 const listenDefaultOpt: ListenOptions = {
-  capture: false, 
-  once: false, 
+  capture: false,
+  once: false,
   passive: true
 }
 
 // polyfill 检测当前环境是否支持 passive, 支持即默认开启 passive(默认不执行 preventDefault() )
 try {
+  // @ts-ignore
   window.addEventListener(
     "test",
     null,
@@ -23,7 +24,7 @@ try {
 } catch (err) { }
 
 
-function isPreventDefault(handler:Function) :boolean {
+function isPreventDefault(handler: Function): boolean {
   const r: RegExp = /(\/\/|\/\*+)(\s)*(\w)+\.preventDefault\((\w|\s)*?\)/g  // 匹配注释中的 preventDefault 
   const r2: RegExp = /(\w)+\.preventDefault\((\w |\s)*?\)/g  // 匹配执行的preventDefault
   const txt = handler.toString().replace(r, '')
@@ -62,11 +63,12 @@ function handlerListenOpt<T>(config: T, handler: Function): ListenOptions | bool
  * @param config  监听配置, 默认 false, 且开启passive(当执行函数内部执行preventDefault时关闭passive). 可传对象参数
  */
 function on(
-  element,
-  event: Event,
+  element: HTMLElement | any,
+  event: Event | any,
   handler: Function,
   config: ListenOptions | boolean = false
 ) {
+  // @ts-ignore
   if (document.addEventListener) {
     const params = handlerListenOpt(config, handler)
     return element.addEventListener(event, handler, params);
@@ -82,11 +84,12 @@ function on(
  * @param config  监听配置, 默认 false, 且开启passive(当执行函数内部执行preventDefault时关闭passive). 可传对象参数
  */
 function off(
-  element,
+  element: HTMLElement | any,
   event: Event,
   handler: Function,
   config: ListenOptions | boolean = false
 ) {
+  // @ts-ignore
   if (document.removeEventListener) {
     const params = handlerListenOpt(config, handler)
     return element.removeEventListener(event, handler, params);

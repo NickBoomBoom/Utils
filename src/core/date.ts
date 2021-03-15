@@ -57,7 +57,7 @@ function getYMDW(date: any) {
  * 返回 周起始数组
  * @param weekStart 周起始
  */
-function _weeks(weekStart): number[] {
+function _weeks(weekStart:number): number[] {
   const WEEKS: number[] = [0, 1, 2, 3, 4, 5, 6]
   const startIndex: number = WEEKS.findIndex(t => t === weekStart)
   const header: number[] = WEEKS.splice(startIndex, WEEKS.length)

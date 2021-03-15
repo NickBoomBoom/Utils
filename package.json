@@ -2,7 +2,7 @@
   "name": "utils94",
   "version": "1.0.6",
   "description": "日常开发使用工具库",
-  "main": "dist/web/index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://git@github.com:Nick-QI/Utils.git"
@@ -10,16 +10,12 @@
   "author": "q.chen <q.chen.self@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -r dist && npm run build:cmjs && npm run build:web && npm run build:es6",
-    "build:cmjs": "tsc -P tsconfig.json",
-    "build:es6": "tsc -P tsconfig.json --module ES6 --outDir dist/es6",
-    "build:web": "browserify dist/cmjs/index.js --standalone Utils -o dist/web/index.js",
+    "build": "tsc -P tsconfig.json",
     "push": "yarn run build && yarn publish",
     "test": "jest --coverage"
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",
-    "browserify": "^16.5.1",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
     "ts-node": "^8.9.0",

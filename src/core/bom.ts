@@ -5,10 +5,11 @@
  * @return  Boolean 值, true 则为复制成功, false 失败
  */
 function copy(dom: HTMLDocument): boolean {
-  window.getSelection().removeAllRanges();
+  const selector: any = window.getSelection()
+  selector.removeAllRanges();
   const range = document.createRange();
   range.selectNode(dom);
-  window.getSelection().addRange(range);
+  selector.addRange(range);
   const bol: boolean = document.execCommand("copy");
   return bol;
 }

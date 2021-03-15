@@ -1,26 +1,29 @@
+const DEFAULT_ROUTER = {
+  onReady: (fn: Function) => { },
+  push: () => { },
+  go: () => { },
+  replace: () => { }
+}
 const VueHistory = {
   _history: null,
 
-  install(Vue, opt = {
-    router: {
-      onReady: null,
-      push: null,
-      go: null,
-      replace: null
-    },  // router 实例
-    onExceed: (obj) => { }, // 超过历史记录
-    onExit: (obj) => { }, // 低于历史记录
-    onChange: (obj) => { }, // 堆栈信息变化 
+  install(Vue: Object, opt = {
+    router: DEFAULT_ROUTER,  // router 实例
+    onExceed: (obj: any) => { }, // 超过历史记录
+    onExit: (obj: any) => { }, // 低于历史记录
+    onChange: (obj: any) => { }, // 堆栈信息变化 
   }) {
-    const { router, onExceed, onExit, onChange } = opt
+    const { onExceed, onExit, onChange } = opt
+    let { router } = opt
+    router = router || DEFAULT_ROUTER
 
-    const that = this
+    const that: any = this
 
     that._history = new Proxy({
       current: 0, // 当前历史记录下标
       stack: [], // 历史记录堆栈信息
     }, {
-      set(obj, prop, value) {
+      set(obj: any, prop, value) {
         obj[prop] = value
         onChange && onChange(obj)
         return true
@@ -31,14 +34,14 @@ const VueHistory = {
     router.constructor.prototype._history = that._history
 
     // 初始化 将当前栈压入
-    router.onReady(res => {
+    router.onReady((res: any) => {
       that._history.stack = [...that._history.stack, res]
     })
 
     // 使用push的时候压栈
     router.push = new Proxy(router.push, {
       apply(target, obj, args) {
-        return Reflect.apply(target, obj, args).then(res => {
+        return Reflect.apply(target, obj, args).then((res: any) => {
           const { stack, current } = that._history
           that._history.stack = [...stack, res].slice()
           that._history.current = current + 1
@@ -48,7 +51,7 @@ const VueHistory = {
     // replace
     router.replace = new Proxy(router.replace, {
       apply(target, obj, args) {
-        return Reflect.apply(target, obj, args).then(res => {
+        return Reflect.apply(target, obj, args).then((res: any) => {
           const { stack, current } = that._history
           const newStack = stack.slice()
           newStack[current] = res
