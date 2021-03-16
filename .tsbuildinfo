@@ -167,7 +167,7 @@
         "affectsGlobalScope": false
       },
       "./src/core/feature.ts": {
-        "version": "bd68da5a6a984c3bd8e861266680c8b839a8e60780bbacd33c3c61e73c8efb13",
+        "version": "4b44a3b7f02a8cf1c4e56adcfcf982d10e9d580f3a133f7b6c3e35a665c3efbc",
         "signature": "b388c059f8cc5d3c13850058755f5a480f0d74af60ab6b89f9791cacdac791ec",
         "affectsGlobalScope": false
       },
@@ -593,6 +593,7 @@
       "outDir": "./dist",
       "strict": true,
       "noEmitOnError": true,
+      "noEmit": true,
       "project": "./tsconfig.json",
       "configFilePath": "./tsconfig.json"
     },
@@ -1205,6 +1206,12 @@
       "./src/models/dom.model.ts",
       "./src/models/wechat.model.ts",
       "./typings/weixin-js-sdk.d.ts"
+    ],
+    "affectedFilesPendingEmit": [
+      [
+        "./src/core/feature.ts",
+        1
+      ]
     ]
   },
   "version": "4.1.3"
