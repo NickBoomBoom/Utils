@@ -49,7 +49,6 @@ function checkOverlap(arr: dateBeginEnd[]): boolean {
   endArr = endArr.sort((a, b) => a - b)
 
   for (let i = 1; i < startArr.length; i++) {
-
     if (startArr[i] < endArr[i - 1]) {
       bol = true
       break

@@ -221,7 +221,7 @@
         "signature": "7d8ee4723b537e42362872b2368106b25824113579a26c81f0d364f3dfd5cc9b",
         "affectsGlobalScope": false
       },
-      "./typings/index.d.ts": {
+      "./typings/weixin-js-sdk.d.ts": {
         "version": "d7a782cb5cb4ecb4fdfa4e77e520a12dfe57841867ba9b32bf533245a97bc841",
         "signature": "d7a782cb5cb4ecb4fdfa4e77e520a12dfe57841867ba9b32bf533245a97bc841",
         "affectsGlobalScope": true
@@ -590,8 +590,6 @@
       "declaration": true,
       "diagnostics": true,
       "extendedDiagnostics": true,
-      "inlineSourceMap": true,
-      "inlineSources": true,
       "outDir": "./dist",
       "strict": true,
       "noEmitOnError": true,
@@ -832,7 +830,7 @@
         "./src/core/feature.ts",
         "./src/core/platform.ts",
         "./src/models/wechat.model.ts",
-        "./typings/index.d.ts"
+        "./typings/weixin-js-sdk.d.ts"
       ],
       "./src/index.ts": [
         "./src/core/bom.ts",
@@ -844,7 +842,7 @@
         "./src/core/storage.ts",
         "./src/core/vuehistory.ts",
         "./src/core/wechat.ts",
-        "./typings/index.d.ts"
+        "./typings/weixin-js-sdk.d.ts"
       ]
     },
     "exportedModulesMap": {
@@ -1206,7 +1204,7 @@
       "./src/models/date.model.ts",
       "./src/models/dom.model.ts",
       "./src/models/wechat.model.ts",
-      "./typings/index.d.ts"
+      "./typings/weixin-js-sdk.d.ts"
     ]
   },
   "version": "4.1.3"

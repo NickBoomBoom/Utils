@@ -13,14 +13,13 @@
     "declaration": true,
     "diagnostics": true,
     "extendedDiagnostics": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
     "outDir": "dist",
     "strict": true,
     "noEmitOnError": true,
+    "noEmit": true
   },
   "include": [
-    "./typings"
+    "./typings/"
   ],
   "exclude": [
     ".vscode"
