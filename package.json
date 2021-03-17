@@ -25,6 +25,10 @@
     "weixin-js-sdk": "^1.4.0-test"
   },
   "email": "q.chen.self@outlook.com",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "keywords": [
     "typescript",
     "utils",
