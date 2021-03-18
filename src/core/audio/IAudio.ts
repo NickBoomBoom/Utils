@@ -1,25 +1,24 @@
 
-import { v4 as uuid } from 'uuid'
-
-export class IAudio {
-  id
-  duration
-  currentTime = 0
-  paused = true
+import { guid } from '../feature'
+export default class IAudio {
+  readonly id: string = guid()
+  protected duration: string
+  protected currentTime: number = 0
+  protected paused: boolean = true
   constructor() {
-    this.id = uuid()
+    // this.id = guid()
   }
 
   get info() {
     return {
       currentTime: this.currentTime,
+      currentTimeStr: '',
       duration: this.duration,
+      durationStr: '',
       paused: this.paused // true 暂停 未播放(default)  false 播放中
     }
   }
-  playMethod;
-  destroyMethod;
-  pauseMethod;
+
   init() { }
   play() { }
   seek(time) { }

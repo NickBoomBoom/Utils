@@ -104,11 +104,24 @@ function getBase64Img(src: string): Promise<any> {
     }
   })
 }
+
+/**
+ * guid 生成
+ * @returns guid
+ */
+function guid(): string {
+  function S4(): string {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  }
+  return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}
+
 export {
   getVarType,
   sliceArray,
   checkOverlap,
   filterUrlSearch,
   getBase64Img,
-  imageToBase64
+  imageToBase64,
+  guid
 }
