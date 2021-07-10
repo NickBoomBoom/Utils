@@ -25,7 +25,7 @@ try {
 
 
 function isPreventDefault(handler: Function): boolean {
-  const r: RegExp = /(\/\/|\/\*+)(\s)*(\w)+\.preventDefault\((\w|\s)*?\)/g  // 匹配注释中的 preventDefault 
+  const r: RegExp = /(\/\/|\/\*+)(\s)*(\w)+\.preventDefault\((\w|\s)*?\)/g  // 匹配注释中的 preventDefault
   const r2: RegExp = /(\w)+\.preventDefault\((\w |\s)*?\)/g  // 匹配执行的preventDefault
   const txt = handler.toString().replace(r, '')
   return r2.test(txt)
@@ -56,7 +56,7 @@ function handlerListenOpt<T>(config: T, handler: Function): ListenOptions | bool
 }
 
 /**
- * 开始事件监听   
+ * 开始事件监听
  * @param element 监听对象
  * @param event   监听事件
  * @param handler 监听执行函数
@@ -64,7 +64,7 @@ function handlerListenOpt<T>(config: T, handler: Function): ListenOptions | bool
  */
 function on(
   element: HTMLElement | any,
-  event: Event | any,
+  event: Event | string,
   handler: Function,
   config: ListenOptions | boolean = false
 ) {
@@ -85,7 +85,7 @@ function on(
  */
 function off(
   element: HTMLElement | any,
-  event: Event,
+  event: Event | string,
   handler: Function,
   config: ListenOptions | boolean = false
 ) {
