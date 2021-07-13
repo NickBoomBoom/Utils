@@ -167,8 +167,8 @@
         "affectsGlobalScope": false
       },
       "./src/core/feature.ts": {
-        "version": "4b44a3b7f02a8cf1c4e56adcfcf982d10e9d580f3a133f7b6c3e35a665c3efbc",
-        "signature": "b388c059f8cc5d3c13850058755f5a480f0d74af60ab6b89f9791cacdac791ec",
+        "version": "f0fe8bd5bbc566ddee938f74b6960a936c9d7b2a9fdd02065217fa1d3f066056",
+        "signature": "f276b96db39928653deb77d3a57c6dc8f9085f7b3ad05930fb10b9caffe24ad8",
         "affectsGlobalScope": false
       },
       "./src/models/wechat.model.ts": {
@@ -187,8 +187,8 @@
         "affectsGlobalScope": false
       },
       "./src/core/dom.ts": {
-        "version": "253655918c60679a7dfa948c65145e27edb6a8f3505d464c2b1d703cacfd88d5",
-        "signature": "dbaa302f9ba96dc269d991d1a45b7b0a0297cd484f524f71fb5c7685bed3fbe3",
+        "version": "fe9f24f6dd1cb022d267cb8e5c45c1725c45e1d19014eb8a8e8712828939336b",
+        "signature": "c247dccc8e68a382fe73f2d562919d6c8221953c114b0154b0e53fac400f78a0",
         "affectsGlobalScope": false
       },
       "./src/core/storage.ts": {
@@ -593,7 +593,6 @@
       "outDir": "./dist",
       "strict": true,
       "noEmitOnError": true,
-      "noEmit": true,
       "project": "./tsconfig.json",
       "configFilePath": "./tsconfig.json"
     },
@@ -1206,12 +1205,6 @@
       "./src/models/dom.model.ts",
       "./src/models/wechat.model.ts",
       "./typings/weixin-js-sdk.d.ts"
-    ],
-    "affectedFilesPendingEmit": [
-      [
-        "./src/core/feature.ts",
-        1
-      ]
     ]
   },
   "version": "4.1.3"
