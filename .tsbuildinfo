@@ -592,7 +592,6 @@
       "extendedDiagnostics": true,
       "outDir": "./dist",
       "strict": true,
-      "noEmitOnError": true,
       "project": "./tsconfig.json",
       "configFilePath": "./tsconfig.json"
     },
