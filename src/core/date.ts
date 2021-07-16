@@ -3,8 +3,8 @@ import { Day } from '../models/date.model'
 
 /**
  * 补0操作
- * @param num 
- * @return sting 
+ * @param num
+ * @return sting
  */
 function _fill(num: number): string {
   if (num < 10) {
@@ -15,7 +15,7 @@ function _fill(num: number): string {
 
 /**
  * 转化成Date对象
- * @param date 
+ * @param date
  */
 function _date(date: any): Date {
   if (date instanceof Date) {
@@ -92,17 +92,17 @@ function getEndMend(week: number, weekStart: number): number {
 }
 /**
  * 返回月份数据
- * @param date Date 对象 或 可被new Date对象解析; 
+ * @param date Date 对象 或 可被new Date对象解析;
  * @param weekStart number 周开始 0 - 6 ,默认1 从周一开始
- * @return Day[]
+ * @return Day[] 一维数组
  */
 function createMonth(date: Date | number | string = Date.now(), weekStart: number = 1): Day[] {
   const newDate: Date = _date(date)
   const weekEnd: number = weekStart - 1 < 0 ? 6 : weekStart - 1 // 可以优化
   const year: number = newDate.getFullYear()
   const month: number = newDate.getMonth() // 当前月份的Date对象展示,非实际月份,实际月份需+1
-  const currentMonth: number = month + 1  // 当前月份 
-  const nextMonth: number = month + 1 // 下一月份 
+  const currentMonth: number = month + 1  // 当前月份
+  const nextMonth: number = month + 1 // 下一月份
   const prevMonth: number = month - 1 // 上一月份
   const days: number = new Date(year, nextMonth, 0).getDate()  // 将月份下移到下一个月份，同时将日期设置为0；由于Date里的日期是1~31，所以Date对象自动跳转到上一个月的最后一天；getDate（）获取天数即可。
   let res = []
@@ -160,8 +160,8 @@ function createMonth(date: Date | number | string = Date.now(), weekStart: numbe
     }
   }
 
-  // 转二维排列数组
-  res = sliceArray(res, 7)
+  // // 转二维排列数组
+  // res = sliceArray(res, 7)
 
   return res
 }
