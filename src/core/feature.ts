@@ -16,15 +16,15 @@ function sliceArray(arr: any[], limit: number): any[] {
 
 /**
  * 过滤url search 中的字符串
- * @param url 
- * @param keys 
+ * @param url
+ * @param keys
  */
 function filterUrlSearch(url: string, keys: string[] = []): string {
-  keys.forEach(key => {
-    const reg = new RegExp(`${key}=([^&]*)(&|$)`, 'gi')
-    url = url.replace(reg, '')
-  })
-  return url
+  keys.forEach((key) => {
+    const reg = new RegExp(`${key}=([^&]*)(&|$)`, "gi");
+    url = url.replace(reg, "");
+  });
+  return url;
 }
 
 /**
@@ -33,31 +33,30 @@ function filterUrlSearch(url: string, keys: string[] = []): string {
  * @param arr dateBeginEnd[] 数组对象,ex: [{s:1,e:2}]
  */
 interface dateBeginEnd {
-  s: number,
-  e: number
+  s: number;
+  e: number;
 }
 function checkOverlap(arr: dateBeginEnd[]): boolean {
-  let startArr: number[] = []
-  let endArr: number[] = []
-  let bol: boolean = false
-  arr.forEach(t => {
-    startArr.push(t.s)
-    endArr.push(t.e)
-  })
+  let startArr: number[] = [];
+  let endArr: number[] = [];
+  let bol: boolean = false;
+  arr.forEach((t) => {
+    startArr.push(t.s);
+    endArr.push(t.e);
+  });
 
-  startArr = startArr.sort((a, b) => a - b)
-  endArr = endArr.sort((a, b) => a - b)
+  startArr = startArr.sort((a, b) => a - b);
+  endArr = endArr.sort((a, b) => a - b);
 
   for (let i = 1; i < startArr.length; i++) {
     if (startArr[i] < endArr[i - 1]) {
-      bol = true
-      break
+      bol = true;
+      break;
     }
   }
 
-  return bol
+  return bol;
 }
-
 
 /**
  * 返回对象类型, 首字母大写
@@ -65,24 +64,23 @@ function checkOverlap(arr: dateBeginEnd[]): boolean {
  * @return String  (Object, Boolean, Number, String, Undefined, Null, Array, Function, Symbol)
  */
 function getVarType(variable: any): string {
-  const type: string = Object.prototype.toString.call(variable)
-  type.match(/\s(\S+)]$/)
-  return RegExp.$1
+  const type: string = Object.prototype.toString.call(variable);
+  type.match(/\s(\S+)]$/);
+  return RegExp.$1;
 }
-
 
 /**
  * 图片转化base64
  * @param img 图片dom
  */
 function imageToBase64(img: HTMLElement | any): string {
-  const canvas: HTMLCanvasElement = document.createElement('canvas')
-  canvas.width = img.width
-  canvas.height = img.height
-  const ctx: any = canvas.getContext('2d')
-  ctx.drawImage(img, 0, 0, img.width, img.height)
-  const dataURL = canvas.toDataURL('image/png')
-  return dataURL
+  const canvas: HTMLCanvasElement = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx: any = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, img.width, img.height);
+  const dataURL = canvas.toDataURL("image/png");
+  return dataURL;
 }
 
 /**
@@ -91,18 +89,18 @@ function imageToBase64(img: HTMLElement | any): string {
  */
 function getBase64Img(src: string): Promise<any> {
   return new Promise((resolve, reject) => {
-    let result = ''
-    let img = new Image()
-    img.crossOrigin = ''
-    img.src = src
+    let result = "";
+    let img = new Image();
+    img.crossOrigin = "";
+    img.src = src;
     img.onload = () => {
-      result = imageToBase64(img)
-      resolve(result)
-    }
-    img.onerror = err => {
-      reject(err)
-    }
-  })
+      result = imageToBase64(img);
+      resolve(result);
+    };
+    img.onerror = (err) => {
+      reject(err);
+    };
+  });
 }
 
 /**
@@ -113,7 +111,30 @@ function guid(): string {
   function S4(): string {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   }
-  return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+  return (
+    S4() +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    "-" +
+    S4() +
+    S4() +
+    S4()
+  );
+}
+
+/**
+ * 数组拍平
+ *
+ */
+function flatten(arr: any[]): any[] {
+  return arr.reduce((result, item) => {
+    return result.concat(Array.isArray(item) ? flatten(item) : item);
+  }, []);
 }
 
 export {
@@ -123,5 +144,6 @@ export {
   filterUrlSearch,
   getBase64Img,
   imageToBase64,
-  guid
-}
+  guid,
+  flatten,
+};
