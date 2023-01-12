@@ -1,3 +1,15 @@
+
+/**
+ * 返回对象类型, 首字母大写
+ * @param variable any
+ * @return String  (Object, Boolean, Number, String, Undefined, Null, Array, Function, Symbol)
+ */
+function getVarType(variable: any): string {
+  const type: string = Object.prototype.toString.call(variable);
+  type.match(/\s(\S+)]$/);
+  return RegExp.$1;
+}
+
 /**
  *  等分切割数组
  *
@@ -58,16 +70,7 @@ function checkOverlap(arr: dateBeginEnd[]): boolean {
   return bol;
 }
 
-/**
- * 返回对象类型, 首字母大写
- * @param variable any
- * @return String  (Object, Boolean, Number, String, Undefined, Null, Array, Function, Symbol)
- */
-function getVarType(variable: any): string {
-  const type: string = Object.prototype.toString.call(variable);
-  type.match(/\s(\S+)]$/);
-  return RegExp.$1;
-}
+
 
 /**
  * 图片转化base64
@@ -137,6 +140,45 @@ function flatten(arr: any[]): any[] {
   }, []);
 }
 
+/**
+ * 数据格式化
+ * @param data 数据
+ * @return parse后的数据
+ */
+function jsonParse(data: any): any {
+  let res = data
+  try {
+    res = JSON.parse(data)
+  } catch (err) {
+  }
+  return res
+}
+
+
+/**
+ * 将非string类型数据 json化 不然无法存储本地
+ * @param data 数据
+ * @return 字符串数据
+ */
+function toString(data: any): string {
+  if (typeof data === 'string') {
+    return data
+  } else {
+    return JSON.stringify(data)
+  }
+}
+
+/**
+ * 补0操作
+ * @param num
+ * @return sting
+ */
+function fillZero(num: number): string {
+  if (num < 10) {
+    return `0${num}`;
+  }
+  return `${num}`;
+}
 export {
   getVarType,
   sliceArray,
@@ -146,4 +188,7 @@ export {
   imageToBase64,
   guid,
   flatten,
+  jsonParse,
+  toString,
+  fillZero
 };

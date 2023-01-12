@@ -1,17 +1,18 @@
 # utils94(工具类函数集结)
 
-| 工具类      | 功能                        |
-| ----------- | --------------------------- |
-| WeChat      | 微信端jssdk处理             |
-| dom         | dom 相关                    |
-| bom         | bom 相关                    |
-| date        | 时间相关(日历生成)          |
-| compute     | 计算方法(解决js计算精度bug) |
-| feature     | 功能                        |
-| storage     | 缓存                        |
-| platform    | 平台判断                    |
-| VueHistory  | 记录vue的页面跳转信息       |
-| WeChatJsSDK | weixin-js-sdk 1.6版本       |
+| 工具类      | 功能                  |
+| ----------- | --------------------- |
+| WeChat      | 微信端jssdk处理       |
+| dom         | dom 相关              |
+| bom         | bom 相关              |
+| date        | 时间相关(日历生成)    |
+| feature     | 功能                  |
+| storage     | 缓存                  |
+| platform    | 平台判断              |
+| VueHistory  | 记录vue的页面跳转信息 |
+| WeChatJsSDK | weixin-js-sdk 1.6版本 |
+| Decimal     | js 计算精度解决方案   |
+|             |                       |
 
 
 
@@ -236,223 +237,45 @@ import { WeChat, dom, bom... } from 'utils94'
     */
     ```
 
-    
-
-## 5. compute
-
-  - divide(number, number) 除法
-
-  - 返回计算结果 number
-
-    ```javascript
-    import { compute } from 'utils94'
-    compute.divide(10, 2)  // 返回 5
-    ```
-
-    
-
-  - multiply(number, number) 乘法
-
-  - 返回计算结果 number
-
-    ```javascript
-    import { compute } from 'utils94'
-    compute.multiply(10, 2)  // 返回 20
-    ```
-
-  - plus(number, number) 加法
-
-  - 返回计算结果 number
-
-    ```javascript
-    import { compute } from 'utils94'
-    compute.plus(10, 2)  // 返回 12
-    ```
-
-  - minus(number, number) 减法
-
-  - 返回计算结果 number
-
-    ​	
-
-    ```javascript
-    import { compute } from 'utils94'
-    compute.minus(10, 2)  // 返回 12
-    ```
-
-    
-
-## 6. feature
-
-  - getVarType(obj: any) 获取变量类型
-
-  - 返回Object,String,Number,Null,Undefined,Array,Function,Symbol
-
-    ```javascript
-    import { feature } from 'utils94'
-    feature.getVarType({}) // 返回 Object
-    ```
-
-    
-
-  - sliceArray(arr:array, limit: number) 等分切割数组
-
-  - 返回新数组
-
-    ```javascript
-    import { feature } from 'utils94'
-    feature.sliceArray([1,2,3,4,5,6], 2) // 返回 [[1,2], [3,4], [5,6]]
-    ```
-
-    
-
-  - checkOverlap(arr: object[]) 检测时间是否重叠
-
-  - 返回 boolean
-
-    ```javascript
-    import { feature } from 'utils94'
-    feature.checkOverlap([
-      {
-        s: 2019/9/2,
-        e: 2019/10/1
-      },
-      {
-        s: 2019/9/3,
-        e: 2019/10/2
-      }
-    ])  // true
-    ```
-
-    
-
-  - filterUrlSearch(url:string, filter:string[]) 过滤url上query中的字段
-
-  - 返回 新url string
-
-    ```javascript
-    import { feature } from 'utils94'
-    feature.filterUrlSearch('www.sss.com?token=kdkkd&uid=1', ['token'])  // www.sss.com?uid=1
-    ```
-
-    
-
-  - getBase64Img(src: string) 获取图片的base64
-
-  - 返回promise 
-
-    ```javascript
-    import { feature } from 'utils94'
-    feature.getBase64Img('www.sss.com?token=kdkkd&uid=1')
-      .then(res => {
-        console.log('base64', res)
-      })
-    ```
-
-    
-
-  - imageToBase64(element: Element) 图片dom转base64
-
-  - 返回 base64
-
-    ```javascript
-    import { feature } from 'utils94'
-    const img = document.querySelector('img')
-    feature.imageToBase64(img) // base64图片
-    ```
-
-    
-## 7. storage
-
-  - getLocal(key:string) 获取本地缓存数据
-
-  - 返回 string | undefined
-
-    ```javascript
-    import { storage } from 'utils94'
-    storage.getLocal('token')
-    ```
-
-    
-
-  - setLocal(key:string, value: any) 设置本地缓存数据
-
-  - 无返回 
-
-    ```javascript
-    import { storage } from 'utils94'
-    storage.setLocal('token')
-    ```
-
-    
-
-  - removeLocal(key:string) 移除本地缓存数据
-
-  - 无返回
-
-    ```javascript
-    import { storage } from 'utils94'
-    storage.removeLocal('token')
-    ```
-
-    
-
-  - clearLocal(key:string) 清空本地缓存
-
-  - 无返回
-
-    ```javascript
-    import { storage } from 'utils94'
-    storage.clearLocal()
-    ```
-
-    
-
-  - getSession(key:string) 获取浏览器缓存
-
-  - 返回 string | undefined
-
-    ```javascript
-    import { storage } from 'utils94'
-    storage.getSession('token')
-    ```
-
-    
-
-  - setSession(key:string, value: any) 设置浏览器缓存
-
-  - 无返回 
-
-    ```javascript
-    import { storage } from 'utils94'
-    storage.setSession('token')
-    ```
-
-    
-
-  - removeSession(key:string) 移除浏览器缓存
-
-  - 无返回
-
-    ```javascript
-    import { storage } from 'utils94'
-    storage.removeSession('token')
-    ```
-
-    
-
-  - clearSession(key:string) 清空浏览器缓存
-
-  - 无返回
-
-    ```javascript
-    import { storage } from 'utils94'
-    storage.clearSession()
-    ```
-
-  
-
-## 8. platform
+     
+## 5. feature
+
+| 函数                                                 | 功能                                       |
+| ---------------------------------------------------- | ------------------------------------------ |
+| getVarType(var:any) : string                         | 获取变量类型                               |
+| sliceArray(arr:any[], limit: number) : any[any[]]    | 等分切割数组                               |
+| filterUrlSearch(url:string, keys: string[]) : string | 过滤url search 中的字符串                  |
+| checkOverlap(arr: {s:number, e: number}[]) : boolean | 检测时间是否重叠                           |
+| getBase64Img(url: string): Promise<string>           | 图片地址转base64                           |
+| imageToBase64(img: HTMLElement): string              | 图片标签转化base64                         |
+| guid():string                                        | guid生成                                   |
+| flatten(arr: any[]): any[]                           | 数组拍平                                   |
+| jsonParse(data: any): any                            | 数据格式化，将被转为string的数据 parse出来 |
+| toString(data: any) : string                         | 将数据stringfy                             |
+| fillZero(num: number \| string) :string              | 前置补0                                    |
+|                                                      |                                            |
+|                                                      |                                            |
+
+## 6. storage
+
+| 工具类         | 功能                                            |
+| -------------- | ----------------------------------------------- |
+| LocalStorage   | window.localStorage 的 get, set, remove,clear   |
+| SessionStorage | window.sessionStorage 的 get, set, remove,clear |
+| CookieStorage  | js-cookie的 get,set, remove                     |
+
+```javascript
+import { LocalStorage, SessionStorage, CookieStorage } from 'utils94/storage'
+LocalStorage.set('test', {a:1})  // test '{"a":1}'
+LocalStorage.get('test' )  // {a: 1}
+LocalStorage.remove('test') // void
+LocalStorage.clear() // void
+
+// 其他两个同上使用，只不过CookieStorage 支持传递配置项，且没有clear函数
+```
+
+
+## 7. platform
 
   - isWX() 是否为微信环境
 
@@ -472,7 +295,7 @@ import { WeChat, dom, bom... } from 'utils94'
 
 
 
-## 9. VueHistory
+## 8. VueHistory
 
   原生vue-router 上并不提供 页面跳转记录。
 
@@ -499,4 +322,9 @@ import { WeChat, dom, bom... } from 'utils94'
     onChange: (obj) => { }, // 堆栈信息变化 返回历史记录信息 _history
   })
   ```
+
+## 9. Decimal.js 
+一个解决js计算精度问题的解决方案
+
+[npm地址](https://www.npmjs.com/package/decimal.js)
 

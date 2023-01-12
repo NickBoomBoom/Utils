@@ -1,121 +1,86 @@
-
-const L = window.localStorage  // 本地存储
-const S = window.sessionStorage // 会话存储
-
-/**
- * 数据格式化
- * @param data 数据
- * @return parse后的数据
+/*
+ * @Author: q.chen.work q.chen.work@outlook.com
+ * @Date: 2023-01-12 10:04:48
+ * @LastEditors: q.chen.work q.chen.work@outlook.com
+ * @LastEditTime: 2023-01-12 11:02:29
+ * @FilePath: /Utils/src/core/storage.ts
+ * @Description: 
+ * 
+ * Copyright (c) 2023 by q.chen.work q.chen.work@outlook.com, All Rights Reserved. 
  */
-function _parse(data: any): any {
-  let res = data
-  try {
-    res = JSON.parse(data)
-  } catch (err) {
+
+import { jsonParse, toString } from "./feature"
+import * as  Cookies from 'js-cookie'
+class BrowserStorage {
+  target: any;
+  constructor(target: any) {
+    this.target = target
   }
-  return res
-}
-
-/**
- * 将非string类型数据 json化 不然无法存储本地
- * @param data 数据
- * @return 字符串数据
+  /**
+  * 获取数据
+  * @param key 变量名
+  * @return 格式化后的数据
+  */
+  get(key: string): any {
+    const res = this.target.getItem(key)
+    const result = res ? jsonParse(res) : res
+    return result
+  }
+  /**
+ * 设置数据
+ * @param key 变量名
+ * @param value 初始数据:非string类型数据均要json转化
  */
-function _json(data: any): string {
-  if (typeof data === 'string') {
-    return data
-  } else {
-    return JSON.stringify(data)
+  set(key: string, value: any) {
+    this.target.setItem(key, toString(value))
+  }
+
+  /**
+   * 移除数据
+   * @param key 变量名
+   */
+  remove(key: string) {
+    this.target.removeItem(key)
+  }
+  /**
+   * 清除数据
+   */
+  clear(): void {
+    this.target.clear()
   }
 }
-
-/**
- * 获取本地数据
+const LocalStorage = new BrowserStorage(window.localStorage)
+const SessionStorage = new BrowserStorage(window.sessionStorage)
+const CookieStorage = {
+  /**
+* 获取数据
+* @param key 变量名
+* @return 格式化后的数据
+*/
+  get: (key: string): any => {
+    const res = Cookies.get(key)
+    return res ? jsonParse(res) : res
+  },
+  /**
+ * 设置数据
  * @param key 变量名
- * @return 格式化后的数据
+ * @param value 初始数据:非string类型数据均要json转化
  */
-function getLocal(key: string): any {
-  let result: any = ''
-  let res = L.getItem(key)
-  result = _parse(res)
-
-  return result
-}
-
-/**
- * 设置本地数据
- * @param key 变量名
- * @param data 初始数据:非string类型数据均要json转化
- */
-function setLocal(key: string, data: any): void {
-  const newData = _json(data)
-  L.setItem(key, newData)
-}
-
-/**
- * 移除本地数据
+  set: (key: string, value: any, option: Cookies.CookieAttributes = {}): void => {
+    Cookies.set(key, toString(value), option)
+  },
+  /**
+ * 移除数据
  * @param key 变量名
  */
-function removeLocal(key: string): void {
-  L.removeItem(key)
+  remove: (key: string, option: Cookies.CookieAttributes = {}): void => {
+    Cookies.remove(key, option)
+  }
 }
-
-/**
- * 清除本地数据
- */
-function clearLocal(): void {
-  L.clear()
-}
-
-
-/**
- * 获取会话数据
- * @param key 变量名
- * @return 格式化后的数据
- */
-function getSession(key: string): any {
-  let result: any = ''
-
-  let res = S.getItem(key)
-  result = _parse(res)
-
-  return result
-}
-
-/**
- * 设置会话数据
- * @param key 变量名
- * @param data 初始数据:非string类型数据均要json转化
- */
-function setSession(key: string, data: any): void {
-  const newData = _json(data)
-  S.setItem(key, newData)
-}
-
-/**
- * 移除会话数据
- * @param key 变量名
- */
-function removeSession(key: string): void {
-  S.removeItem(key)
-}
-
-/**
- * 清空会话缓存
- */
-function clearSession(): void {
-  S.clear()
-}
-
 
 export {
-  getLocal,
-  setLocal,
-  removeLocal,
-  clearLocal,
-
-  getSession,
-  setSession,
-  removeSession,
-  clearSession
+  BrowserStorage,
+  LocalStorage,
+  SessionStorage,
+  CookieStorage
 }

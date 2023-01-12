@@ -1,18 +1,5 @@
-import { sliceArray } from "./feature";
+import { sliceArray, fillZero } from "./feature";
 import { Day } from "../models/date.model";
-
-/**
- * 补0操作
- * @param num
- * @return sting
- */
-function _fill(num: number): string {
-  if (num < 10) {
-    return `0${num}`;
-  }
-  return `${num}`;
-}
-
 /**
  * 转化成Date对象
  * @param date
@@ -128,7 +115,7 @@ function createMonth(
           res.push({
             date: prevDate,
             data: {
-              text: `${dateInfo.year}/${_fill(dateInfo.month)}/${_fill(
+              text: `${dateInfo.year}/${fillZero(dateInfo.month)}/${fillZero(
                 dateInfo.day
               )}`,
               current: false,
@@ -146,7 +133,7 @@ function createMonth(
       date: new Date(year, month, day),
       data: {
         current: true,
-        text: `${year}/${_fill(currentMonth)}/${_fill(day)}`,
+        text: `${year}/${fillZero(currentMonth)}/${fillZero(day)}`,
         week,
         day,
         month,
@@ -164,7 +151,7 @@ function createMonth(
           res.push({
             date: nextDate,
             data: {
-              text: `${dateInfo.year}/${_fill(dateInfo.month)}/${_fill(
+              text: `${dateInfo.year}/${fillZero(dateInfo.month)}/${fillZero(
                 dateInfo.day
               )}`,
               current: false,
