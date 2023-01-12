@@ -1,6 +1,6 @@
 {
   "name": "utils94",
-  "version": "2.1.4",
+  "version": "2.1.41",
   "description": "日常开发使用工具库",
   "main": "index.js",
   "repository": {
@@ -14,6 +14,11 @@
     "push": "pnpm run build && cp package.json README.md ./dist && pnpm publish dist --no-git-checks",
     "test": "jest --coverage"
   },
+  "dependencies": {
+    "decimal.js": "^10.4.3",
+    "js-cookie": "^3.0.1",
+    "weixin-js-sdk": "^1.6.0"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/js-cookie": "^3.0.2",
@@ -21,11 +26,6 @@
     "ts-jest": "^26.5.6",
     "ts-node": "^8.10.2",
     "typescript": "^4.9.4"
-  },
-  "dependencies": {
-    "decimal.js": "^10.4.3",
-    "js-cookie": "^3.0.1",
-    "weixin-js-sdk": "^1.6.0"
   },
   "email": "q.chen.self@outlook.com",
   "keywords": [

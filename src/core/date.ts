@@ -91,7 +91,7 @@ function getEndMend(week: number, weekStart: number): number {
 function createMonth(
   date: Date | number | string = Date.now(),
   weekStart: number = 1
-): Day[] {
+): Day[][] {
   const newDate: Date = _date(date);
   const weekEnd: number = weekStart - 1 < 0 ? 6 : weekStart - 1; // 可以优化
   const year: number = newDate.getFullYear();
@@ -100,7 +100,7 @@ function createMonth(
   const nextMonth: number = month + 1; // 下一月份
   const prevMonth: number = month - 1; // 上一月份
   const days: number = new Date(year, nextMonth, 0).getDate(); // 将月份下移到下一个月份，同时将日期设置为0；由于Date里的日期是1~31，所以Date对象自动跳转到上一个月的最后一天；getDate（）获取天数即可。
-  let res = [];
+  let res :Day[][]= [];
   for (let i = 1; i <= days; i++) {
     let day: number = i;
     let week: number = new Date(year, month, day).getDay(); // 0 - 6 ; 周日 - 周六
@@ -166,9 +166,8 @@ function createMonth(
     }
   }
 
-  // // 转二维排列数组
-  // res = sliceArray(res, 7)
-
+  // 转二维排列数组
+  res = sliceArray(res, 7)
   return res;
 }
 
