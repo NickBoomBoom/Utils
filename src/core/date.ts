@@ -89,11 +89,11 @@ function getEndMend(week: number, weekStart: number): number {
  * @param date Date 对象 或 可被new Date对象解析;
  * @param data 在对应日期中插入数据，以时间为key的对象；{'2022/01/01': {}}
  * @param weekStart number 周开始 0 - 6 ,默认1 从周一开始; 0 代表星期日，1 代表星期一，2 代表星期二，依次类推。
- * @return Day[] 一维数组
+ * @return Day[][] 二维数组 ||  Day[] 一维数组
  */
 function createMonth(
   { date, data, weekStart, isSliceByWeek }: CreateMonthArguments
-): Day[][] {
+): Day[][] | Day[] {
   weekStart = weekStart ?? 1;
   const newDate: Date = _date(date || Date.now());
   const weekEnd: number = weekStart - 1 < 0 ? 6 : weekStart - 1; // 可以优化
@@ -108,7 +108,7 @@ function createMonth(
   for (let i = 1; i <= days; i++) {
     let day: number = i;
     let week: number = new Date(year, month, day).getDay(); // 0 - 6 ; 周日 - 周六
-    
+
     // 补足上月尾信息
     if (i === 1) {
       if (weekStart !== week) {
@@ -121,23 +121,23 @@ function createMonth(
           )}`
           res.push({
             source: prevDate,
-            text:_dateText ,
+            text: _dateText,
             current: false,
             week: dateInfo.week,
             year: dateInfo.year,
             month: dateInfo.month,
             day: dateInfo.day,
-            isToday: false, 
+            isToday: false,
             data: data?.[_dateText]
           });
         }
       }
     }
 
-    const _currentDateText= `${year}/${fillZero(currentMonth)}/${fillZero(day)}`
+    const _currentDateText = `${year}/${fillZero(currentMonth)}/${fillZero(day)}`
     res.push({
       current: true,
-      text:_currentDateText ,
+      text: _currentDateText,
       isToday: day === currentDay,
       source: new Date(year, month, day),
       data: data?.[_currentDateText],
@@ -154,7 +154,7 @@ function createMonth(
         for (let _i = 0; _i < mendDays; _i++) {
           const nextDate = new Date(year, nextMonth, _i + 1);
           const dateInfo = getYMDW(nextDate);
-          const  _dateText = `${dateInfo.year}/${fillZero(dateInfo.month)}/${fillZero(
+          const _dateText = `${dateInfo.year}/${fillZero(dateInfo.month)}/${fillZero(
             dateInfo.day
           )}`
           res.push({
@@ -172,8 +172,12 @@ function createMonth(
       }
     }
   }
-  return sliceArray(res, 7)
+  if (isSliceByWeek) {
+
+    return sliceArray(res, 7)
+  }
+  return res
 }
- 
+
 
 export { createMonth };
