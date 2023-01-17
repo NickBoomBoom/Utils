@@ -12,7 +12,6 @@
 | VueHistory  | 记录vue的页面跳转信息 |
 | WeChatJsSDK | weixin-js-sdk 1.6版本 |
 | Decimal     | js 计算精度解决方案   |
-|             |                       |
 
 
 
@@ -253,8 +252,8 @@ import { WeChat, dom, bom... } from 'utils94'
 | jsonParse(data: any): any                            | 数据格式化，将被转为string的数据 parse出来 |
 | toString(data: any) : string                         | 将数据stringfy                             |
 | fillZero(num: number \| string) :string              | 前置补0                                    |
-|                                                      |                                            |
-|                                                      |                                            |
+| deepClone(origin: any, target?:any )                 | 深度克隆                                   |
+| getValueByKey(row:any, key: string)                  | 通过key找值，支持数组下标                  |
 
 ## 6. storage
 
