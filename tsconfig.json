@@ -15,7 +15,8 @@
     "diagnostics": true,
     "extendedDiagnostics": true,
     "outDir": "dist",
-    "strict": true
+    "strict": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     ".vscode"

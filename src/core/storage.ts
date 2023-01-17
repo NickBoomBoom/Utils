@@ -2,7 +2,7 @@
  * @Author: q.chen.work q.chen.work@outlook.com
  * @Date: 2023-01-12 10:04:48
  * @LastEditors: q.chen.work q.chen.work@outlook.com
- * @LastEditTime: 2023-01-12 11:02:29
+ * @LastEditTime: 2023-01-17 12:58:09
  * @FilePath: /Utils/src/core/storage.ts
  * @Description: 
  * 
@@ -10,7 +10,7 @@
  */
 
 import { jsonParse, toString } from "./feature"
-import * as  Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 class BrowserStorage {
   target: any;
   constructor(target: any) {
