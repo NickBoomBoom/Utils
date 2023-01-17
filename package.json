@@ -3,6 +3,7 @@
   "version": "2.1.44",
   "description": "日常开发使用工具库",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://git@github.com:Nick-QI/Utils.git"
@@ -17,7 +18,7 @@
   "dependencies": {
     "decimal.js": "^10.4.3",
     "js-cookie": "^3.0.1",
-    "weixin-js-sdk": "^1.6.0"
+    "weixin-js-sdk-ts": "^1.6.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",

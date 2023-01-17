@@ -1,4 +1,4 @@
-import * as WeChatJsSdk from 'weixin-js-sdk'
+import * as WeChatJsSdk from 'weixin-js-sdk-ts'
 import { isIOS, isWX } from './platform'
 import { filterUrlSearch } from './feature'
 import { ShareConfig, JsConfig } from '../models/weChat.model';

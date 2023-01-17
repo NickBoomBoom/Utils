@@ -2,7 +2,6 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "tsBuildInfoFile":".tsbuildinfo",
     "target": "ES6",
     "module": "ES6",
     "moduleResolution": "node",
@@ -11,14 +10,13 @@
     "allowJs": true, // 是否允许编译js文件,默认false
     "checkJs": true, // 是否检查和报告js文件中的错误,默认false
     "declaration": true,
+    "declarationDir": "dist",
+    "typeRoots": ["./node_modules/@types"],
     "diagnostics": true,
     "extendedDiagnostics": true,
     "outDir": "dist",
     "strict": true
   },
-  "include": [
-    "./typings/"
-  ],
   "exclude": [
     ".vscode"
   ],

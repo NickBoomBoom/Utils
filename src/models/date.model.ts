@@ -2,7 +2,7 @@
  * @Author: q.chen.work q.chen.work@outlook.com
  * @Date: 2023-01-12 11:18:45
  * @LastEditors: q.chen.work q.chen.work@outlook.com
- * @LastEditTime: 2023-01-13 12:46:04
+ * @LastEditTime: 2023-01-17 11:03:40
  * @FilePath: /Utils/src/models/date.model.ts
  * @Description: 
  * 
@@ -24,7 +24,7 @@ export interface DayData {
 }
 
 export interface CreateMonthArguments {
-  date: Date | number | string | undefined;  // 初始日期
+  date?: Date | number | string | undefined;  // 初始日期
   data?: DayData; // 补足到对应日期的数据
   weekStart?: number; // 日期开始周，默认为1 从周一开始
   isSliceByWeek?: boolean; // 是否按周切割，默认不切割

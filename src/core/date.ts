@@ -92,7 +92,7 @@ function getEndMend(week: number, weekStart: number): number {
  * @return Day[][] 二维数组 ||  Day[] 一维数组
  */
 function createMonth(
-  { date, data, weekStart, isSliceByWeek }: CreateMonthArguments
+  { date, data, weekStart, isSliceByWeek }: CreateMonthArguments = {}
 ): Day[][] | Day[] {
   weekStart = weekStart ?? 1;
   const newDate: Date = _date(date || Date.now());
