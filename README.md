@@ -1,17 +1,17 @@
 # utils94(工具类函数集结)
 
-| 工具类      | 功能                  |
-| ----------- | --------------------- |
-| WeChat      | 微信端jssdk处理       |
-| dom         | dom 相关              |
-| bom         | bom 相关              |
-| date        | 时间相关(日历生成)    |
-| feature     | 功能                  |
-| storage     | 缓存                  |
-| platform    | 平台判断              |
-| VueHistory  | 记录vue的页面跳转信息 |
-| WeChatJsSDK | weixin-js-sdk 1.6版本 |
-| Decimal     | js 计算精度解决方案   |
+| 工具类     | 功能                  |
+| ---------- | --------------------- |
+| WeChat     | 微信端jssdk处理       |
+| dom        | dom 相关              |
+| bom        | bom 相关              |
+| date       | 时间相关(日历生成)    |
+| feature    | 功能                  |
+| storage    | 缓存                  |
+| platform   | 平台判断              |
+| VueHistory | 记录vue的页面跳转信息 |
+|            |                       |
+| Decimal    | js 计算精度解决方案   |
 
 
 
@@ -36,10 +36,9 @@ import { WeChat, dom, bom... } from 'utils94'
 
 ## 1. WeChat
 
-  本包依赖已经引入 "weixin-js-sdk": "^1.4.0-test", 当前版本 1.6
-  无需再次引入wexin-js-sdk
+ 
 
-  - new WeChat( [{title,desc,link,imgUrl},{title,link,imgUrl}], requset) 初始化
+  - new WeChat(WeChatJsSdk,  [{title,desc,link,imgUrl},{title,link,imgUrl}], requset) 初始化
 
     ```javascript
     import {WeChat} from 'utils94' 
@@ -81,6 +80,7 @@ import { WeChat, dom, bom... } from 'utils94'
     
     // 初始化配置(必须)
     const wx = new WeChat(
+      WxChatJsSdk, // 微信js 
       [
         friendShareConfig,
         momentShareConfig

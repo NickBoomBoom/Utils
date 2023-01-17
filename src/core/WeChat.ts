@@ -1,19 +1,21 @@
-import * as WeChatJsSdk from 'weixin-js-sdk-ts'
 import { isIOS, isWX } from './platform'
 import { filterUrlSearch } from './feature'
 import { ShareConfig, JsConfig } from '../models/weChat.model';
 
 //  weixin-js-sdk 文档:  https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
 export default class WeChat {
+  private WeChatJsSdk: any;
   private shareConfig: ShareConfig[]
   private getJsSdk: any  // 最后返回 jsConfig 配置信息 
   private iosSdkStatus: boolean = false // ios 配置状态
   constructor(
+    WeChatJsSdk: any,
     shareConfig: ShareConfig[],
     getJsSdk: Promise<JsConfig>
   ) {
     this.shareConfig = shareConfig;
     this.getJsSdk = getJsSdk;
+    this.WeChatJsSdk = WeChatJsSdk
   }
 
   /**
@@ -36,14 +38,14 @@ export default class WeChat {
         try {
           const res: JsConfig = await this.getJsSdk()
           // 配置微信 sdk
-          WeChatJsSdk.config(res)
+          this.WeChatJsSdk.config(res)
           // 配置成功
-          WeChatJsSdk.ready(() => {
+          this.WeChatJsSdk.ready(() => {
             this.iosSdkStatus = true
             resolve({})
           })
           // 配置报错
-          WeChatJsSdk.error((err: any) => {
+          this.WeChatJsSdk.error((err: any) => {
             this.iosSdkStatus = false
             reject(err)
           })
@@ -75,8 +77,8 @@ export default class WeChat {
     chatConfig.link = filterUrlSearch(chatConfig.link || currentUrl, filter)
     momentConfig.link = filterUrlSearch(momentConfig.link || currentUrl, filter)
 
-    WeChatJsSdk.updateAppMessageShareData(chatConfig)// 分享给朋友 qq
-    WeChatJsSdk.updateTimelineShareData(momentConfig)// 分享到朋友圈 qq空间
+    this.WeChatJsSdk.updateAppMessageShareData(chatConfig)// 分享给朋友 qq
+    this.WeChatJsSdk.updateTimelineShareData(momentConfig)// 分享到朋友圈 qq空间
   }
 
   /**

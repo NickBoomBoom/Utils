@@ -2,7 +2,7 @@
  * @Author: q.chen.work q.chen.work@outlook.com
  * @Date: 2023-01-12 10:04:48
  * @LastEditors: q.chen.work q.chen.work@outlook.com
- * @LastEditTime: 2023-01-17 12:40:04
+ * @LastEditTime: 2023-01-17 12:46:52
  * @FilePath: /Utils/src/index.ts
  * @Description: 
  * 
@@ -16,7 +16,6 @@ import * as storage from './core/storage'
 import * as date from './core/date'
 import * as bom from './core/bom'
 import VueHistory from './core/VueHistory';
-import * as WeChatJsSDK from 'weixin-js-sdk-ts'
 import * as Decimal  from 'decimal.js'
 const Utils = {
   WeChat,
@@ -27,7 +26,6 @@ const Utils = {
   storage,
   platform,
   VueHistory,
-  WeChatJsSDK,
   Decimal
 }
 
@@ -40,7 +38,6 @@ export {
   storage,
   platform,
   VueHistory,
-  WeChatJsSDK,
   Decimal
 }
 
