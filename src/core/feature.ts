@@ -183,75 +183,41 @@ function fillZero(num: number): string {
 /**
  * 深度克隆
  * @param origin 源数据
- * @param target 目标对象（optional）
  * @param hash WeekMap(optional)
  * @returns 深度克隆对象
  */
-function deepClone(origin: any, target: any = {}, hash = new WeakMap()): any {
-  if (Array.isArray(origin)) {
-    return origin.map((t: any) => {
-      return deepClone(t)
-    })
+function deepClone(data: any, hash = new WeakMap()): any {
+  if (typeof data !== 'object' || data === null) {
+    throw new TypeError('传入参数不是对象')
   }
-
-  // 处理特殊情况
-  if (origin == null) return origin;  //null 和 undefined 都不用处理
-  if (origin instanceof Date) return new Date(origin);
-  if (origin instanceof RegExp) return new RegExp(origin);
-  if (typeof origin !== 'object') return origin;  // 普通常量直接返回
-
-  //  防止对象中的循环引用爆栈，把拷贝过的对象直接返还即可
-  if (hash.has(origin)) return hash.get(origin);
-  hash.set(origin, target)  // 制作一个映射表
-
-  // 拿出所有属性，包括可枚举的和不可枚举的，但不能拿到symbol类型
-  var props = Object.getOwnPropertyNames(origin);
-  props.forEach((prop, index) => {
-    if (origin.hasOwnProperty(prop)) {
-      if (typeof (origin[prop]) === "object") {
-        if (Object.prototype.toString.call(origin[prop]) == "[object Array]") {
-          //数组                            
-          target[prop] = [];
-          deepClone(origin[prop], target[prop], hash);
-        } else if (Object.prototype.toString.call(origin[prop]) == "[object Object]") {
-          //普通对象 
-          target[prop] = {};
-
-          deepClone(origin[prop], target[prop], hash);
-        } else if (origin[prop] instanceof Date) {
-          // 处理日期对象
-          target[prop] = new Date(origin[prop])
-        } else if (origin[prop] instanceof RegExp) {
-          // 处理正则对象
-          target[prop] = new RegExp(origin[prop])
-        } else {
-          //null                                                
-          target[prop] = null;
-        }
-      } else if (typeof (origin[prop]) === "function") {
-        var _copyFn = function (fn:any ) {
-          var result = new Function("return " + fn)();
-          for (var i in fn) {
-            deepClone(fn[i], result[i], hash)
-          }
-          return result
-        }
-        target[prop] = _copyFn(origin[prop]);
-      } else {
-        //除了object、function，剩下都是直接赋值的原始值
-        target[prop] = origin[prop];
-      }
+  // 判断传入的待拷贝对象的引用是否存在于hash中
+  if (hash.has(data)) {
+    return hash.get(data)
+  }
+  let newData: any = {};
+  const dataKeys = Object.keys(data);
+  dataKeys.forEach(value => {
+    const currentDataValue = data[value];
+    // 基本数据类型的值和函数直接赋值拷贝 
+    if (typeof currentDataValue !== "object" || currentDataValue === null) {
+      newData[value] = currentDataValue;
+    } else if (Array.isArray(currentDataValue)) {
+      // 实现数组的深拷贝
+      newData[value] = [...currentDataValue];
+    } else if (currentDataValue instanceof Set) {
+      // 实现set数据的深拷贝
+      newData[value] = new Set([...currentDataValue]);
+    } else if (currentDataValue instanceof Map) {
+      // 实现map数据的深拷贝
+      newData[value] = new Map([...currentDataValue]);
+    } else {
+      // 将这个待拷贝对象的引用存于hash中
+      hash.set(data, data)
+      // 普通对象则递归赋值
+      newData[value] = deepClone(currentDataValue, hash);
     }
   });
-
-  // 单独处理symbol            
-  var symKeys = Object.getOwnPropertySymbols(origin);
-  if (symKeys.length) {
-    symKeys.forEach(symKey => {
-      target[symKey] = origin[symKey];
-    });
-  }
-  return target;
+  return newData;
 }
 
 /**
