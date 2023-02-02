@@ -1,14 +1,4 @@
-/*
- * @Author: q.chen.work q.chen.work@outlook.com
- * @Date: 2023-01-12 10:04:48
- * @LastEditors: q.chen.work q.chen.work@outlook.com
- * @LastEditTime: 2023-01-17 12:58:09
- * @FilePath: /Utils/src/core/storage.ts
- * @Description: 
- * 
- * Copyright (c) 2023 by q.chen.work q.chen.work@outlook.com, All Rights Reserved. 
- */
-
+ 
 import { jsonParse, toString } from "./feature"
 import Cookies from 'js-cookie'
 class BrowserStorage {
@@ -49,9 +39,9 @@ class BrowserStorage {
     this.target.clear()
   }
 }
-const LocalStorage = new BrowserStorage(window.localStorage)
-const SessionStorage = new BrowserStorage(window.sessionStorage)
-const CookieStorage = {
+export const LocalStorage = new BrowserStorage(window.localStorage)
+export const SessionStorage = new BrowserStorage(window.sessionStorage)
+export const CookieStorage = {
   /**
 * 获取数据
 * @param key 变量名
@@ -78,7 +68,7 @@ const CookieStorage = {
   }
 }
 
-export {
+export const storage = {
   BrowserStorage,
   LocalStorage,
   SessionStorage,

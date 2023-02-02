@@ -4,7 +4,7 @@ const DEFAULT_ROUTER = {
   go: () => { },
   replace: () => { }
 }
-const VueHistory = {
+export const VueHistory = {
   _history: null,
 
   install(Vue: Object, opt = {
@@ -83,7 +83,7 @@ const VueHistory = {
 }
 
 
-export default VueHistory
+
 
 
 

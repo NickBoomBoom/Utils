@@ -91,7 +91,7 @@ function getEndMend(week: number, weekStart: number): number {
  * @param weekStart number 周开始 0 - 6 ,默认1 从周一开始; 0 代表星期日，1 代表星期一，2 代表星期二，依次类推。
  * @return Day[][] 二维数组 ||  Day[] 一维数组
  */
-function createMonth(
+export function createMonth(
   { date, data, weekStart, isSliceByWeek }: CreateMonthArguments = {}
 ): Day[][] | Day[] {
   weekStart = weekStart ?? 1;
@@ -180,4 +180,6 @@ function createMonth(
 }
 
 
-export { createMonth };
+export const date =  {
+  createMonth
+}

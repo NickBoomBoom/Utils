@@ -4,7 +4,7 @@
  * @param variable any
  * @return String  (Object, Boolean, Number, String, Undefined, Null, Array, Function, Symbol)
  */
-function getVarType(variable: any): string {
+export function getVarType(variable: any): string {
   const type: string = Object.prototype.toString.call(variable);
   type.match(/\s(\S+)]$/);
   return RegExp.$1;
@@ -18,7 +18,7 @@ function getVarType(variable: any): string {
  * @param {*} limit 份数
  * @returns
  */
-function sliceArray(arr: any[], limit: number): any[] {
+export function sliceArray(arr: any[], limit: number): any[] {
   let res: any[] = [];
   for (let i = 0; i < arr.length; i += limit) {
     res.push(arr.slice(i, i + limit));
@@ -31,7 +31,7 @@ function sliceArray(arr: any[], limit: number): any[] {
  * @param url
  * @param keys
  */
-function filterUrlSearch(url: string, keys: string[] = []): string {
+export function filterUrlSearch(url: string, keys: string[] = []): string {
   keys.forEach((key) => {
     const reg = new RegExp(`${key}=([^&]*)(&|$)`, "gi");
     url = url.replace(reg, "");
@@ -48,7 +48,7 @@ interface dateBeginEnd {
   s: number;
   e: number;
 }
-function checkOverlap(arr: dateBeginEnd[]): boolean {
+export function checkOverlap(arr: dateBeginEnd[]): boolean {
   let startArr: number[] = [];
   let endArr: number[] = [];
   let bol: boolean = false;
@@ -76,7 +76,7 @@ function checkOverlap(arr: dateBeginEnd[]): boolean {
  * 图片转化base64
  * @param img 图片dom
  */
-function imageToBase64(img: HTMLElement | any): string {
+export function imageToBase64(img: HTMLElement | any): string {
   const canvas: HTMLCanvasElement = document.createElement("canvas");
   canvas.width = img.width;
   canvas.height = img.height;
@@ -90,7 +90,7 @@ function imageToBase64(img: HTMLElement | any): string {
  * 获取图片的base64
  * @param src 图片地址
  */
-function getBase64Img(src: string): Promise<any> {
+export function getBase64Img(src: string): Promise<any> {
   return new Promise((resolve, reject) => {
     let result = "";
     let img = new Image();
@@ -110,7 +110,7 @@ function getBase64Img(src: string): Promise<any> {
  * guid 生成
  * @returns guid
  */
-function guid(): string {
+export function guid(): string {
   function S4(): string {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   }
@@ -134,7 +134,7 @@ function guid(): string {
  * 数组拍平
  *
  */
-function flatten(arr: any[]): any[] {
+export function flatten(arr: any[]): any[] {
   return arr.reduce((result, item) => {
     return result.concat(Array.isArray(item) ? flatten(item) : item);
   }, []);
@@ -145,7 +145,7 @@ function flatten(arr: any[]): any[] {
  * @param data 数据
  * @return parse后的数据
  */
-function jsonParse(data: any): any {
+export function jsonParse(data: any): any {
   let res = data
   try {
     res = JSON.parse(data)
@@ -160,7 +160,7 @@ function jsonParse(data: any): any {
  * @param data 数据
  * @return 字符串数据
  */
-function toString(data: any): string {
+export function toString(data: any): string {
   if (typeof data === 'string') {
     return data
   } else {
@@ -173,7 +173,7 @@ function toString(data: any): string {
  * @param num
  * @return sting
  */
-function fillZero(num: number): string {
+export function fillZero(num: number): string {
   if (num < 10) {
     return `0${num}`;
   }
@@ -186,9 +186,14 @@ function fillZero(num: number): string {
  * @param hash WeekMap(optional)
  * @returns 深度克隆对象
  */
-function deepClone(data: any, hash = new WeakMap()): any {
+export function deepClone(data: any, hash = new WeakMap()): any {
   if (typeof data !== 'object' || data === null) {
     throw new TypeError('传入参数不是对象')
+  }
+  if (Array.isArray(data)) {
+    return data.map(t=> {
+      return deepClone(t, hash)
+    })
   }
   // 判断传入的待拷贝对象的引用是否存在于hash中
   if (hash.has(data)) {
@@ -227,7 +232,7 @@ function deepClone(data: any, hash = new WeakMap()): any {
  * @param isDeepClone boolean 是否支持深度克隆；与传入数据的引用 解耦
  * @return value：any 未找到返回undefined
  */
-function getValueByKey(row: any, key: string, isDeepClone: boolean = false): any {
+export function getValueByKey(row: any, key: string, isDeepClone: boolean = false): any {
   const reg = /\[\d+\]/g  // 获取数组类型key的下标
   if (!row) {
     console.warn(`getValueByKey: row is null`)
@@ -262,7 +267,7 @@ function getValueByKey(row: any, key: string, isDeepClone: boolean = false): any
 
 
 }
-export {
+export const feature = {
   getVarType,
   sliceArray,
   checkOverlap,

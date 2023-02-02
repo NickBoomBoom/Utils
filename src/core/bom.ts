@@ -4,7 +4,7 @@
  * @param {*} dom 需要复制的文字 dom
  * @return  Boolean 值, true 则为复制成功, false 失败
  */
-function copy(dom: HTMLDocument): boolean {
+export function copy(dom: HTMLDocument): boolean {
   const selector: any = window.getSelection()
   selector.removeAllRanges();
   const range = document.createRange();
@@ -14,6 +14,6 @@ function copy(dom: HTMLDocument): boolean {
   return bol;
 }
 
-export {
+export const bom = {
   copy
 }

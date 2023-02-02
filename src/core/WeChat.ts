@@ -3,7 +3,7 @@ import { filterUrlSearch } from './feature'
 import { ShareConfig, JsConfig } from '../models/weChat.model';
 
 //  weixin-js-sdk 文档:  https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4
-export default class WeChat {
+export class WeChat {
   private WeChatJsSdk: any;
   private shareConfig: ShareConfig[]
   private getJsSdk: any  // 最后返回 jsConfig 配置信息 

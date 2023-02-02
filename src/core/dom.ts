@@ -24,14 +24,14 @@ try {
 } catch (err) { }
 
 
-function isPreventDefault(handler: Function): boolean {
+export function isPreventDefault(handler: Function): boolean {
   const r: RegExp = /(\/\/|\/\*+)(\s)*(\w)+\.preventDefault\((\w|\s)*?\)/g  // 匹配注释中的 preventDefault
   const r2: RegExp = /(\w)+\.preventDefault\((\w |\s)*?\)/g  // 匹配执行的preventDefault
   const txt = handler.toString().replace(r, '')
   return r2.test(txt)
 }
 
-function handlerListenOpt<T>(config: T, handler: Function): ListenOptions | boolean {
+export function handlerListenOpt<T>(config: T, handler: Function): ListenOptions | boolean {
   if (passiveIfSupported) {
     const type = getVarType(config)
     const handlerIsDefault = isPreventDefault(handler) // 函数内部是否执行preventDefault, true 为执行
@@ -62,7 +62,7 @@ function handlerListenOpt<T>(config: T, handler: Function): ListenOptions | bool
  * @param handler 监听执行函数
  * @param config  监听配置, 默认 false, 且开启passive(当执行函数内部执行preventDefault时关闭passive). 可传对象参数
  */
-function on(
+export function on(
   element: HTMLElement | any,
   event: Event | string,
   handler: Function,
@@ -83,7 +83,7 @@ function on(
  * @param handler 监听执行函数
  * @param config  监听配置, 默认 false, 且开启passive(当执行函数内部执行preventDefault时关闭passive). 可传对象参数
  */
-function off(
+export function off(
   element: HTMLElement | any,
   event: Event | string,
   handler: Function,
@@ -100,7 +100,7 @@ function off(
 /* ---------------- 监听函数 优化 end---------------- */
 
 
-export {
+export const dom = {
   on,
   off
 }
