@@ -13,8 +13,6 @@
 |            |                       |
 | Decimal    | js 计算精度解决方案   |
 
-
-
 ## 快速使用
 
 **当前全套typescript编写，只编译输出target:ES5，module:ES6，因为ES模块是官方标准，也是以后JavaScript的发展方向，且ES模块支持静态分析，方便tree shacking**
@@ -32,13 +30,9 @@ import { WeChat, dom, bom... } from 'utils94'
 
 ```
 
-
-
 ## 1. WeChat
 
- 
-
-  - new WeChat(WeChatJsSdk,  [{title,desc,link,imgUrl},{title,link,imgUrl}], requset) 初始化
+- new WeChat(WeChatJsSdk,  [{title,desc,link,imgUrl},{title,link,imgUrl}], requset) 初始化
 
     ```javascript
     import {WeChat} from 'utils94' 
@@ -89,11 +83,9 @@ import { WeChat, dom, bom... } from 'utils94'
     )
     ```
 
-    
+- pre 前置预检，
 
-  - pre 前置预检，
-
-  - 返回Promise
+- 返回Promise
 
     ```javascript
     wx.pre().then(res => {
@@ -104,11 +96,9 @@ import { WeChat, dom, bom... } from 'utils94'
     })
     ```
 
-    
+- share( [{title,desc,link,imgUrl},{title,link,imgUrl}], filter:string[]) 分享设置，filter可过滤掉link上携带的query字段，如‘token’；
 
-  - share( [{title,desc,link,imgUrl},{title,link,imgUrl}], filter:string[]) 分享设置，filter可过滤掉link上携带的query字段，如‘token’；
-
-  - 无返回
+- 无返回
 
     ```javascript
     wx.pre().then(()=> {
@@ -117,11 +107,9 @@ import { WeChat, dom, bom... } from 'utils94'
     })
     ```
 
+- autoShare( [{title,desc,link,imgUrl},{title,link,imgUrl}], filter:string[]) 自动分享设置，filter可过滤掉link上携带的query字段，如‘token’；
 
-
-  - autoShare( [{title,desc,link,imgUrl},{title,link,imgUrl}], filter:string[]) 自动分享设置，filter可过滤掉link上携带的query字段，如‘token’；
-
-  - 返回Promise
+- 返回Promise
 
     ```javascript
     // 当momentShareConfig 不传时，默认 friendShareConfig 替代
@@ -130,12 +118,11 @@ import { WeChat, dom, bom... } from 'utils94'
     })
     ```
 
-    
 ## 2. dom
 
-  - on(element, event, function, object | boolean) 事件监听
+- on(element, event, function, object | boolean) 事件监听
 
-  - 返回 监听函数
+- 返回 监听函数
 
     [关于passive 的情况，点击了解](https://nick-qi.github.io/base/base.html#addeventlistener-passive-%E4%BC%98%E5%8C%96%EF%BC%88%E5%88%92%E9%87%8D%E7%82%B9%EF%BC%89)
 
@@ -150,21 +137,19 @@ import { WeChat, dom, bom... } from 'utils94'
       e => { /* dosomething */},
       {
         capture: false, // boolean 表示 listener 会在该类型的事件捕获阶段传播到该 EventTarget 时触发。
-        once: false, 		// boolean 表示 listener 在添加之后最多只调用一次。如果是 true， listener 会在其被调用之后自动移除。
-        passive: true		// boolean 设置为true时，表示 listener 永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
+        once: false,   // boolean 表示 listener 在添加之后最多只调用一次。如果是 true， listener 会在其被调用之后自动移除。
+        passive: true  // boolean 设置为true时，表示 listener 永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
       }
     )
     
     dom.on(
-    	window,
+     window,
       'scroll',
       e => { /* dosomething */},
-    	false  // false: 冒泡 默认； true：捕获
+     false  // false: 冒泡 默认； true：捕获
     )
     
     ```
-
-    
 
 - off(element, event, function, object | boolean)  移除事件监听
 
@@ -175,7 +160,7 @@ import { WeChat, dom, bom... } from 'utils94'
   
   // 移除事件监听
   dom.off(
-  	window,
+   window,
     'scroll',
     e => { /* dosomething */},
     {
@@ -186,34 +171,24 @@ import { WeChat, dom, bom... } from 'utils94'
   )
   
   dom.off(
-  	window,
+   window,
     'scroll',
     e => { /* dosomething */},
-  	false
+   false
   )
   ```
 
-  
-
 ## 3. bom
 
-  - copy(element) 复制dom中的文字
+- copy(text:string) 复制dom中的文字
 
-  - 返回 boolean，true 成功；false 失败
-
-    ```javascript
-    import { bom } from 'utils94'
-    const el = document.querySelector('#text')
-    bom.copy(el) 
-    ```
-
-    
+- 返回 boolean，true 成功；false 失败
 
 ## 4. date
 
-  - createMonth(date?:Date | string | number = Date.now()，weekStart?: number = 1 ) 不传默认当前机器时间月份, weekStart: 1  默认周一开始
+- createMonth(date?:Date | string | number = Date.now()，weekStart?: number = 1 ) 不传默认当前机器时间月份, weekStart: 1  默认周一开始
 
-  - 返回二维对象数组，以周为单位分割
+- 返回二维对象数组，以周为单位分割
 
     ```javascript
     import { date } from 'utils94'
@@ -223,10 +198,10 @@ import { WeChat, dom, bom... } from 'utils94'
       [
         {
           "date": "2020-12-27T16:00:00.000Z",  // Date 对象
-          "data": {														 // 数据
-            "day": "2020/12/28",							 // 当前日期
-            "week": 1,												 // 周几	
-            "current": false									 // 是否为当前月数据
+          "data": {               // 数据
+            "day": "2020/12/28",        // 当前日期
+            "week": 1,             // 周几 
+            "current": false          // 是否为当前月数据
           }
         }
         ...
@@ -236,7 +211,6 @@ import { WeChat, dom, bom... } from 'utils94'
     */
     ```
 
-     
 ## 5. feature
 
 | 函数                                                 | 功能                                       |
@@ -273,7 +247,6 @@ LocalStorage.clear() // void
 // 其他两个同上使用，只不过CookieStorage 支持传递配置项，且没有clear函数
 ```
 
-
 ## 7. platform
 
     | 函数                | 功能           |
@@ -283,11 +256,6 @@ LocalStorage.clear() // void
     | isAndroid():boolean | 是否为android  |
     | isPc():boolean      | 是否为pc       |
     | isMobile():boolean  | 是否为mobile   |
-
-     
-
-
-
 
 ## 8. VueHistory
 
@@ -299,9 +267,9 @@ LocalStorage.clear() // void
 
   _history: {
 
-  ​	current: number,  // 当前路由下标
+  ​ current: number,  // 当前路由下标
 
-  ​	stack: [], // 历史栈数组
+  ​ stack: [], // 历史栈数组
 
   }
 
@@ -312,13 +280,13 @@ LocalStorage.clear() // void
   Vue.use(Vue, {
     router, // 路由实例
     onExceed: (obj) => { }, // 前进 超过历史记录 返回历史记录信息 _history
-    onExit: (obj) => { }, 	// 后退 低于历史记录 返回历史记录信息 _history
+    onExit: (obj) => { },  // 后退 低于历史记录 返回历史记录信息 _history
     onChange: (obj) => { }, // 堆栈信息变化 返回历史记录信息 _history
   })
   ```
 
-## 9. Decimal.js 
+## 9. Decimal.js
+
 一个解决js计算精度问题的解决方案
 
 [npm地址](https://www.npmjs.com/package/decimal.js)
-
