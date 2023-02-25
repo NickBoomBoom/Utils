@@ -276,21 +276,16 @@ LocalStorage.clear() // void
 
 ## 7. platform
 
-  - isWX() 是否为微信环境
+    | 函数                | 功能           |
+    | ------------------- | -------------- |
+    | isWxApp():boolean   | 是否为微信环境 |
+    | isIos():boolean     | 是否为ios      |
+    | isAndroid():boolean | 是否为android  |
+    | isPc():boolean      | 是否为pc       |
+    | isMobile():boolean  | 是否为mobile   |
 
-  - 返回boolean
+     
 
-    
-
-  - isIOS() 是否为ios
-
-  - 返回boolean
-
-    
-  
-  - isAndroid() 是否为安卓
-  
-  - 返回boolean
 
 
 

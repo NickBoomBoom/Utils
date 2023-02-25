@@ -1,6 +1,6 @@
 {
   "name": "utils94",
-  "version": "2.1.48",
+  "version": "2.1.51",
   "description": "日常开发使用工具库",
   "main": "index.js",
   "types": "index.d.ts",
@@ -11,8 +11,8 @@
   "author": "q.chen <q.chen.self@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -P tsconfig.json",
-    "push": "pnpm run build && cp package.json README.md ./dist && pnpm publish dist --no-git-checks",
+    "build": "tsc -P tsconfig.json && npx ts-node ./build.ts",
+    "push": "pnpm run build && pnpm publish dist --no-git-checks",
     "test": "jest --coverage"
   },
   "dependencies": {
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/js-cookie": "^3.0.2",
+    "@types/node": "^18.14.1",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.6",
     "ts-node": "^8.10.2",
