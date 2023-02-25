@@ -11,7 +11,7 @@
   "author": "q.chen <q.chen.self@outlook.com>",
   "license": "MIT",
   "files": [
-    "dist/",
+    "dist/*",
     "package.json",
     "README.md"
   ],
