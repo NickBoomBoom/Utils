@@ -1,17 +1,36 @@
 /**
- *  复制文字
- *  TODO:可能有兼容问题,目前在 PC端未发现,待真实环境测试
- * @param {*} dom 需要复制的文字 dom
+ *  复制文字 
+ * @param {*} string 需要复制的文字 string
  * @return  Boolean 值, true 则为复制成功, false 失败
  */
-export function copy(dom: HTMLDocument): boolean {
-  const selector: any = window.getSelection()
-  selector.removeAllRanges();
-  const range = document.createRange();
-  range.selectNode(dom);
-  selector.addRange(range);
-  const bol: boolean = document.execCommand("copy");
-  return bol;
+export function copy(text: string): boolean {
+  try {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+    } else {
+      var textarea = document.createElement('textarea');
+      document.body.appendChild(textarea);
+      // 隐藏此输入框
+      textarea.style.cssText = `
+        position: fixed;
+        top:-1000vh;
+        opacity:0;
+      `
+      // 赋值
+      textarea.value = text;
+      // 选中
+      textarea.select();
+      // 复制
+      document.execCommand('copy', true);
+      // 移除输入框
+      document.body.removeChild(textarea);
+    }
+    return true
+  } catch (error) {
+    console.error(error);
+    return false
+  }
+
 }
 
 export const bom = {

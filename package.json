@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc -P tsconfig.json",
-    "push": "pnpm run build && pnpm publish --no-git-checks",
+    "push": "pnpm run build && pnpm publish",
     "test": "jest --coverage"
   },
   "dependencies": {
