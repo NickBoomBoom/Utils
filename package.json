@@ -2,17 +2,22 @@
   "name": "utils94",
   "version": "2.1.51",
   "description": "日常开发使用工具库",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://git@github.com:Nick-QI/Utils.git"
   },
   "author": "q.chen <q.chen.self@outlook.com>",
   "license": "MIT",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
-    "build": "tsc -P tsconfig.json && npx ts-node ./build.ts",
-    "push": "pnpm run build && pnpm publish dist --no-git-checks",
+    "build": "tsc -P tsconfig.json",
+    "push": "pnpm run build && pnpm publish --no-git-checks",
     "test": "jest --coverage"
   },
   "dependencies": {
