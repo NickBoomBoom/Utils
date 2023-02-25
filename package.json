@@ -1,6 +1,6 @@
 {
   "name": "utils94",
-  "version": "2.1.52",
+  "version": "2.1.53",
   "description": "日常开发使用工具库",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
