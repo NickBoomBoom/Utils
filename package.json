@@ -10,13 +10,9 @@
   },
   "author": "q.chen <q.chen.self@outlook.com>",
   "license": "MIT",
-  "files": [
-    "package.json",
-    "README.md"
-  ],
   "scripts": {
-    "build": "tsc -P tsconfig.json",
-    "push": "pnpm version patch && pnpm run build && pnpm publish dist",
+    "build": "tsc -P tsconfig.json && npx ts-node ./build.ts",
+    "push": "pnpm version patch && pnpm run build && pnpm publish",
     "test": "jest --coverage"
   },
   "dependencies": {
