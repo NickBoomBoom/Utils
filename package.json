@@ -15,7 +15,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -P tsconfig.json && npx ts-node ./build.ts",
-    "push": "pnpm version patch && pnpm run build && pnpm publish",
+    "push": "pnpm version patch && pnpm run build && pnpm publish dist  --no-git-checks",
     "test": "jest --coverage"
   },
   "dependencies": {
