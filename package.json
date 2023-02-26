@@ -9,6 +9,9 @@
     "url": "git+https://git@github.com:Nick-QI/Utils.git"
   },
   "author": "q.chen <q.chen.self@outlook.com>",
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "tsc -P tsconfig.json && npx ts-node ./build.ts",
