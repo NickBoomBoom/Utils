@@ -1,4 +1,4 @@
-import { isIOS, isWX } from './platform'
+import { isIos, isWxApp } from './platform'
 import { filterUrlSearch } from './feature'
 import { ShareConfig, JsConfig } from '../models/weChat.model';
 
@@ -27,12 +27,12 @@ export class WeChat {
    */
   pre(): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      if (!isWX()) {
+      if (!isWxApp()) {
         return reject('非微信环境,无需配置微信sdk')
       }
 
       // ios 配置一次即可,其余每次必须重新导入
-      let isInitSDK: boolean = isIOS() ? this.iosSdkStatus : false
+      let isInitSDK: boolean = isIos() ? this.iosSdkStatus : false
 
       if (!isInitSDK) {
         try {

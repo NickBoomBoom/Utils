@@ -1,6 +1,6 @@
 const u: string = window.navigator.userAgent;
 
-export function isIOS(): boolean {
+export function isIos(): boolean {
   const bol: boolean = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); // ios终端
   return bol;
 }
@@ -10,13 +10,28 @@ export function isAndroid(): boolean {
   return bol;
 }
 
-export function isWX(): boolean {
+export function isWxApp(): boolean {
   const bol: boolean = !!u.match(/MicroMessenger\/([\d.]+)/);
   return bol;
 }
 
+export function isMobile(): boolean {
+  if (u.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
+    return true; // 移动端
+  } else {
+    return false; // PC端
+  }
+}
+
+export function isPc(): boolean {
+  return !isMobile()
+}
+
+
 export const platform = {
-  isWX,
-  isIOS,
-  isAndroid
+  isWxApp,
+  isIos,
+  isAndroid,
+  isPc, 
+  isMobile
 }

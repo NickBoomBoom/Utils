@@ -3,7 +3,7 @@
   "compilerOptions": {
     "incremental": true,
     "target": "ES6",
-    "module": "ES6",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "allowUnreachableCode": true,
     "allowUnusedLabels": true,
@@ -15,6 +15,7 @@
     "diagnostics": true,
     "extendedDiagnostics": true,
     "outDir": "dist",
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
     "strict": true,
     "allowSyntheticDefaultImports": true
   },
