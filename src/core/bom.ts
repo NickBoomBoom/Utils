@@ -3,10 +3,10 @@
  * @param {*} string 需要复制的文字 string
  * @return  Boolean 值, true 则为复制成功, false 失败
  */
-export function copy(text: string): boolean {
+export async function copy(text: string): Promise<boolean> {
   try {
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(text);
     } else {
       var textarea = document.createElement('textarea');
       document.body.appendChild(textarea);
@@ -21,7 +21,7 @@ export function copy(text: string): boolean {
       // 选中
       textarea.select();
       // 复制
-      document.execCommand('copy', true);
+      document.execCommand('copy');
       // 移除输入框
       document.body.removeChild(textarea);
     }
@@ -30,6 +30,7 @@ export function copy(text: string): boolean {
     console.error(error);
     return false
   }
+ 
 
 }
 
