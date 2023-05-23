@@ -4,6 +4,10 @@
   "description": "日常开发使用工具库",
   "main": "./index.js",
   "types": "./index.d.ts",
+  "files": [
+    "dist/",
+    "READEME.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://git@github.com:Nick-QI/Utils.git"
@@ -11,9 +15,10 @@
   "author": "q.chen <q.chen.self@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -P tsconfig.json && npx ts-node ./build.ts",
+    "build": "tsc -P tsconfig.json",
     "push": "pnpm version patch && pnpm run build && pnpm publish dist  --no-git-checks",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "push2": "node ./build.js && pnpm version patch && pnpm publish"
   },
   "dependencies": {
     "decimal.js": "^10.4.3",
@@ -23,6 +28,7 @@
     "@types/jest": "^26.0.24",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "^18.14.1",
+    "esbuild": "^0.17.19",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.6",
     "ts-node": "^8.10.2",

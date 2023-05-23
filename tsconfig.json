@@ -2,11 +2,12 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "ES6",
-    "module": "CommonJS",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "allowUnreachableCode": true,
     "allowUnusedLabels": true,
+    "lib": ["ESNext","DOM"],
     "allowJs": true, // 是否允许编译js文件,默认false
     "checkJs": true, // 是否检查和报告js文件中的错误,默认false
     "declaration": true,
