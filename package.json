@@ -5,8 +5,8 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "files": [
-    "dist/",
-    "READEME.md"
+    "dist/index.js",
+    "README.md"
   ],
   "repository": {
     "type": "git",
