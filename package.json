@@ -17,13 +17,12 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "js-cookie": "^3.0.1"
+    "js-cookie": "^3.0.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "^18.14.1",
-    "esbuild": "^0.17.19",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.6",
     "ts-node": "^8.10.2",
@@ -39,7 +38,6 @@
     "browserStorage",
     "dom",
     "bom",
-    "compute",
     "feature",
     "vue2 history record",
     "platform",
