@@ -12,6 +12,7 @@ build({
     sourcemap: true,
     format: 'esm',
     target: ['es2020'],
+    declaration: true, 
     tsconfig:"./tsconfig.json"
 }).catch(err=> {
     console.error(err);
