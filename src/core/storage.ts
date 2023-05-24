@@ -1,6 +1,6 @@
  
 import { jsonParse, toString } from "./feature"
-import * as Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 class BrowserStorage {
   target: any;
   constructor(target: any) {
