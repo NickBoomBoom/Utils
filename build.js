@@ -11,7 +11,8 @@ build({
     minify: true,
     sourcemap: true,
     format: 'esm',
-    target: ['es2020']
+    target: ['es2020'],
+    tsconfig:"./tsconfig.json"
 }).catch(err=> {
     console.error(err);
     process.exit(1);
