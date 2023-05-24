@@ -18,7 +18,7 @@
     "build": "tsc -P tsconfig.json",
     "push": "pnpm version patch && pnpm run build && pnpm publish dist  --no-git-checks",
     "test": "jest --coverage",
-    "push2": "node ./build.js && pnpm version patch && pnpm publish"
+    "push2": "node ./build.js && pnpm version patch && pnpm publish  --no-git-checks"
   },
   "dependencies": {
     "decimal.js": "^10.4.3",
