@@ -1,12 +1,8 @@
 // 配置详解: https://www.tslang.cn/docs/handbook/compiler-options.html
 {
   "compilerOptions": {
-    "incremental": true,
-    "target": "ES2020",
-    "module": "ES2020",
-    "moduleResolution": "node",
-    "allowUnreachableCode": true,
-    "allowUnusedLabels": true,
+    "target": "ESNext",
+    "module": "ESNext",
     "lib": ["ESNext","DOM"],
     "allowJs": true, // 是否允许编译js文件,默认false
     "checkJs": true, // 是否检查和报告js文件中的错误,默认false
@@ -18,10 +14,12 @@
     "outDir": "dist",
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
     "strict": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true, 
+    "moduleResolution":"node"
   },
   "exclude": [
-    ".vscode"
+    ".vscode", 
+    "src/test"
   ],
   "files": [
     "src/index.ts"

@@ -10,16 +10,10 @@
 | storage    | 缓存                  |
 | platform   | 平台判断              |
 | VueHistory | 记录vue的页面跳转信息 |
-|            |                       |
-| Decimal    | js 计算精度解决方案   |
+ 
 
 ## 快速使用
 
-**当前全套typescript编写，只编译输出target:ES5，module:ES6，因为ES模块是官方标准，也是以后JavaScript的发展方向，且ES模块支持静态分析，方便tree shacking**
-
-2.0.0 版本后 改为 ES6的 import 模块加载
-
-历史版本只有1.0.0 到 1.0.6  umd 版本
 
 ```
 yarn add utils94 

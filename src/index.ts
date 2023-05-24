@@ -7,4 +7,3 @@ export * from './core/storage'
 export * from './core/date'
 export * from './core/bom'
 export * from './core/VueHistory';
-export * from 'decimal.js' 
