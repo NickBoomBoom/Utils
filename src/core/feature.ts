@@ -2,12 +2,13 @@
 /**
  * 返回对象类型, 首字母大写
  * @param variable any
- * @return String  (Object, Boolean, Number, String, Undefined, Null, Array, Function, Symbol)
+ * @return String 'Object'|'Boolean'|'Number'|'String'|'Undefined'|'Null'|'Array'|'Function'|'Symbol' | 'Map' | 'Set'
  */
-export function getVarType(variable: any): string {
+export type VarType = 'Object'|'Boolean'|'Number'|'String'|'Undefined'|'Null'|'Array'|'Function'|'Symbol' | 'Map' | 'Set'
+export function getVarType(variable: any): VarType {
   const type: string = Object.prototype.toString.call(variable);
   type.match(/\s(\S+)]$/);
-  return RegExp.$1;
+  return RegExp.$1 as VarType;
 }
 
 /**
