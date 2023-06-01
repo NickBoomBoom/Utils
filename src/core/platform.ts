@@ -27,11 +27,20 @@ export function isPc(): boolean {
   return !isMobile()
 }
 
+export function isWindows() :boolean {
+  return u.indexOf('Win') > -1;
+}
+
+export function isMac():boolean  {
+  return u.indexOf('Mac') > -1;
+}
 
 export const platform = {
   isWxApp,
   isIos,
   isAndroid,
   isPc, 
-  isMobile
+  isMobile,
+  isWindows,
+  isMac
 }

@@ -250,6 +250,8 @@ LocalStorage.clear() // void
     | isAndroid():boolean | 是否为android  |
     | isPc():boolean      | 是否为pc       |
     | isMobile():boolean  | 是否为mobile   |
+    | isWindows():boolean  | 是否为windows   |
+    | isMac():boolean  | 是否为mac   |
 
 ## 8. VueHistory
 
